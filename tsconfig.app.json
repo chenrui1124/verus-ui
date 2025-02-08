@@ -32,5 +32,12 @@
     }
   },
 
-  "include": ["env.d.ts", "docs/**/*", "docs/**/*.vue", "src/**/*", "src/**/*.vue"]
+  "include": [
+    "env.d.ts",
+    ".storybook/**/*",
+    "docs/**/*",
+    "docs/**/*.vue",
+    "src/**/*",
+    "src/**/*.vue"
+  ]
 }

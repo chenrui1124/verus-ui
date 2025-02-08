@@ -47,6 +47,28 @@ const {} = defineProps<${pascalCompName}Props>()
 </template>
 `
 
+const stories = `\
+import type { Meta, StoryObj } from '@storybook/vue3'
+
+import { V${pascalCompName} } from '.'
+
+const meta = {
+  title: 'Components/${pascalCompName}',
+  component: V${pascalCompName},
+  argTypes: {},
+  args: {},
+  render(args) {
+    return () => <V${pascalCompName} {...args}></V${pascalCompName}>
+  }
+} satisfies Meta<typeof V${pascalCompName}>
+
+export default meta
+
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {}
+`
+
 const index = `\
 export type * from './${pascalCompName}.vue'
 
@@ -54,6 +76,8 @@ export { default as V${pascalCompName} } from './${pascalCompName}.vue'
 `
 
 writeFileSync(resolve(compDir, `${pascalCompName}.vue`), component)
+
+writeFileSync(resolve(compDir, `${pascalCompName}.stories.tsx`), stories)
 
 writeFileSync(resolve(compDir, 'index.ts'), index)
 
