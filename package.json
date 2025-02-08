@@ -1,0 +1,50 @@
+{
+  "name": "verus-ui",
+  "version": "0.0.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/verus-ui.js",
+  "types": "dist/verus-ui.d.ts",
+  "exports": {
+    ".": "./dist/verus-ui.js",
+    "./style": "./dist/verus-ui.css"
+  },
+  "description": "Vue3 Component Library",
+  "keywords": [
+    "Vue3",
+    "Components",
+    "UI Library"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "vue-tsc -b && vite build",
+    "build-only": "vite build",
+    "preview": "vite preview",
+    "format": "prettier --write .",
+    "component": "node scripts/component.js",
+    "comp": "node scripts/component.js"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.0.1",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@iconify/tailwind": "^1.2.0",
+    "@tailwindcss/vite": "^4.0.4",
+    "@types/node": "^22.13.1",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vitejs/plugin-vue-jsx": "^4.1.1",
+    "@vue/tsconfig": "^0.7.0",
+    "prettier": "^3.4.2",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "tailwindcss": "^4.0.4",
+    "typescript": "~5.7.3",
+    "vite": "^6.1.0",
+    "vite-plugin-dts": "^4.5.0",
+    "vue-tsc": "^2.2.0"
+  },
+  "packageManager": "pnpm@10.2.1+sha512.398035c7bd696d0ba0b10a688ed558285329d27ea994804a52bad9167d8e3a72bcb993f9699585d3ca25779ac64949ef422757a6c31102c12ab932e5cbe5cc92"
+}
