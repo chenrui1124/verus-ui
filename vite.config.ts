@@ -1,8 +1,15 @@
+import type { Plugin } from 'vite'
+
+import { readFileSync, statSync, writeFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
+import { minify } from 'terser'
+
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import tailwindcss from '@tailwindcss/vite'
+import dts from 'vite-plugin-dts'
 
 function setAlias(alias: Record<string, string>) {
   const result: Record<string, string> = {}
@@ -12,8 +19,34 @@ function setAlias(alias: Record<string, string>) {
   return result
 }
 
+function removeComments(): Plugin {
+  return {
+    name: 'remove-comments',
+    async closeBundle() {
+      const jsFilePath = resolve(__dirname, 'dist/verus-ui.js')
+      const jsFile = readFileSync(jsFilePath, 'utf-8')
+      const result = await minify(jsFile, { format: { comments: false } })
+      result.code && writeFileSync(jsFilePath, result.code, 'utf-8')
+      console.log(
+        'verus-ui.js - after minify:',
+        (statSync(jsFilePath).size / 1024).toFixed(2),
+        'kB'
+      )
+    }
+  }
+}
+
 export default defineConfig({
-  plugins: [vue(), vueJsx({ optimize: true }), tailwindcss()],
+  plugins: [
+    vue(),
+    vueJsx({ optimize: true }),
+    tailwindcss(),
+    dts({
+      rollupTypes: true,
+      tsconfigPath: './tsconfig.app.json'
+    }),
+    removeComments()
+  ],
 
   resolve: {
     alias: setAlias({
