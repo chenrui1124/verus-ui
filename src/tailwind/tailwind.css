@@ -23,7 +23,9 @@
   --radius-v1: 0.2rem;
   --radius-v2: 0.4rem;
   --radius-v3: 0.6rem;
-  --radius-v4: ;
+  --radius-v4: 0.8rem;
+
+  --ease-braking: cubic-bezier(0.36, 0.72, 0, 1);
 
   --color-*: initial;
   --color-black: #000;
