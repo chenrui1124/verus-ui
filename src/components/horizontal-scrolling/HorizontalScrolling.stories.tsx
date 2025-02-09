@@ -5,7 +5,10 @@ import { VHorizontalScrolling } from '.'
 const meta: Meta<typeof VHorizontalScrolling> = {
   title: 'Components/HorizontalScrolling',
   component: VHorizontalScrolling,
-  argTypes: {},
+  argTypes: {
+    uiHeight: { control: 'text' },
+    uiWidth: { control: 'text' }
+  },
   args: {
     uiHeight: '300px'
   },
