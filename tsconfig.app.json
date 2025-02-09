@@ -27,6 +27,7 @@
       "@/basic": ["./src/basic/index.ts"],
       "@/components": ["./src/components/index.ts"],
       "@/composable": ["./src/composable/index.ts"],
+      "@/directives": ["./src/directives/index.ts"],
       "@/ts": ["./src/ts/index.ts"],
       "@/utils": ["./src/utils/index.ts"]
     }
