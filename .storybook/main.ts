@@ -6,11 +6,13 @@ const config: StorybookConfig = {
     '@storybook/addon-onboarding',
     '@storybook/addon-essentials',
     '@chromatic-com/storybook',
-    '@storybook/addon-interactions'
+    '@storybook/addon-interactions',
+    '@storybook/addon-a11y'
   ],
   framework: {
     name: '@storybook/vue3-vite',
     options: {}
   }
 }
+
 export default config
