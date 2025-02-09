@@ -12,21 +12,26 @@ export interface ButtonProps {
   text?: string
   uiBlock?: boolean
   uiDanger?: boolean
-  uiFontWeight?: FontWeightProp
-  uiRounded?: boolean
   /**
    * @default 'normal'
    */
+  uiFontWeight?: FontWeightProp
+  /**
+   * `true` -> `border-radius: 9999px`
+   *
+   * `false` -> `border-radius: 0.4rem`
+   */
+  uiRounded?: boolean
   uiTextTransform?: TextTransformProp
   /**
-   * @default 'secondary'
+   * @default 'tonal'
    */
   uiVariant?: VariantProp
 }
 </script>
 
 <script lang="ts" setup>
-const { loading, uiFontWeight = 'normal', uiVariant = 'secondary' } = defineProps<ButtonProps>()
+const { loading, uiFontWeight = 'normal', uiVariant = 'tonal' } = defineProps<ButtonProps>()
 
 const emit = defineEmits<{ click: [evt: MouseEvent] }>()
 
@@ -47,8 +52,8 @@ function onClick(evt: MouseEvent) {
         'outline-none focus-visible:ring-3 focus-visible:ring-pri/48',
         '*:transition *:duration-300',
         !loading && {
-          'enabled:hover:brightness-125 enabled:focus:brightness-75': uiVariant === 'primary',
-          'enabled:hover:brightness-110 enabled:focus:brightness-90': uiVariant === 'secondary',
+          'enabled:hover:brightness-125 enabled:focus:brightness-75': uiVariant === 'solid',
+          'enabled:hover:brightness-110 enabled:focus:brightness-90': uiVariant === 'tonal',
           'enabled:hover:bg-pri/12 enabled:focus:bg-pri/24': ['outlined', 'clean'].includes(
             uiVariant
           ),
@@ -58,14 +63,14 @@ function onClick(evt: MouseEvent) {
         uiBlock ? 'flex' : 'inline-flex',
         uiRounded ? 'rounded-full px-5' : 'rounded-v2 px-4',
         {
-          primary: 'border-transparent bg-pri text-on-pri',
-          secondary: 'border-transparent bg-pri-var text-on-pri-var',
+          solid: 'border-transparent bg-pri text-on-pri',
+          tonal: 'border-transparent bg-pri-var text-on-pri-var',
           outlined: 'border-otl bg-sur text-pri',
           clean: 'border-transparent bg-transparent text-pri'
         }[uiVariant],
         {
           'disabled:border-dis': uiVariant === 'outlined',
-          'disabled:bg-dis/36': ['primary', 'secondary'].includes(uiVariant)
+          'disabled:bg-dis/36': ['solid', 'tonal'].includes(uiVariant)
         },
         'disabled:text-dis'
       )
