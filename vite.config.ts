@@ -60,7 +60,7 @@ export default defineConfig({
 
   build: {
     lib: {
-      entry: 'src/main.ts',
+      entry: 'src/mod.ts',
       name: 'VerusUI',
       fileName: 'verus-ui',
       formats: ['es']

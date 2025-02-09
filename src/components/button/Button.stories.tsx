@@ -1,31 +1,24 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
 import { fn } from '@storybook/test'
-import { textTransformOptions, variantOptions } from '@/ts'
 import { VButton } from '.'
 
-const meta = {
+const meta: Meta<typeof VButton> = {
   title: 'Components/Button',
   component: VButton,
-  argTypes: {
-    appendIcon: { control: false },
-    icon: { control: false },
-    loading: { control: 'boolean' },
-    uiBlock: { control: 'boolean' },
-    uiDanger: { control: 'boolean' },
-    uiRounded: { control: 'boolean' },
-    uiTextTransform: { control: 'inline-radio', options: textTransformOptions() },
-    uiVariant: { control: 'inline-radio', options: variantOptions() }
-  },
+  argTypes: {},
   args: {
     text: 'New app',
     uiVariant: 'secondary',
-    onClick: () => fn()
+    onClick: fn()
+  },
+  parameters: {
+    layout: 'centered'
   },
   render(args) {
     return () => <VButton {...args} />
   }
-} satisfies Meta<typeof VButton>
+}
 
 export default meta
 

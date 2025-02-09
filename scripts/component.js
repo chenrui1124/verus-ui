@@ -52,7 +52,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 
 import { V${pascalCompName} } from '.'
 
-const meta = {
+const meta: Meta<typeof V${pascalCompName}> = {
   title: 'Components/${pascalCompName}',
   component: V${pascalCompName},
   argTypes: {},
@@ -60,7 +60,7 @@ const meta = {
   render(args) {
     return () => <V${pascalCompName} {...args}></V${pascalCompName}>
   }
-} satisfies Meta<typeof V${pascalCompName}>
+}
 
 export default meta
 
@@ -85,7 +85,7 @@ const indexFile = readFileSync(resolve(compsRootDir, 'index.ts'), 'utf-8')
 
 const lines = indexFile.split('\n').filter(line => line !== '')
 
-lines.push(`export * from "./${kebabCompName}"`)
+lines.push(`export * from './${kebabCompName}'`)
 
 lines.sort()
 
