@@ -14,9 +14,11 @@ const preview: Preview = {
     uiBlock: { control: 'boolean' },
     uiDanger: { control: 'boolean' },
     uiFontWeight: { control: 'inline-radio', options: fontWeightOptions() },
+    uiHeight: { control: 'text' },
     uiRounded: { control: 'boolean' },
     uiTextTransform: { control: 'inline-radio', options: textTransformOptions() },
-    uiVariant: { control: 'inline-radio', options: variantOptions() }
+    uiVariant: { control: 'inline-radio', options: variantOptions() },
+    uiWidth: { control: 'text' }
   },
   parameters: {
     controls: {
