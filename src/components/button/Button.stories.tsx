@@ -9,7 +9,7 @@ const meta: Meta<typeof VButton> = {
   argTypes: {},
   args: {
     text: 'New app',
-    uiVariant: 'secondary',
+    uiVariant: 'tonal',
     onClick: fn()
   },
   parameters: {

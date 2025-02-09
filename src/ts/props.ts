@@ -10,13 +10,8 @@ export const textTransformOptions = generateOptions<TextTransformProp>([
   'capitalize'
 ])
 
-export type VariantProp = 'primary' | 'secondary' | 'outlined' | 'clean'
-export const variantOptions = generateOptions<VariantProp>([
-  'primary',
-  'secondary',
-  'outlined',
-  'clean'
-])
+export type VariantProp = 'solid' | 'tonal' | 'outlined' | 'clean'
+export const variantOptions = generateOptions<VariantProp>(['solid', 'tonal', 'outlined', 'clean'])
 
 export type FontWeightProp = 'normal' | 'semibold' | 'bold'
 export const fontWeightOptions = generateOptions<FontWeightProp>(['normal', 'semibold', 'bold'])
