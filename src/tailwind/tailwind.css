@@ -1,12 +1,85 @@
 @layer theme, base, components, utilities;
 
+@import 'tailwindcss/theme.css' layer(theme);
 /* @import 'tailwindcss/preflight.css' layer(base); */
-
 @import 'tailwindcss/utilities.css' layer(utilities);
 
 @config './tailwind.config.ts';
 
 @theme {
+  --animate-*: initial;
+  --font-*: initial;
+  --default-font-family-*: initial;
+  --default-font-feature-settings-*: initial;
+  --default-font-variation-settings-*: initial;
+  --default-mono-font-family-*: initial;
+  --default-mono-font-feature-settings-*: initial;
+  --default-mono-font-variation-settings-*: initial;
+  --default-transition-duration-*: initial;
+  --default-transition-timing-function-*: initial;
+  --perspective-*: initial;
+
+  --radius-*: initial;
+  --radius-v1: 0.2rem;
+  --radius-v2: 0.4rem;
+  --radius-v3: 0.6rem;
+  --radius-v4: ;
+
+  --color-*: initial;
   --color-black: #000;
   --color-white: #fff;
+
+  --color-sur: light-dark(rgb(255, 255, 255), rgb(18, 17, 20));
+  --color-on-sur: light-dark(rgb(25, 25, 30), rgb(240, 240, 248));
+  --color-pri: light-dark(rgb(0, 94, 177), rgb(166, 200, 255));
+  --color-on-pri: light-dark(rgb(255, 255, 255), rgb(0, 48, 96));
+  --color-pri-var: light-dark(rgb(195, 230, 255), rgb(50, 70, 115));
+  --color-on-pri-var: light-dark(rgb(0, 20, 40), rgb(213, 227, 255));
+  --color-pri-ctr: light-dark(rgb(236, 247, 255), rgb(29, 33, 42));
+
+  --color-err: light-dark(rgb(152, 64, 97), rgb(255, 177, 200));
+  --color-on-err: light-dark(rgb(255, 255, 255), rgb(94, 17, 51));
+  --color-err-var: light-dark(rgb(255, 217, 226), rgb(123, 41, 73));
+  --color-on-err-var: light-dark(rgb(62, 0, 29), rgb(255, 217, 226));
+  --color-err-ctr: light-dark(rgb(255, 243, 246), rgb(123, 41, 73));
+  --color-on-err-ctr: light-dark(rgb(62, 0, 29), rgb(255, 217, 226) ;);
+
+  --color-suc-ctr: light-dark(rgb(230, 244, 234), rgb(33, 55, 50));
+  --color-on-suc-ctr: light-dark(rgb(32, 70, 43), rgb(166, 222, 133));
+  --color-wan-ctr: light-dark(rgb(254, 247, 224), rgb(59, 52, 43));
+  --color-on-wan-ctr: light-dark(rgb(199, 69, 17), rgb(250, 214, 204));
+
+  --color-otl: light-dark(rgb(130, 125, 135), rgb(140, 135, 145));
+  --color-otl-var: light-dark(rgb(225, 230, 235), rgb(40, 45, 50));
+
+  --color-dis: light-dark(rgb(200, 200, 200), rgb(80, 80, 80));
+}
+
+[data-status='error'] {
+  --color-pri: light-dark(rgb(152, 64, 97), rgb(255, 177, 200));
+  --color-on-pri: light-dark(rgb(255, 255, 255), rgb(94, 17, 51));
+  --color-pri-ctr: light-dark(rgb(255, 243, 246), rgb(123, 41, 73));
+  --color-on-pri-ctr: light-dark(rgb(62, 0, 29), rgb(255, 217, 226) ;);
+  --color-pri-var: light-dark(rgb(255, 217, 226), rgb(123, 41, 73));
+  --color-on-pri-var: light-dark(rgb(62, 0, 29), rgb(255, 217, 226));
+}
+
+:root {
+  @media (prefers-color-scheme: dark) {
+    [data-theme='auto'] {
+      color-scheme: dark;
+    }
+  }
+
+  [data-theme='auto'] {
+    color-scheme: normal;
+  }
+
+  [data-theme='light'] {
+    color-scheme: light;
+  }
+
+  [data-theme='dark'] {
+    color-scheme: dark;
+  }
 }
