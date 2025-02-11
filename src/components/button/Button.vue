@@ -17,7 +17,7 @@ export interface ButtonProps {
    */
   uiFontWeight?: FontWeightProp
   /**
-   * `true` -> `border-radius: 9999px`
+   * `true` -> `border-radius: calc(infinity * 1px)`
    *
    * `false` -> `border-radius: 0.4rem`
    */
@@ -53,7 +53,7 @@ function onClick(evt: MouseEvent) {
         '*:transition *:duration-300',
         !loading && {
           'enabled:hover:brightness-125 enabled:focus:brightness-75': uiVariant === 'solid',
-          'enabled:hover:brightness-110 enabled:focus:brightness-90': uiVariant === 'tonal',
+          'enabled:hover:brightness-105 enabled:focus:brightness-95': uiVariant === 'tonal',
           'enabled:hover:bg-pri/12 enabled:focus:bg-pri/24': ['outlined', 'clean'].includes(
             uiVariant
           ),
