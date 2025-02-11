@@ -48,28 +48,28 @@ function onClick(evt: MouseEvent) {
     :data-status="uiDanger ? 'error' : void 0"
     :class="
       cn(
-        'group relative h-9 cursor-pointer items-center justify-center gap-2 border border-solid transition duration-300 select-none disabled:cursor-not-allowed',
+        'group/button relative h-9 cursor-pointer items-center justify-center gap-2 border-none transition duration-300 select-none disabled:cursor-not-allowed',
         'outline-none focus-visible:ring-3 focus-visible:ring-pri/48',
         '*:transition *:duration-300',
-        !loading && {
-          'enabled:hover:brightness-125 enabled:focus:brightness-75': uiVariant === 'solid',
-          'enabled:hover:brightness-105 enabled:focus:brightness-95': uiVariant === 'tonal',
-          'enabled:hover:bg-pri/12 enabled:focus:bg-pri/24': ['outlined', 'clean'].includes(
-            uiVariant
-          ),
-          'enabled:focus:border-pri': uiVariant === 'outlined'
-        },
-        { 'cursor-wait': loading },
         uiBlock ? 'flex' : 'inline-flex',
         uiRounded ? 'rounded-full px-5' : 'rounded-v2 px-4',
         {
-          solid: 'border-transparent bg-pri text-on-pri',
-          tonal: 'border-transparent bg-pri-var text-on-pri-var',
-          outlined: 'border-otl bg-sur text-pri',
-          clean: 'border-transparent bg-transparent text-pri'
+          solid: 'bg-pri text-on-pri',
+          tonal: 'bg-pri-var text-on-pri-var',
+          outlined:
+            'bg-sur text-pri before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-solid before:border-otl before:transition before:duration-300 disabled:before:border-dis',
+          clean: 'bg-transparent text-pri'
         }[uiVariant],
+        !loading &&
+          {
+            solid: 'enabled:hover:brightness-125 enabled:focus:brightness-75',
+            tonal: 'enabled:hover:brightness-105 enabled:focus:brightness-95',
+            outlined:
+              'enabled:hover:before:bg-pri/12 enabled:focus:before:border-pri enabled:focus:before:bg-pri/24',
+            clean: 'enabled:hover:bg-pri/12 enabled:focus:bg-pri/24'
+          }[uiVariant],
         {
-          'disabled:border-dis': uiVariant === 'outlined',
+          'cursor-wait': loading,
           'disabled:bg-dis/36': ['solid', 'tonal'].includes(uiVariant)
         },
         'disabled:text-dis'
@@ -80,7 +80,7 @@ function onClick(evt: MouseEvent) {
     <span
       :class="[
         'pointer-events-none text-sm tracking-wide',
-        { 'group-enabled:opacity-0': loading },
+        { 'group-enabled/button:opacity-0': loading },
         uiTextTransform
           ? {
               uppercase: 'uppercase',
