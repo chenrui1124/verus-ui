@@ -6,48 +6,41 @@ export interface HorizontalScrollingProps {
   /**
    * @default 'auto'
    */
-  uiWidth?: string
+  width?: string
   /**
    * @default 'auto'
    */
-  uiHeight?: string
+  height?: string
 }
 </script>
 
 <script lang="ts" setup>
-const { uiWidth = 'auto', uiHeight = 'auto' } = defineProps<HorizontalScrollingProps>()
+const { width = 'auto', height = 'auto' } = defineProps<HorizontalScrollingProps>()
 
-const containerStyle = reactive({
+const size = reactive({
   height: '',
   width: ''
 })
 
 function onResize(entry: ResizeObserverEntry) {
-  const { width, height } = entry.contentRect
-  containerStyle.width = `${height}px`
-  containerStyle.height = `${width}px`
+  const rect = entry.contentRect
+  size.width = `${rect.height}px`
+  size.height = `${rect.width}px`
 }
 </script>
 
 <template>
-  <div
-    v-resize-observer="onResize"
-    :style="{
-      width: uiWidth,
-      height: uiHeight
-    }"
-    class="overflow-y-hidden"
-  >
+  <div v-resize-observer="onResize" :style="{ width, height }" class="box-border overflow-y-hidden">
     <div
       :style="{
-        ...containerStyle,
-        transform: `translateY(${containerStyle.width}) rotate(-90deg)`
+        ...size,
+        transform: `translateY(${size.width}) rotate(-90deg)`
       }"
       class="relative origin-top-left overflow-y-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:w-0"
     >
       <div
-        :style="{ height: containerStyle.width }"
-        class="absolute left-full flex origin-top-left rotate-90 flex-nowrap"
+        :style="{ height: size.width }"
+        class="absolute left-full flex origin-top-left rotate-90 flex-nowrap *:max-w-none"
       >
         <slot></slot>
       </div>

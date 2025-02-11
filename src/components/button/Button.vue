@@ -6,32 +6,32 @@ import { cn } from '@/utils'
 
 export interface ButtonProps {
   appendIcon?: string
+  block?: boolean
+  danger?: boolean
   disabled?: boolean
-  icon?: string
-  loading?: boolean
-  text?: string
-  uiBlock?: boolean
-  uiDanger?: boolean
   /**
    * @default 'normal'
    */
-  uiFontWeight?: FontWeightProp
+  fontWeight?: FontWeightProp
+  icon?: string
+  loading?: boolean
   /**
    * `true` -> `border-radius: calc(infinity * 1px)`
    *
    * `false` -> `border-radius: 0.4rem`
    */
-  uiRounded?: boolean
-  uiTextTransform?: TextTransformProp
+  rounded?: boolean
+  text?: string
+  textTransform?: TextTransformProp
   /**
    * @default 'tonal'
    */
-  uiVariant?: VariantProp
+  variant?: VariantProp
 }
 </script>
 
 <script lang="ts" setup>
-const { loading, uiFontWeight = 'normal', uiVariant = 'tonal' } = defineProps<ButtonProps>()
+const { loading, fontWeight = 'normal', variant = 'tonal' } = defineProps<ButtonProps>()
 
 const emit = defineEmits<{ click: [evt: MouseEvent] }>()
 
@@ -45,32 +45,31 @@ function onClick(evt: MouseEvent) {
   <button
     @click="onClick"
     :disabled
-    :data-status="uiDanger ? 'error' : void 0"
+    :data-status="danger ? 'error' : void 0"
     :class="
       cn(
-        'group/button relative h-9 cursor-pointer items-center justify-center gap-2 border-none transition duration-300 select-none disabled:cursor-not-allowed',
+        'group/button relative box-border h-9 cursor-pointer items-center justify-center gap-2 border border-solid transition duration-300 select-none disabled:cursor-not-allowed',
         'outline-none focus-visible:ring-3 focus-visible:ring-pri/48',
         '*:transition *:duration-300',
-        uiBlock ? 'flex' : 'inline-flex',
-        uiRounded ? 'rounded-full px-5' : 'rounded-v2 px-4',
+        block ? 'flex' : 'inline-flex',
+        rounded ? 'rounded-full px-5' : 'rounded-v2 px-4',
         {
-          solid: 'bg-pri text-on-pri',
-          tonal: 'bg-pri-var text-on-pri-var',
-          outlined:
-            'bg-sur text-pri before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-solid before:border-otl before:transition before:duration-300 disabled:before:border-dis',
-          clean: 'bg-transparent text-pri'
-        }[uiVariant],
+          solid: 'border-transparent bg-pri text-on-pri',
+          tonal: 'border-transparent bg-pri-var text-on-pri-var',
+          outlined: 'border-otl bg-transparent text-pri',
+          clean: 'border-transparent bg-transparent text-pri'
+        }[variant],
         !loading &&
           {
             solid: 'enabled:hover:brightness-125 enabled:focus:brightness-75',
             tonal: 'enabled:hover:brightness-105 enabled:focus:brightness-95',
-            outlined:
-              'enabled:hover:before:bg-pri/12 enabled:focus:before:border-pri enabled:focus:before:bg-pri/24',
+            outlined: 'enabled:hover:bg-pri/12 enabled:focus:border-pri enabled:focus:bg-pri/24',
             clean: 'enabled:hover:bg-pri/12 enabled:focus:bg-pri/24'
-          }[uiVariant],
+          }[variant],
         {
           'cursor-wait': loading,
-          'disabled:bg-dis/36': ['solid', 'tonal'].includes(uiVariant)
+          'disabled:border-dis': variant === 'outlined',
+          'disabled:bg-dis/36': ['solid', 'tonal'].includes(variant)
         },
         'disabled:text-dis'
       )
@@ -81,18 +80,18 @@ function onClick(evt: MouseEvent) {
       :class="[
         'pointer-events-none text-sm tracking-wide',
         { 'group-enabled/button:opacity-0': loading },
-        uiTextTransform
+        textTransform
           ? {
               uppercase: 'uppercase',
               lowercase: 'lowercase',
               capitalize: 'capitalize'
-            }[uiTextTransform]
+            }[textTransform]
           : void 0,
         {
           normal: 'font-normal',
           semibold: 'font-semibold',
           bold: 'font-bold'
-        }[uiFontWeight]
+        }[fontWeight]
       ]"
     >
       <slot>{{ text }}</slot>

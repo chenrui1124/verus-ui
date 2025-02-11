@@ -11,6 +11,7 @@ export const useSingleTooltip = (() => {
   let props: Reactive<Pick<TooltipProps, 'side' | 'text'>> | null = null
   let coord: Reactive<{ x?: string; y?: string }> | null = null
   let destroy: (() => void) | null = null
+  let unregisterListener: (() => void) | null = null
 
   const register = () => {
     if (!count) {
@@ -31,7 +32,7 @@ export const useSingleTooltip = (() => {
         </TooltipContent>
       ))
 
-      useHover({
+      unregisterListener = useHover({
         start: evt => {
           const el = evt.target as HTMLElement
           const { tooltipSide, tooltipText } = el.dataset
@@ -46,24 +47,24 @@ export const useSingleTooltip = (() => {
             props.text = tooltipText
             const { top, right, bottom, left } = el.getBoundingClientRect()
             const center = {
-              top: `${(top + bottom) / 2}px`,
-              left: `${(right + left) / 2}px`
+              x: `${(right + left) / 2}px`,
+              y: `${(top + bottom) / 2}px`
             }
             switch (tooltipSide) {
               case 'top':
                 coord.y = `${top}px`
-                coord.x = center.left
+                coord.x = center.x
                 break
               case 'right':
-                coord.y = center.top
+                coord.y = center.y
                 coord.x = `${right}px`
                 break
               case 'bottom':
                 coord.y = `${bottom}px`
-                coord.x = center.left
+                coord.x = center.x
                 break
               case 'left':
-                coord.y = center.top
+                coord.y = center.y
                 coord.x = `${left}px`
                 break
             }
@@ -92,6 +93,7 @@ export const useSingleTooltip = (() => {
     if (count === 0) {
       props = coord = null
       destroy?.()
+      unregisterListener?.()
     }
   }
 

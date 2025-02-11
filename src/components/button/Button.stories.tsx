@@ -13,16 +13,16 @@ const meta: Meta<typeof VButton> = {
     icon: { control: false },
     loading: { control: 'boolean' },
     text: { control: 'text' },
-    uiBlock: { control: 'boolean' },
-    uiDanger: { control: 'boolean' },
-    uiFontWeight: { control: 'inline-radio', options: fontWeightOptions() },
-    uiRounded: { control: 'boolean' },
-    uiTextTransform: { control: 'inline-radio', options: textTransformOptions() },
-    uiVariant: { control: 'inline-radio', options: variantOptions() }
+    block: { control: 'boolean' },
+    danger: { control: 'boolean' },
+    fontWeight: { control: 'inline-radio', options: fontWeightOptions() },
+    rounded: { control: 'boolean' },
+    textTransform: { control: 'inline-radio', options: textTransformOptions() },
+    variant: { control: 'inline-radio', options: variantOptions() }
   },
   args: {
     text: 'New app',
-    uiVariant: 'tonal',
+    variant: 'tonal',
     onClick: fn()
   },
   parameters: {
