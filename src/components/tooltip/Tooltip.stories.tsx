@@ -27,7 +27,7 @@ const meta: Meta<typeof VTooltip> = {
     return () => (
       <VTooltip {...args}>
         <VButton
-          uiVariant={variant.value}
+          variant={variant.value}
           onClick={() => (variant.value = variant.value === 'solid' ? 'tonal' : 'solid')}
         >
           Lorem.

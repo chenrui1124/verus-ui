@@ -1,8 +1,8 @@
 <script lang="ts">
 export interface SwitchProps {
   modelValue?: boolean
+  danger?: boolean
   disabled?: boolean
-  uiDanger?: boolean
 }
 </script>
 
@@ -14,10 +14,10 @@ const modelValue = defineModel<SwitchProps['modelValue']>()
 
 <template>
   <label
-    :data-status="uiDanger ? 'error' : void 0"
+    :data-status="danger ? 'error' : void 0"
     :class="[
-      'group/switch relative inline-block h-7 w-12 cursor-pointer rounded-full bg-otl/24 transition duration-300 has-checked:bg-pri has-focus-visible:ring-3 has-focus-visible:ring-pri/48 has-disabled:cursor-not-allowed has-disabled:bg-dis has-disabled:opacity-48',
-      'before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-solid before:border-otl before:transition before:duration-300 has-checked:before:border-transparent has-disabled:before:border-dis',
+      'group/switch relative box-border inline-block h-7 w-12 cursor-pointer rounded-full bg-sur transition duration-300 has-focus-visible:ring-3 has-focus-visible:ring-pri/48 has-disabled:cursor-not-allowed has-disabled:bg-dis has-disabled:opacity-48',
+      'before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-solid before:border-otl before:bg-otl/24 before:transition before:duration-300 has-checked:before:border-transparent has-checked:before:bg-pri has-disabled:before:border-dis',
       '*:top-1/2 *:left-3.5 has-checked:*:translate-x-5'
     ]"
   >
