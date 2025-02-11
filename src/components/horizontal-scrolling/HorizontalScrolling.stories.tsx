@@ -6,11 +6,11 @@ const meta: Meta<typeof VHorizontalScrolling> = {
   title: 'Components/HorizontalScrolling',
   component: VHorizontalScrolling,
   argTypes: {
-    uiHeight: { control: 'text' },
-    uiWidth: { control: 'text' }
+    height: { control: 'text' },
+    width: { control: 'text' }
   },
   args: {
-    uiHeight: '300px'
+    height: '300px'
   },
   render(args) {
     return () => (

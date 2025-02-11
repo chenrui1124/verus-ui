@@ -8,7 +8,7 @@ const meta: Meta<typeof VSwitch> = {
   argTypes: {
     modelValue: { control: 'boolean' },
     disabled: { control: 'boolean' },
-    uiDanger: { control: 'boolean' }
+    danger: { control: 'boolean' }
   },
   args: {},
   parameters: {
