@@ -1,8 +1,5 @@
 /** @type {import("prettier").Config} */
 export default {
-  plugins: ['prettier-plugin-tailwindcss'],
-  tailwindStylesheet: './src/tailwind/tailwind.css',
-  tailwindFunctions: ['clsx', 'twMerge', 'cn'],
   bracketSameLine: false,
   jsxSingleQuote: true,
   printWidth: 100,
@@ -11,5 +8,23 @@ export default {
   singleQuote: true,
   tabWidth: 2,
   trailingComma: 'none',
-  arrowParens: 'avoid'
+  arrowParens: 'avoid',
+  plugins: ['prettier-plugin-tailwindcss'],
+  tailwindStylesheet: './src/tailwind/tailwind.css',
+  tailwindFunctions: ['clsx', 'cn', 'twMerge'],
+  tailwindAttributes: [
+    'class',
+    'enterFromClass',
+    'enterActiveClass',
+    'enterToClass',
+    'leaveFromClass',
+    'leaveActiveClass',
+    'leaveToClass',
+    'enter-from-class',
+    'enter-active-class',
+    'enter-to-class',
+    'leave-from-class',
+    'leave-active-class',
+    'leave-to-class'
+  ]
 }
