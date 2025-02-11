@@ -1,5 +1,8 @@
 import { generateOptions } from './utils'
 
+export type SideProp = 'top' | 'right' | 'bottom' | 'left'
+export const sideOptions = generateOptions<SideProp>(['top', 'right', 'bottom', 'left'])
+
 export type SizeProp = 'sm' | 'md' | 'lg'
 export const sizeOptions = generateOptions<SizeProp>(['sm', 'md', 'lg'])
 
