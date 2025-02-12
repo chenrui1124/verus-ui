@@ -14,11 +14,12 @@ export interface ButtonProps {
    */
   fontWeight?: FontWeightProp
   icon?: string
-  loading?: boolean
   /**
-   * `true` -> `border-radius: calc(infinity * 1px)`
-   *
-   * `false` -> `border-radius: 0.4rem`
+   * If loading's type is string, it will be used as icon name.
+   */
+  loading?: boolean | string
+  /**
+   * `true` => `border-radius: calc(infinity * 1px)`, `false` => `border-radius: 0.4rem`
    */
   rounded?: boolean
   text?: string
@@ -100,7 +101,7 @@ function onClick(evt: MouseEvent) {
     <Transition enter-from-class="opacity-0" leave-to-class="opacity-0">
       <Icon
         v-if="!disabled && loading"
-        icon="i-[svg-spinners--3-dots-fade]"
+        :icon="typeof loading === 'string' ? loading : 'i-[svg-spinners--3-dots-fade]'"
         class="absolute inset-0 m-auto size-6 rounded-[inherit]"
       />
     </Transition>
