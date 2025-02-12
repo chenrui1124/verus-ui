@@ -1,5 +1,8 @@
 import { generateOptions } from './utils'
 
+export type DirectionProp = 'row' | 'column'
+export const directionOptions = generateOptions<DirectionProp>(['row', 'column'])
+
 export type SideProp = 'top' | 'right' | 'bottom' | 'left'
 export const sideOptions = generateOptions<SideProp>(['top', 'right', 'bottom', 'left'])
 
