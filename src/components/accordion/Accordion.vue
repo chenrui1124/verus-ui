@@ -1,4 +1,6 @@
 <script lang="ts">
+import { Icon } from '@/basic'
+
 export interface AccordionProps {
   danger?: boolean
   icon?: string
@@ -7,8 +9,6 @@ export interface AccordionProps {
 </script>
 
 <script lang="ts" setup>
-import { Icon } from '@/basic'
-
 defineProps<AccordionProps>()
 </script>
 
@@ -24,7 +24,7 @@ defineProps<AccordionProps>()
       <span class="mb-px flex-1 text-base">{{ title }}</span>
       <input
         type="checkbox"
-        class="-mr-0.5 i-[fluent--chevron-right-24-regular] size-5 appearance-none text-inherit transition duration-500 ease-braking checked:rotate-90"
+        class="m-0 -mr-0.5 i-[fluent--chevron-right-24-regular] size-5 appearance-none text-inherit transition duration-500 ease-braking checked:rotate-90"
       />
     </label>
     <div
