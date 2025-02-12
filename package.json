@@ -11,13 +11,17 @@
     ".": "./dist/verus-ui.js",
     "./css": "./dist/verus-ui.css"
   },
+  "license": "MIT",
   "description": "Vue3 Component Library",
   "keywords": [
     "Vue3",
     "Components",
     "UI Library"
   ],
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chenrui1124/verus-ui.git"
+  },
   "scripts": {
     "build": "vue-tsc -b && vite build",
     "build-only": "vite build",
