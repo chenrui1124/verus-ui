@@ -7,95 +7,83 @@ import { useHover } from '@/utils'
 import TooltipContent from './TooltipContent.vue'
 
 export const useSingleTooltip = (() => {
-  let count = 0
   let props: Reactive<Pick<TooltipProps, 'side' | 'text'>> | null = null
   let coord: Reactive<{ x?: string; y?: string }> | null = null
-  let destroy: (() => void) | null = null
-  let unregisterListener: (() => void) | null = null
 
-  const register = () => {
-    if (!count) {
-      props = reactive({})
-      coord = reactive({})
-      const { state, on, off } = useSwitch()
+  const { state, on, off } = useSwitch()
 
-      destroy = useRender(() => (
-        <TooltipContent
-          state={state.value}
-          side={props?.side}
-          style={{
-            top: coord?.y,
-            left: coord?.x
-          }}
-        >
-          {props?.text}
-        </TooltipContent>
-      ))
-
-      unregisterListener = useHover({
-        start: evt => {
-          const el = evt.target as HTMLElement
-          const { tooltipSide, tooltipText } = el.dataset
-          if (
-            tooltipSide &&
-            tooltipText &&
-            ['top', 'right', 'bottom', 'left'].includes(tooltipSide) &&
-            props &&
-            coord
-          ) {
-            props.side = tooltipSide as TooltipProps['side']
-            props.text = tooltipText
-            const { top, right, bottom, left } = el.getBoundingClientRect()
-            const center = {
-              x: `${(right + left) / 2}px`,
-              y: `${(top + bottom) / 2}px`
-            }
-            switch (tooltipSide) {
-              case 'top':
-                coord.y = `${top}px`
-                coord.x = center.x
-                break
-              case 'right':
-                coord.y = center.y
-                coord.x = `${right}px`
-                break
-              case 'bottom':
-                coord.y = `${bottom}px`
-                coord.x = center.x
-                break
-              case 'left':
-                coord.y = center.y
-                coord.x = `${left}px`
-                break
-            }
-            on()
-          }
-        },
-        end: () => {
-          if (!state.value) return
-          off()
-          requestAnimationFrame(() => {
-            if (props && coord) {
-              props.side = void 0
-              props.text = void 0
-              coord.x = void 0
-              coord.y = void 0
-            }
-          })
+  const { enable, disable } = useHover({
+    start: evt => {
+      const el = evt.target as HTMLElement
+      const { tooltipSide, tooltipText } = el.dataset
+      if (
+        tooltipSide &&
+        tooltipText &&
+        ['top', 'right', 'bottom', 'left'].includes(tooltipSide) &&
+        props &&
+        coord
+      ) {
+        props.side = tooltipSide as TooltipProps['side']
+        props.text = tooltipText
+        const { top, right, bottom, left } = el.getBoundingClientRect()
+        const center = { y: `${(top + bottom) / 2}px`, x: `${(right + left) / 2}px` }
+        switch (tooltipSide) {
+          case 'top':
+            coord.x = center.x
+            coord.y = `${top}px`
+            break
+          case 'right':
+            coord.x = `${right}px`
+            coord.y = center.y
+            break
+          case 'bottom':
+            coord.x = center.x
+            coord.y = `${bottom}px`
+            break
+          case 'left':
+            coord.x = `${left}px`
+            coord.y = center.y
+            break
+        }
+        on()
+      }
+    },
+    end: () => {
+      if (!state.value) return
+      off()
+      requestAnimationFrame(() => {
+        if (props && coord) {
+          props.side = void 0
+          props.text = void 0
+          coord.x = void 0
+          coord.y = void 0
         }
       })
     }
-    count++
-  }
+  })
 
-  const unregister = () => {
-    count--
-    if (count === 0) {
-      props = coord = null
-      destroy?.()
-      unregisterListener?.()
+  const { inc, dec } = useRender(
+    () => (
+      <TooltipContent
+        state={state.value}
+        side={props?.side}
+        style={{
+          top: coord?.y,
+          left: coord?.x
+        }}
+      >
+        {props?.text}
+      </TooltipContent>
+    ),
+    {
+      mount: () => {
+        props = reactive({})
+        coord = reactive({})
+        enable()
+      },
+      unmount: () => disable()
     }
-  }
+  )
 
-  return () => ({ register, unregister })
+  return () => ({ register: inc, unregister: dec })
 })()
