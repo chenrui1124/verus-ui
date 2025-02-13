@@ -3,12 +3,7 @@ import type { DirectionProp } from '@/ts'
 
 import { useId } from 'vue'
 import { Icon } from '@/basic'
-
-interface SelectPropsItem {
-  icon?: string
-  text: string
-  value: string
-}
+import { useUi } from '@/utils'
 
 export interface SelectProps<M extends boolean> {
   modelValue?: M extends true ? string[] : string
@@ -16,7 +11,8 @@ export interface SelectProps<M extends boolean> {
    * @default 'column'
    */
   direction?: DirectionProp
-  items?: SelectPropsItem[]
+  disabled?: boolean
+  items: ({ value: string } & ({ icon?: string; text: string } | { icon: string; text?: string }))[]
   /**
    * When multiple is true, the type of modelValue will be `string[]`.
    */
@@ -44,7 +40,10 @@ const modelValue = defineModel<SelectProps<M>['modelValue']>()
       :key="value"
       :class="[
         direction === 'row' && 'flex-1',
-        'group/select box-border flex h-12 cursor-pointer items-center justify-center gap-3 rounded-v3 border border-otl/72 px-4.5 text-on-sur transition duration-300 select-none has-checked:border-transparent has-checked:bg-pri-ctr has-checked:text-pri has-focus-visible:ring-3 has-focus-visible:ring-pri/48 has-[[type=radio]:checked]:pointer-events-none'
+        'group/select box-border flex h-12 cursor-pointer items-center justify-center gap-3 rounded-v3 border border-otl/70 px-4.5 text-on-sur transition duration-300 select-none has-checked:border-transparent has-checked:bg-pri-ctr has-checked:text-pri has-[[type=radio]:checked]:pointer-events-none',
+        useUi('ring_when_has_focus_visible'),
+        // TODO
+        'has-disabled:'
       ]"
     >
       <Icon v-if="icon" :icon class="-ml-1 size-5" />
@@ -53,6 +52,7 @@ const modelValue = defineModel<SelectProps<M>['modelValue']>()
         :type="multiple ? 'checkbox' : 'radio'"
         :name
         :value
+        :disabled
         v-model="modelValue"
         class="m-0 -mr-1 box-border size-4 appearance-none rounded-full border border-otl transition-all duration-500 ease-braking outline-none group-active/select:scale-75 checked:border-4 checked:border-pri"
       />

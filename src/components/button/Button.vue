@@ -2,7 +2,7 @@
 import type { FontWeightProp, TextTransformProp, VariantProp } from '@/ts'
 
 import { Icon } from '@/basic'
-import { cn } from '@/utils'
+import { cn, useUi } from '@/utils'
 
 export interface ButtonProps {
   appendIcon?: string
@@ -50,7 +50,6 @@ function onClick(evt: MouseEvent) {
     :class="
       cn(
         'group/button relative box-border h-9 cursor-pointer items-center justify-center gap-2 border border-solid transition duration-300 select-none disabled:cursor-not-allowed',
-        'outline-none focus-visible:ring-3 focus-visible:ring-pri/48',
         '*:transition *:duration-300',
         block ? 'flex' : 'inline-flex',
         rounded ? 'rounded-full px-5' : 'rounded-v2 px-4',
@@ -64,15 +63,16 @@ function onClick(evt: MouseEvent) {
           {
             solid: 'enabled:hover:brightness-125 enabled:focus:brightness-75',
             tonal: 'enabled:hover:brightness-105 enabled:focus:brightness-95',
-            outlined: 'enabled:hover:bg-pri/12 enabled:focus:border-pri enabled:focus:bg-pri/24',
-            clean: 'enabled:hover:bg-pri/12 enabled:focus:bg-pri/24'
+            outlined: 'enabled:hover:bg-pri/10 enabled:focus:border-pri enabled:focus:bg-pri/20',
+            clean: 'enabled:hover:bg-pri/10 enabled:focus:bg-pri/20'
           }[variant],
         {
           'cursor-wait': loading,
           'disabled:border-dis': variant === 'outlined',
-          'disabled:bg-dis/36': ['solid', 'tonal'].includes(variant)
+          'disabled:bg-dis/30': ['solid', 'tonal'].includes(variant)
         },
-        'disabled:text-dis'
+        'disabled:text-dis',
+        useUi('ring_when_focus_visible')
       )
     "
   >
