@@ -1,18 +1,39 @@
-import type { Component } from 'vue'
+import type { App, Component } from 'vue'
 
 import { createApp } from 'vue'
 
-export function useRender(component: Component) {
-  const container = document.createElement('div')
-  document.body.appendChild(container)
+interface UseRenderOptions {
+  // delay?: number
+  mount?: () => void
+  unmount?: () => void
+}
 
-  const app = createApp(component)
-  app.mount(container)
+export const useRender = (component: Component, options?: UseRenderOptions) => {
+  let count = 0
+  let ctr: HTMLDivElement | null = null
+  let app: App | null = null
 
-  const destroy = () => {
-    app.unmount()
-    container.remove()
+  return {
+    inc: () => {
+      if (!(ctr || app)) {
+        ctr = document.createElement('div')
+        document.body.appendChild(ctr)
+        app = createApp(component)
+        app.mount(ctr)
+        options && options.mount?.()
+      }
+
+      count++
+    },
+    dec: () => {
+      if (count > 0) count--
+
+      if (!count) {
+        if (app) app.unmount()
+        if (ctr) ctr.remove()
+        ctr = app = null
+        options && options.unmount?.()
+      }
+    }
   }
-
-  return destroy
 }
