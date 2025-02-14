@@ -23,9 +23,7 @@ const Tooltip = defineComponent({
     text: String
   },
   setup(props, { slots }) {
-    const { register, unregister } = useSingleTooltip()
-    onMounted(register)
-    onUnmounted(unregister)
+    useSingleTooltip()
 
     return () => {
       if (!slots.default) return null

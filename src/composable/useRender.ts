@@ -4,8 +4,8 @@ import { createApp } from 'vue'
 
 interface UseRenderOptions {
   // delay?: number
-  mount?: () => void
-  unmount?: () => void
+  mounted?: () => void
+  unmounted?: () => void
 }
 
 export const useRender = (component: Component, options?: UseRenderOptions) => {
@@ -20,7 +20,7 @@ export const useRender = (component: Component, options?: UseRenderOptions) => {
         document.body.appendChild(ctr)
         app = createApp(component)
         app.mount(ctr)
-        options && options.mount?.()
+        options && options.mounted?.()
       }
 
       count++
@@ -32,7 +32,7 @@ export const useRender = (component: Component, options?: UseRenderOptions) => {
         if (app) app.unmount()
         if (ctr) ctr.remove()
         ctr = app = null
-        options && options.unmount?.()
+        options && options.unmounted?.()
       }
     }
   }
