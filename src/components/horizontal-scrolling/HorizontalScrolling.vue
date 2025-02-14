@@ -30,7 +30,7 @@ function onResize(entry: ResizeObserverEntry) {
 </script>
 
 <template>
-  <div v-resize-observer="onResize" :style="{ width, height }" class="box-border overflow-y-hidden">
+  <div v-resize-observer="onResize" :style="{ width, height }" class="box-border overflow-hidden">
     <div
       :style="{
         ...size,

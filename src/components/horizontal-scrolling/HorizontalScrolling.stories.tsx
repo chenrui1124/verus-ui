@@ -16,7 +16,11 @@ const meta: Meta<typeof VHorizontalScrolling> = {
     return () => (
       <VHorizontalScrolling {...args}>
         {new Array(7).fill(1).map((_, index) => (
-          <img src={`https://picsum.photos/${300 + index * 50}/600`} alt='test_img' />
+          <img
+            src={`https://picsum.photos/${300 + index * 50}/600`}
+            alt='test_img'
+            class='m-2 rounded-v4'
+          />
         ))}
       </VHorizontalScrolling>
     )
