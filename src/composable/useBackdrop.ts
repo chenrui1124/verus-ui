@@ -10,16 +10,21 @@ export const useBackdrop = (() => {
 
   const backdrop = h('div', {
     class:
-      'pointer-events-none fixed inset-0 z-30 bg-black/48 backdrop-blur-sm transition duration-500'
+      'pointer-events-none fixed inset-0 z-30 bg-black/50 backdrop-blur-sm transition duration-500'
   })
 
-  useRender(() =>
-    h(
-      Transition,
-      { enterFromClass: 'opacity-0', leaveToClass: 'opacity-0' },
-      active.value ? backdrop : void 0
+  return (ref: Ref<boolean | undefined>) => {
+    useRender(() =>
+      h(
+        Transition,
+        {
+          enterFromClass: 'opacity-0',
+          leaveToClass: 'opacity-0'
+        },
+        () => (active.value ? backdrop : void 0)
+      )
     )
-  )
 
-  return (ref: Ref<boolean | undefined>) => void refList.push(ref)
+    refList.push(ref)
+  }
 })()
