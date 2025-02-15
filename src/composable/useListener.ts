@@ -1,9 +1,9 @@
 import { onMounted, onUnmounted } from 'vue'
 
-type AvailableEvents = 'keyup' | 'pointerover' | 'pointerout'
+type AvailableEvents = 'keyup' | 'resize' | 'pointerover' | 'pointerout'
 
 export const useListener = (() => {
-  const AVAIL_EVT: AvailableEvents[] = ['keyup', 'pointerover', 'pointerout'] as const
+  const AVAIL_EVT: AvailableEvents[] = ['keyup', 'pointerover', 'pointerout', 'resize'] as const
 
   const fxMap = new Map<
     AvailableEvents,
@@ -40,17 +40,12 @@ export const useListener = (() => {
     }
   }
 
-  return (
-    fxs: { [E in AvailableEvents]?: Parameters<typeof document.addEventListener<E>>[1] },
-    merge?: { mounted?: Function; unmounted?: Function }
-  ) => {
+  return (fxs: { [E in AvailableEvents]?: Parameters<typeof document.addEventListener<E>>[1] }) => {
     onMounted(() => {
       for (const [evt, cb] of Object.entries(fxs)) fxMapAdd(evt, cb)
-      merge?.mounted?.()
     })
     onUnmounted(() => {
       for (const [evt, cb] of Object.entries(fxs)) fxMapDel(evt, cb)
-      merge?.unmounted?.()
     })
   }
 })()

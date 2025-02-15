@@ -1,14 +1,25 @@
 import type { MaybeRef } from 'vue'
 
-import { readonly, ref } from 'vue'
+import { computed, readonly, toRef } from 'vue'
 
-export function useSwitch(init: MaybeRef<boolean | undefined> = void 0) {
-  const _state = typeof init === 'object' && 'value' in init ? init : ref(init)
+export function useSwitch(options?: {
+  modelValue?: MaybeRef<boolean | undefined>
+  onSwitch?: (newState: boolean | undefined) => void
+}) {
+  const stateRef = toRef(options?.modelValue)
+
+  const accState = computed({
+    get: () => stateRef.value,
+    set: nv => {
+      requestAnimationFrame(() => void (stateRef.value = nv))
+      options?.onSwitch?.(nv)
+    }
+  })
 
   return {
-    state: readonly(_state),
-    on: () => void requestAnimationFrame(() => void (_state.value = true)),
-    off: () => void requestAnimationFrame(() => void (_state.value = false)),
-    toggle: () => void requestAnimationFrame(() => void (_state.value = !_state.value))
+    state: readonly(accState),
+    on: () => void (accState.value = true),
+    off: () => void (accState.value = false),
+    toggle: () => void (accState.value = !accState.value)
   }
 }
