@@ -25,7 +25,7 @@ const onEnter = (el: Element) => void (el as HTMLDialogElement).showModal()
 
 const onAfterLeave = (el: Element) => void (el as HTMLDialogElement).close()
 
-onMounted(() => useBackdrop(state))
+useBackdrop(state)
 </script>
 
 <template>
