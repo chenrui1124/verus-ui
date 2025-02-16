@@ -1,6 +1,7 @@
 export * from './accordion'
 export * from './button'
 export * from './dialog'
+export * from './dialog-layout'
 export * from './horizontal-scrolling'
 export * from './icon-button'
 export * from './select'
