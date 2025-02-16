@@ -33,7 +33,7 @@ export const useSingleTooltip = (() => {
     ))
 
     useListener({
-      pointerover: evt => {
+      mouseover: evt => {
         const el = evt.target as HTMLElement
         const { tooltipSide, tooltipText } = el.dataset
         if (
@@ -68,7 +68,7 @@ export const useSingleTooltip = (() => {
           on()
         }
       },
-      pointerout: () => {
+      mouseout: () => {
         if (!state.value) return
         off()
         requestAnimationFrame(() => {

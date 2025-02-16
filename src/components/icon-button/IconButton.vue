@@ -1,6 +1,6 @@
 <script lang="ts">
 import { Icon } from '@/basic'
-import { useUi } from '@/utils'
+import { ui } from '@/utils'
 
 export interface IconButtonProps {
   icon?: string
@@ -36,7 +36,7 @@ function onClick(evt: MouseEvent) {
     :data-status="danger ? 'error' : void 0"
     :class="[
       'box-border size-9 cursor-pointer rounded-v2 border-none bg-transparent p-2 text-pri transition duration-300 hover:bg-pri/10 hover:brightness-110 focus:bg-pri/20 focus:brightness-110 active:*:first:scale-75',
-      useUi('ring_when_focus_visible')
+      ui('outline_focus_visible')
     ]"
   >
     <Icon v-if="icon" :icon class="size-5 transition duration-300 ease-in-out" />

@@ -2,7 +2,7 @@
 import type { FontWeightProp, TextTransformProp, VariantProp } from '@/ts'
 
 import { Icon } from '@/basic'
-import { cn, useUi } from '@/utils'
+import { cn, ui } from '@/utils'
 
 export interface ButtonProps {
   appendIcon?: string
@@ -72,7 +72,7 @@ function onClick(evt: MouseEvent) {
           'disabled:bg-dis/30': ['solid', 'tonal'].includes(variant)
         },
         'disabled:text-dis',
-        useUi('ring_when_focus_visible')
+        ui('outline_focus_visible')
       )
     "
   >

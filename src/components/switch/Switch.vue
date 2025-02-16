@@ -1,5 +1,5 @@
 <script lang="ts">
-import { cn, useUi } from '@/utils'
+import { cn, ui } from '@/utils'
 
 export interface SwitchProps {
   modelValue?: boolean
@@ -23,7 +23,7 @@ const modelValue = defineModel<SwitchProps['modelValue']>()
         'before:border before:border-solid before:border-otl before:bg-otl/20 before:transition before:duration-300 has-checked:before:border-transparent has-checked:before:bg-pri',
         'has-disabled:cursor-not-allowed has-disabled:opacity-30 has-disabled:before:border-dis has-disabled:before:bg-dis',
         '*:top-1/2 *:left-3.5 has-checked:*:translate-x-5',
-        useUi('cover_by_before', 'ring_when_has_focus_visible')
+        ui('cover_by_before', 'outline_has_focus_visible')
       )
     "
   >
