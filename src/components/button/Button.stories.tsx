@@ -29,7 +29,13 @@ const meta: Meta<typeof VButton> = {
     layout: 'centered'
   },
   render(args) {
-    return () => <VButton {...args} />
+    return () => (
+      <div class='flex flex-col gap-3'>
+        {variantOptions().map(v => (
+          <VButton {...args} variant={v} />
+        ))}
+      </div>
+    )
   }
 }
 

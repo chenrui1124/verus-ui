@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "3.2.4",
-    "@iconify-json/fluent": "^1.2.13",
+    "@iconify-json/fluent": "^1.2.14",
     "@iconify-json/line-md": "^1.2.5",
     "@iconify-json/lineicons": "^1.2.4",
     "@iconify-json/svg-spinners": "^1.2.2",
@@ -48,24 +48,25 @@
     "@storybook/addon-essentials": "8.5.3",
     "@storybook/addon-interactions": "8.5.3",
     "@storybook/addon-onboarding": "8.5.3",
+    "@storybook/addon-themes": "^8.5.6",
     "@storybook/blocks": "8.5.3",
     "@storybook/test": "8.5.3",
     "@storybook/vue3": "8.5.3",
     "@storybook/vue3-vite": "8.5.3",
     "@tailwindcss/vite": "^4.0.6",
-    "@types/node": "^22.13.1",
+    "@types/node": "^22.13.4",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vitejs/plugin-vue-jsx": "^4.1.1",
     "@vue/tsconfig": "^0.7.0",
-    "prettier": "^3.5.0",
+    "prettier": "^3.5.1",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "storybook": "8.5.3",
     "tailwindcss": "^4.0.6",
-    "terser": "^5.38.2",
+    "terser": "^5.39.0",
     "typescript": "~5.7.3",
     "vite": "^6.1.0",
     "vite-plugin-dts": "^4.5.0",
     "vue-tsc": "^2.2.0"
   },
-  "packageManager": "pnpm@10.3.0+sha512.ee592eda8815a8a293c206bb0917c4bb0ff274c50def7cbc17be05ec641fc2d1b02490ce660061356bd0d126a4d7eb2ec8830e6959fb8a447571c631d5a2442d"
+  "packageManager": "pnpm@10.4.0+sha512.6b849d0787d97f8f4e1f03a9b8ff8f038e79e153d6f11ae539ae7c435ff9e796df6a862c991502695c7f9e8fac8aeafc1ac5a8dab47e36148d183832d886dd52"
 }
