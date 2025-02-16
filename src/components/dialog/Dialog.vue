@@ -1,5 +1,4 @@
 <script lang="ts">
-import { onMounted } from 'vue'
 import { useBackdrop, useSwitch } from '@/composable'
 
 export interface DialogProps {
@@ -36,10 +35,10 @@ useBackdrop(state)
       @enter="onEnter"
       @after-leave="onAfterLeave"
       enter-from-class="-translate-y-[45vh] grid-rows-[0fr] py-0 *:py-0"
-      enter-active-class="duration-700 select-none *:overflow-hidden"
+      enter-active-class="duration-700 select-none *:overflow-hidden **:data-dialog-content:overflow-hidden"
       enter-to-class="grid-rows-[1fr]"
       leave-from-class="grid-rows-[1fr]"
-      leave-active-class="select-none *:overflow-hidden"
+      leave-active-class="select-none *:overflow-hidden **:data-dialog-content:overflow-hidden"
       leave-to-class="-translate-y-[45vh] grid-rows-[0fr] py-0 *:py-0"
     >
       <dialog
@@ -56,7 +55,7 @@ useBackdrop(state)
       >
         <div
           style="max-height: calc(100dvh - 3rem - 10vmin)"
-          class="box-border flex flex-col rounded-[inherit] p-3 transition-all duration-300"
+          class="box-border rounded-[inherit] p-3 transition-all duration-300 has-data-dialog-content:flex"
         >
           <slot :="{ close: off }"></slot>
         </div>
