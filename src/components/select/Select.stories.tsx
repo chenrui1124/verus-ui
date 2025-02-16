@@ -16,10 +16,11 @@ const meta: Meta<typeof VSelectWithoutMultiple> = {
   component: VSelectWithoutMultiple,
   argTypes: {
     modelValue: { control: false },
+    disabled: { control: 'boolean' },
+    direction: { control: 'inline-radio', options: directionOptions() },
     items: { control: false },
     multiple: { control: 'boolean' },
-    name: { control: 'text' },
-    direction: { control: 'inline-radio', options: directionOptions() }
+    name: { control: 'text' }
   },
   args: {
     items: [
