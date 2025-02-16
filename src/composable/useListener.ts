@@ -1,9 +1,9 @@
 import { onMounted, onUnmounted } from 'vue'
 
-type AvailableEvents = 'keyup' | 'resize' | 'pointerover' | 'pointerout'
+type AvailableEvents = 'keyup' | 'resize' | 'mouseover' | 'mouseout'
 
 export const useListener = (() => {
-  const AVAIL_EVT: AvailableEvents[] = ['keyup', 'pointerover', 'pointerout', 'resize'] as const
+  const AVAIL_EVT: AvailableEvents[] = ['keyup', 'mouseover', 'mouseout', 'resize'] as const
 
   const fxMap = new Map<
     AvailableEvents,

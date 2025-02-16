@@ -1,7 +1,7 @@
 import type { PropType } from 'vue'
 import type { SideProp } from '@/ts'
 
-import { defineComponent, onMounted, onUnmounted } from 'vue'
+import { defineComponent } from 'vue'
 import { useSingleTooltip } from './useSingleTooltip'
 
 export interface TooltipProps {

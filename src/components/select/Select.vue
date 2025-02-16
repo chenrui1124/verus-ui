@@ -3,7 +3,7 @@ import type { DirectionProp } from '@/ts'
 
 import { useId } from 'vue'
 import { Icon } from '@/basic'
-import { useUi } from '@/utils'
+import { ui } from '@/utils'
 
 export interface SelectProps<M extends boolean> {
   modelValue?: M extends true ? string[] : string
@@ -41,9 +41,8 @@ const modelValue = defineModel<SelectProps<M>['modelValue']>()
       :class="[
         direction === 'row' && 'flex-1',
         'group/select box-border flex h-12 cursor-pointer items-center justify-center gap-3 rounded-v3 border border-otl/70 px-4.5 text-on-sur transition duration-300 select-none has-checked:border-transparent has-checked:bg-pri-ctr has-checked:text-pri has-[[type=radio]:checked]:pointer-events-none',
-        useUi('ring_when_has_focus_visible'),
-        // TODO
-        'has-disabled:'
+        ui('outline_has_focus_visible'),
+        'has-disabled:cursor-not-allowed has-disabled:text-dis has-[:checked:disabled]:bg-dis/30 has-[:not(:checked):disabled]:border-dis'
       ]"
     >
       <Icon v-if="icon" :icon class="-ml-1 size-5" />
@@ -54,7 +53,7 @@ const modelValue = defineModel<SelectProps<M>['modelValue']>()
         :value
         :disabled
         v-model="modelValue"
-        class="m-0 -mr-1 box-border size-4 appearance-none rounded-full border border-otl transition-all duration-500 ease-braking outline-none group-active/select:scale-75 checked:border-4 checked:border-pri"
+        class="m-0 -mr-1 box-border size-4 appearance-none rounded-full border border-otl transition-all duration-500 ease-braking outline-none group-active/select:scale-75 checked:border-4 checked:border-pri disabled:border-dis"
       />
     </label>
   </div>

@@ -1,6 +1,6 @@
 <script lang="ts">
 import { Icon } from '@/basic'
-import { useUi } from '@/utils'
+import { ui } from '@/utils'
 
 export interface AccordionProps {
   danger?: boolean
@@ -21,7 +21,7 @@ defineProps<AccordionProps>()
     <label
       :class="[
         'peer box-content flex h-12 cursor-pointer items-center gap-3 rounded-[inherit] px-6 text-pri transition-all duration-300 select-none hover:bg-pri/10 has-checked:py-1',
-        useUi('ring_when_has_focus_visible')
+        ui('outline_has_focus_visible')
       ]"
     >
       <Icon v-if="icon" :icon class="-ml-0.5 size-5" />
