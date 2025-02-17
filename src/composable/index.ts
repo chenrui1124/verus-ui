@@ -1,4 +1,5 @@
 export { useBackdrop } from './useBackdrop'
 export { useListener } from './useListener'
 export { useRender } from './useRender'
+export { useResize } from './useResize'
 export { useSwitch } from './useSwitch'
