@@ -12,15 +12,16 @@ export const useListener = (() => {
 
   const fxMapAdd = (evt: string, cb: Function) => {
     if (!AVAIL_EVT.includes(evt as AvailableEvents)) return
+
     const ae = evt as AvailableEvents
     if (!fxMap.has(ae)) {
-      fxMap.set(ae, {
-        cbs: new Set(),
-        readyState: false,
-        abortController: new AbortController()
-      })
+      const abortController = new AbortController()
+      abortController.signal.addEventListener('abort', () => fxMap.delete(ae), { once: true })
+      fxMap.set(ae, { cbs: new Set(), readyState: false, abortController })
     }
-    if (!fxMap.get(ae)!.cbs.has(cb)) fxMap.get(ae)!.cbs.add(cb)
+    if (!fxMap.get(ae)!.cbs.has(cb)) {
+      fxMap.get(ae)!.cbs.add(cb)
+    }
     if (!fxMap.get(ae)!.readyState) {
       document.body.addEventListener(ae, evt => fxMap.get(ae)!.cbs.forEach(cb => cb(evt)), {
         signal: fxMap.get(ae)!.abortController.signal
@@ -31,12 +32,12 @@ export const useListener = (() => {
 
   const fxMapDel = (evt: string, cb: Function) => {
     if (!AVAIL_EVT.includes(evt as AvailableEvents)) return
+
     const ae = evt as AvailableEvents
     if (!fxMap.has(ae)) return
     fxMap.get(ae)?.cbs.delete(cb)
     if (fxMap.get(ae)?.readyState && fxMap.get(ae)?.cbs.size === 0) {
       fxMap.get(ae)!.abortController.abort()
-      fxMap.delete(ae)
     }
   }
 
