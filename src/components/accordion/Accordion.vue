@@ -5,6 +5,7 @@ import { ui } from '@/utils'
 export interface AccordionProps {
   danger?: boolean
   icon?: string
+  open?: boolean
   title?: string
 }
 </script>
@@ -20,7 +21,7 @@ defineProps<AccordionProps>()
   >
     <label
       :class="[
-        'peer box-content flex h-12 cursor-pointer items-center gap-3 rounded-[inherit] px-6 text-pri transition-all duration-300 select-none hover:bg-pri/10 has-checked:py-1',
+        'peer box-content flex h-12 cursor-pointer items-center gap-3 rounded-[inherit] px-6 text-pri transition-[color,padding,background-color] duration-300 select-none hover:bg-pri/10 has-checked:py-1',
         ui('outline_has_focus_visible')
       ]"
     >
@@ -28,11 +29,12 @@ defineProps<AccordionProps>()
       <span class="mb-px flex-1 text-base">{{ title }}</span>
       <input
         type="checkbox"
+        :checked="!!open"
         class="m-0 -mr-0.5 i-[fluent--chevron-right-24-regular] size-5 appearance-none text-inherit transition duration-500 ease-braking checked:rotate-90"
       />
     </label>
     <div
-      class="overflow-y-hidden px-6 py-0 text-sm/7 text-on-pri-var transition-all duration-500 ease-braking peer-has-checked:pt-3 peer-has-checked:pb-6"
+      class="overflow-y-hidden px-6 py-0 text-sm/loose tracking-wide text-on-pri-var transition-all duration-500 ease-braking peer-has-checked:pt-3 peer-has-checked:pb-6"
     >
       <slot></slot>
     </div>

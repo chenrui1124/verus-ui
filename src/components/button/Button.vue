@@ -45,11 +45,11 @@ function onClick(evt: MouseEvent) {
 <template>
   <button
     @click="onClick"
-    :disabled
     :data-status="danger ? 'error' : void 0"
+    :disabled
     :class="
       cn(
-        'group/button relative box-border h-9 cursor-pointer items-center justify-center gap-2 border border-solid transition duration-300 select-none disabled:cursor-not-allowed',
+        'relative box-border h-9 cursor-pointer items-center justify-center gap-2 border border-solid transition duration-300 select-none disabled:cursor-not-allowed',
         '*:transition *:duration-300',
         block ? 'flex' : 'inline-flex',
         rounded ? 'rounded-full px-5' : 'rounded-v2 px-4',
@@ -61,13 +61,13 @@ function onClick(evt: MouseEvent) {
         }[variant],
         !loading &&
           {
-            solid: 'enabled:hover:brightness-125 enabled:focus:brightness-75',
-            tonal: 'enabled:hover:brightness-105 enabled:focus:brightness-95',
-            outlined: 'enabled:hover:bg-pri/10 enabled:focus:border-pri enabled:focus:bg-pri/20',
-            clean: 'enabled:hover:bg-pri/10 enabled:focus:bg-pri/20'
+            solid: 'enabled:hover:brightness-110 enabled:focus:brightness-90',
+            tonal: 'enabled:hover:brightness-105 enabled:focus:brightness-90',
+            outlined: 'enabled:hover:bg-pri/10 enabled:focus:border-pri enabled:focus:bg-pri/15',
+            clean: 'enabled:hover:bg-pri/10 enabled:focus:bg-pri/15'
           }[variant],
         {
-          'cursor-wait': loading,
+          'cursor-wait *:not-last:opacity-0': loading,
           'disabled:border-dis': variant === 'outlined',
           'disabled:bg-dis/30': ['solid', 'tonal'].includes(variant)
         },
@@ -79,8 +79,7 @@ function onClick(evt: MouseEvent) {
     <Icon v-if="icon" :icon class="-ml-1 size-5" />
     <span
       :class="[
-        'pointer-events-none text-sm tracking-wide',
-        { 'group-enabled/button:opacity-0': loading },
+        'text pointer-events-none text-sm tracking-wide text-nowrap',
         textTransform
           ? {
               uppercase: 'uppercase',

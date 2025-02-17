@@ -35,10 +35,10 @@ function onClick(evt: MouseEvent) {
     :disabled
     :data-status="danger ? 'error' : void 0"
     :class="[
-      'box-border size-9 cursor-pointer rounded-v2 border-none bg-transparent p-2 text-pri transition duration-300 hover:bg-pri/10 hover:brightness-110 focus:bg-pri/20 focus:brightness-110 active:*:first:scale-75',
+      'box-border size-10 cursor-pointer rounded-v2 border-none bg-transparent p-2 text-pri transition duration-300 hover:bg-pri/10 hover:brightness-110 focus:bg-pri/20 focus:brightness-110 active:*:first:scale-75',
       ui('outline_focus_visible')
     ]"
   >
-    <Icon v-if="icon" :icon class="size-5 transition duration-300 ease-in-out" />
+    <Icon v-if="icon" :icon class="size-6 transition duration-300 ease-in-out" />
   </button>
 </template>
