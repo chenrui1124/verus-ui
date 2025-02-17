@@ -6,21 +6,18 @@ export interface HorizontalScrollingProps {
   /**
    * @default 'auto'
    */
-  width?: string
+  height?: string
   /**
    * @default 'auto'
    */
-  height?: string
+  width?: string
 }
 </script>
 
 <script lang="ts" setup>
 const { width = 'auto', height = 'auto' } = defineProps<HorizontalScrollingProps>()
 
-const size = reactive({
-  height: '',
-  width: ''
-})
+const size = reactive({ height: '', width: '' })
 
 function onResize(entry: ResizeObserverEntry) {
   const rect = entry.contentRect
@@ -32,10 +29,7 @@ function onResize(entry: ResizeObserverEntry) {
 <template>
   <div v-resize-observer="onResize" :style="{ width, height }" class="box-border overflow-hidden">
     <div
-      :style="{
-        ...size,
-        transform: `translateY(${size.width}) rotate(-90deg)`
-      }"
+      :style="{ ...size, transform: `translateY(${size.width}) rotate(-90deg)` }"
       class="relative origin-top-left overflow-y-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:w-0"
     >
       <div
