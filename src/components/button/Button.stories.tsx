@@ -15,14 +15,13 @@ const meta: Meta<typeof VButton> = {
     text: { control: 'text' },
     block: { control: 'boolean' },
     danger: { control: 'boolean' },
-    fontWeight: { control: 'inline-radio', options: fontWeightOptions() },
+    fontWeight: { control: 'select', options: fontWeightOptions() },
     rounded: { control: 'boolean' },
-    textTransform: { control: 'inline-radio', options: textTransformOptions() },
-    variant: { control: 'inline-radio', options: variantOptions() }
+    textTransform: { control: 'select', options: textTransformOptions() },
+    variant: { control: 'select', options: variantOptions() }
   },
   args: {
-    text: 'New app',
-    variant: 'tonal',
+    text: '新应用',
     onClick: fn()
   },
   parameters: {
@@ -43,8 +42,12 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
+const icon = 'i-[fluent--apps-add-in-20-regular]'
+
 export const Default: Story = {}
 
-export const WithIcon: Story = { args: { icon: 'i-[fluent--apps-add-in-20-regular]' } }
+export const Latin: Story = { args: { text: 'New App', icon } }
 
-export const WithAppendIcon: Story = { args: { appendIcon: 'i-[fluent--apps-add-in-20-regular]' } }
+export const WithIcon: Story = { args: { icon } }
+
+export const WithAppendIcon: Story = { args: { appendIcon: icon } }

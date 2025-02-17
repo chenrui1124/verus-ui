@@ -17,17 +17,10 @@ const meta: Meta<typeof VSelectWithoutMultiple> = {
   argTypes: {
     modelValue: { control: false },
     disabled: { control: 'boolean' },
-    direction: { control: 'inline-radio', options: directionOptions() },
-    items: { control: false },
+    direction: { control: 'select', options: directionOptions() },
+    items: { control: 'object' },
     multiple: { control: 'boolean' },
     name: { control: 'text' }
-  },
-  args: {
-    items: [
-      { text: '视窗', value: 'windows' },
-      { text: '安卓', value: 'android' },
-      { text: '苹果', value: 'ios' }
-    ]
   },
   render(args) {
     return () => <VSelect {...args} />
@@ -40,14 +33,24 @@ type StoryWithoutMultiple = StoryObj<typeof meta>
 
 type StoryWithMultiple = StoryObj<Meta<typeof VSelectWithMultiple>>
 
-const items = [
-  { text: 'Windows Phone', icon: 'i-[lineicons--windows]', value: 'windows' },
-  { text: 'Android', icon: 'i-[lineicons--android]', value: 'android' },
-  { text: 'iOS', icon: 'i-[lineicons--apple-brand]', value: 'ios' }
+const mock = [
+  { zh: '视窗', en: 'Windows Phone', icon: 'i-[lineicons--windows]', value: 'windows' },
+  { zh: '安卓', en: 'Android', icon: 'i-[lineicons--android]', value: 'android' },
+  { zh: '苹果', en: 'iOS', icon: 'i-[lineicons--apple-brand]', value: 'ios' }
 ]
 
-export const Default: StoryWithoutMultiple = {}
+export const Default: StoryWithoutMultiple = {
+  args: { items: mock.map(({ zh, value }) => ({ text: zh, value })) }
+}
 
-export const WithIcon: StoryWithoutMultiple = { args: { items } }
+export const Latin: StoryWithoutMultiple = {
+  args: { items: mock.map(({ en, value, icon }) => ({ text: en, value, icon })) }
+}
 
-export const WithMultiple: StoryWithMultiple = { args: { items, modelValue: [], multiple: true } }
+export const WithMultiple: StoryWithMultiple = {
+  args: {
+    items: mock.map(({ zh, value, icon }) => ({ text: zh, value, icon })),
+    modelValue: [],
+    multiple: true
+  }
+}
