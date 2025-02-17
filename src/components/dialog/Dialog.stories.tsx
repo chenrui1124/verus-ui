@@ -7,21 +7,27 @@ import { VDialog } from '.'
 const meta: Meta<typeof VDialog> = {
   title: 'Components/Dialog',
   component: VDialog,
-  argTypes: {},
+  argTypes: {
+    danger: { control: 'boolean' },
+    width: { control: 'text' }
+  },
   args: {},
   render(args) {
-    const slots: DialogSlots = {
-      trigger: ({ open }) => <VButton onClick={open}>Open</VButton>,
-      default: ({ close }) => (
-        <div>
-          <h1 class='m-0'>Lorem.</h1>
-          <p>Lorem ipsum dolor sit.</p>
-          <VButton onClick={close}>Close</VButton>
-        </div>
-      )
-    }
-
-    return () => <VDialog {...args} v-slots={slots} />
+    return () => (
+      <VDialog
+        {...args}
+        v-slots={
+          {
+            trigger: ({ open }) => (
+              <VButton onClick={open} variant='solid'>
+                打开对话框
+              </VButton>
+            ),
+            default: () => <div class='h-60 w-full border border-dashed border-on-pri-var'></div>
+          } satisfies DialogSlots
+        }
+      />
+    )
   }
 }
 
