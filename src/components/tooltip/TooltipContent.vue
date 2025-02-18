@@ -9,7 +9,7 @@ const { side = 'top' } = defineProps<Pick<TooltipProps, 'side'> & { state?: bool
     <div
       v-if="state"
       :class="[
-        'pointer-events-none fixed z-40 box-border h-8 rounded-v2 bg-on-sur px-3 text-center text-sm/8 text-nowrap text-sur drop-shadow-md transition duration-300 ease-braking',
+        'pointer-events-none fixed z-40 box-border h-8 rounded-v2 bg-on-sur px-3 text-center text-sm/8 text-nowrap text-sur drop-shadow-md transition duration-300 ease-braking **:box-border',
         {
           top: '-mt-2 origin-bottom -translate-x-1/2 -translate-y-full',
           right: 'ml-2 origin-left -translate-y-1/2',

@@ -62,13 +62,13 @@ function setValue(value: string) {
     @keydown.down="onArrowDown"
     @click.self="off"
     popover="manual"
-    class="inset-0 m-0 box-border size-full border-none bg-transparent p-0 transition duration-300"
+    class="inset-0 m-0 box-border size-full border-none bg-transparent p-0 transition duration-300 **:box-border"
   >
     <div
       ref="popoverContent"
       :style="contentStyle"
       tabindex="-1"
-      class="absolute box-border flex max-h-[50%dvh] flex-col flex-nowrap gap-1 overflow-x-hidden overflow-y-auto rounded-v2 border border-otl-var bg-sur p-2 text-on-sur drop-shadow-sm transition duration-300 ease-braking"
+      class="absolute flex max-h-[50%dvh] flex-col flex-nowrap gap-1 overflow-x-hidden overflow-y-auto rounded-v2 border border-otl-var bg-sur p-2 text-on-sur drop-shadow-sm transition duration-300 ease-braking"
     >
       <div
         v-for="({ text, value }, index) of items"

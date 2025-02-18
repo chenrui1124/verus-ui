@@ -24,7 +24,7 @@ const onEnter = (el: Element) => void (el as HTMLDialogElement).showModal()
 
 const onAfterLeave = (el: Element) => void (el as HTMLDialogElement).close()
 
-useBackdrop({ state })
+useBackdrop({ state, className: 'bg-on-sur/30' })
 </script>
 
 <template>
@@ -51,11 +51,11 @@ useBackdrop({ state })
           max-height: calc(100vh - 10vmin);
           max-height: calc(100dvh - 10vmin);
         "
-        class="fixed inset-0 z-40 m-auto box-border grid grid-cols-1 rounded-v4 border-none bg-pri-ctr p-3 transition-all duration-500 ease-braking outline-none backdrop:hidden"
+        class="fixed inset-0 z-40 m-auto box-border grid grid-cols-1 rounded-v4 border-none bg-pri-ctr p-3 transition-all duration-500 ease-braking outline-none **:box-border backdrop:hidden"
       >
         <div
           style="max-height: calc(100dvh - 3rem - 10vmin)"
-          class="box-border rounded-[inherit] p-3 transition-all duration-300 has-data-dialog-content:flex"
+          class="rounded-[inherit] p-3 transition-all duration-300 has-data-dialog-content:flex"
         >
           <slot :="{ close: off }"></slot>
         </div>
