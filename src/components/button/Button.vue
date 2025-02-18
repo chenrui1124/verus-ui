@@ -49,7 +49,7 @@ function onClick(evt: MouseEvent) {
     :disabled
     :class="
       cn(
-        'relative box-border h-9 cursor-pointer items-center justify-center gap-2 border border-solid transition duration-300 select-none disabled:cursor-not-allowed',
+        'relative box-border h-9 cursor-pointer items-center justify-center gap-2 border border-solid transition duration-300 select-none **:box-border disabled:cursor-not-allowed',
         '*:transition *:duration-300',
         block ? 'flex' : 'inline-flex',
         rounded ? 'rounded-full px-5' : 'rounded-v2 px-4',

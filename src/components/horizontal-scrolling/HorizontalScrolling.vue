@@ -27,7 +27,11 @@ function onResize(entry: ResizeObserverEntry) {
 </script>
 
 <template>
-  <div v-resize-observer="onResize" :style="{ width, height }" class="box-border overflow-hidden">
+  <div
+    v-resize-observer="onResize"
+    :style="{ width, height }"
+    class="box-border overflow-hidden **:box-border"
+  >
     <div
       :style="{ ...size, transform: `translateY(${size.width}) rotate(-90deg)` }"
       class="relative origin-top-left overflow-y-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:w-0"
