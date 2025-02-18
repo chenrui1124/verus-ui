@@ -4,7 +4,7 @@ import type { DropdownSelectProps } from './DropdownSelect.vue'
 import { useTemplateRef } from 'vue'
 import { useListener } from '@/composable'
 import { vAutofocus } from '@/directives'
-import { ui } from '@/utils'
+import { cn, ui } from '@/utils'
 
 export type PopoverContentStyle = {
   top?: string
@@ -78,13 +78,15 @@ function setValue(value: string) {
         @click="setValue(value)"
         @keydown.enter.self="setValue(value)"
         @keydown.up.down.prevent="null"
-        :class="[
-          ui('outline_focus_visible'),
-          'flex cursor-pointer items-center rounded-v1 px-1 pr-5 text-sm/9 transition duration-300 select-none focus:z-10',
-          modelValue === value
-            ? 'bg-pri-ctr text-pri before:pointer-events-none before:mr-3 before:ml-1 before:h-5 before:w-1 before:rounded-full before:bg-pri before:transition-colors before:duration-300'
-            : 'pl-6 hover:bg-on-sur/5'
-        ]"
+        :class="
+          cn(
+            ui('outline_focus_visible'),
+            'flex cursor-pointer items-center rounded-v1 px-1 pr-5 text-sm/9 transition duration-300 select-none focus:z-10',
+            modelValue === value
+              ? 'bg-pri-ctr text-pri before:pointer-events-none before:mr-3 before:ml-1 before:h-5 before:w-1 before:rounded-full before:bg-pri before:transition-colors before:duration-300'
+              : 'pl-6 hover:bg-on-sur/5'
+          )
+        "
       >
         <span class="overflow-hidden text-nowrap text-ellipsis">
           {{ text }}

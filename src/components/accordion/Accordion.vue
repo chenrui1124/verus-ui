@@ -1,6 +1,6 @@
 <script lang="ts">
 import { Icon } from '@/basic'
-import { ui } from '@/utils'
+import { cn, ui } from '@/utils'
 
 export interface AccordionProps {
   danger?: boolean
@@ -20,10 +20,12 @@ defineProps<AccordionProps>()
     class="box-border grid grid-cols-1 grid-rows-[min-content_0fr] rounded-v3 bg-pri-ctr transition-all duration-500 ease-braking has-checked:grid-rows-[min-content_1fr]"
   >
     <label
-      :class="[
-        'peer box-content flex h-12 cursor-pointer items-center gap-3 rounded-[inherit] px-6 text-pri transition-[color,padding,background-color] duration-300 select-none hover:bg-pri/10 has-checked:py-1',
-        ui('outline_has_focus_visible')
-      ]"
+      :class="
+        cn(
+          'peer box-content flex h-12 cursor-pointer items-center gap-3 rounded-[inherit] px-6 text-pri transition-[color,padding,background-color] duration-300 select-none hover:bg-pri/10 has-checked:py-1',
+          ui('outline_has_focus_visible')
+        )
+      "
     >
       <Icon v-if="icon" :icon class="-ml-0.5 size-5" />
       <span class="mb-px flex-1 text-base">{{ title }}</span>
