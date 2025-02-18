@@ -8,7 +8,8 @@ const meta: Meta<typeof VIconButton> = {
   argTypes: {
     icon: { control: false },
     danger: { control: 'boolean' },
-    disabled: { control: 'boolean' }
+    disabled: { control: 'boolean' },
+    rounded: { control: 'boolean' }
   },
   args: {
     icon: 'i-[fluent--apps-add-in-20-regular]'
