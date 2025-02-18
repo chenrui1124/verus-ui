@@ -1,5 +1,5 @@
 <script lang="ts">
-import { ui } from '@/utils'
+import { cn, ui } from '@/utils'
 
 export interface DialogLayoutProps {
   title?: string
@@ -15,6 +15,8 @@ export interface DialogLayoutSlots {
 
 <script lang="ts" setup>
 defineProps<DialogLayoutProps>()
+
+defineSlots<DialogLayoutSlots>()
 </script>
 
 <template>
@@ -25,16 +27,15 @@ defineProps<DialogLayoutProps>()
     </div>
     <div
       data-dialog-content
-      :class="[
-        'overflow-auto text-sm/loose tracking-wide text-on-sur',
-        ui('outline_focus_visible')
-      ]"
+      :class="
+        cn('overflow-auto text-sm/loose tracking-wide text-on-sur', ui('outline_focus_visible'))
+      "
     >
       <slot></slot>
     </div>
     <div
       v-if="$slots.actions"
-      :class="['flex gap-[inherit]', reverseActions ? 'flex-row-reverse' : 'justify-end']"
+      :class="cn('flex gap-[inherit]', reverseActions ? 'flex-row-reverse' : 'justify-end')"
     >
       <slot name="actions"></slot>
     </div>
