@@ -19,7 +19,7 @@ const modelValue = defineModel<SwitchProps['modelValue']>()
     :data-status="danger ? 'error' : void 0"
     :class="
       cn(
-        'group/switch relative box-border inline-block h-7 w-12 cursor-pointer rounded-full bg-sur transition duration-300',
+        'group/switch relative box-border inline-block h-7 w-12 cursor-pointer rounded-full bg-sur transition duration-300 **:box-border',
         'before:border before:border-solid before:border-otl before:bg-otl/20 before:transition before:duration-300 has-checked:before:border-transparent has-checked:before:bg-pri',
         'has-disabled:cursor-not-allowed has-disabled:opacity-30 has-disabled:before:border-dis has-disabled:before:bg-dis',
         '*:top-1/2 *:left-3.5 has-checked:*:translate-x-5',

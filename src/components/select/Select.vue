@@ -33,14 +33,17 @@ const modelValue = defineModel<SelectProps<M>['modelValue']>()
 <template>
   <div
     v-if="items"
-    :class="['box-border flex gap-2 text-sm', { row: 'flex-row', column: 'flex-col' }[direction]]"
+    :class="[
+      'box-border flex gap-2 text-sm **:box-border',
+      { row: 'flex-row', column: 'flex-col' }[direction]
+    ]"
   >
     <label
       v-for="{ icon, text, value } of items"
       :key="value"
       :class="[
         direction === 'row' && 'flex-1',
-        'group/select box-border flex h-12 cursor-pointer items-center justify-center gap-3 rounded-v3 border border-otl/70 px-4.5 text-on-sur transition duration-300 select-none has-checked:border-transparent has-checked:bg-pri-ctr has-checked:text-pri has-[[type=radio]:checked]:pointer-events-none',
+        'group/select flex h-12 cursor-pointer items-center justify-center gap-3 rounded-v3 border border-otl/70 px-4.5 text-on-sur transition duration-300 select-none has-checked:border-transparent has-checked:bg-pri-ctr has-checked:text-pri has-[[type=radio]:checked]:pointer-events-none',
         ui('outline_has_focus_visible'),
         'has-disabled:cursor-not-allowed has-disabled:text-dis has-[:checked:disabled]:bg-dis/30 has-[:not(:checked):disabled]:border-dis'
       ]"
@@ -53,7 +56,7 @@ const modelValue = defineModel<SelectProps<M>['modelValue']>()
         :value
         :disabled
         v-model="modelValue"
-        class="m-0 -mr-1 box-border size-4 appearance-none rounded-full border border-otl transition-all duration-500 ease-braking outline-none group-active/select:scale-75 checked:border-4 checked:border-pri disabled:border-dis"
+        class="m-0 -mr-1 size-4 appearance-none rounded-full border border-otl transition-all duration-500 ease-braking outline-none group-active/select:scale-75 checked:border-4 checked:border-pri disabled:border-dis"
       />
     </label>
   </div>

@@ -78,7 +78,7 @@ function isInViewport(el: HTMLElement, isIntersecting: boolean) {
     :class="[
       ui('outline_focus_visible', 'cover_by_before'),
       block ? 'flex' : 'inline-flex',
-      'relative h-9 cursor-pointer items-center justify-center gap-2.5 rounded-v2 border-none bg-transparent px-4 text-sm text-on-sur transition duration-300 before:border before:border-solid before:border-otl before:transition before:duration-300 enabled:hover:before:bg-pri/10 disabled:cursor-not-allowed disabled:text-dis disabled:before:border-dis',
+      'relative box-border h-9 cursor-pointer items-center justify-center gap-2.5 rounded-v2 border-none bg-transparent px-4 text-sm text-on-sur transition duration-300 **:box-border before:border before:border-solid before:border-otl before:transition before:duration-300 enabled:hover:before:bg-pri/10 disabled:cursor-not-allowed disabled:text-dis disabled:before:border-dis',
       state && 'text-pri before:border-pri before:bg-pri/10'
     ]"
   >

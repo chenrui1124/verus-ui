@@ -36,7 +36,7 @@ function onClick(evt: MouseEvent) {
     :disabled
     :data-status="danger ? 'error' : void 0"
     :class="[
-      'box-border size-12 cursor-pointer border-none bg-transparent p-2.5 text-pri transition duration-300 hover:bg-pri/10 hover:brightness-110 focus:bg-pri/20 focus:brightness-110 active:*:first:scale-75',
+      'box-border size-12 cursor-pointer border-none bg-transparent p-2.5 text-pri transition duration-300 **:box-border hover:bg-pri/10 hover:brightness-110 focus:bg-pri/20 focus:brightness-110 active:*:first:scale-75',
       ui('outline_focus_visible'),
       rounded ? 'rounded-full' : 'rounded-v2'
     ]"

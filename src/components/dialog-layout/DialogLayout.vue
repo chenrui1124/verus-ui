@@ -18,7 +18,7 @@ defineProps<DialogLayoutProps>()
 </script>
 
 <template>
-  <div class="box-border flex h-full flex-col gap-4">
+  <div class="box-border flex h-full flex-col gap-4 **:box-border">
     <div v-if="title || subtitle" class="flex flex-col gap-[inherit]">
       <div v-if="title" class="-mt-0.5 text-xl/relaxed text-pri">{{ title }}</div>
       <div v-if="subtitle" class="text-sm text-otl">{{ subtitle }}</div>
