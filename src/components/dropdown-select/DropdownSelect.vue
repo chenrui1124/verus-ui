@@ -5,7 +5,7 @@ import { computed, reactive, useTemplateRef } from 'vue'
 import { Icon } from '@/basic'
 import { useResize, useSwitch } from '@/composable'
 import { vInViewport } from '@/directives'
-import { disableScroll, ui } from '@/utils'
+import { cn, disableScroll, ui } from '@/utils'
 import DropdownSelectOptions from './DropdownSelectOptions.vue'
 
 export interface DropdownSelectProps {
@@ -71,25 +71,27 @@ function isInViewport(el: HTMLElement, isIntersecting: boolean) {
 <template>
   <button
     ref="trigger"
+    :disabled
     @click="toggle"
     v-in-viewport="isInViewport"
-    :disabled
     :style="{ width }"
-    :class="[
-      ui('outline_focus_visible', 'cover_by_before'),
-      block ? 'flex' : 'inline-flex',
-      'relative box-border h-9 cursor-pointer items-center justify-center gap-2.5 rounded-v2 border-none bg-transparent px-4 text-sm text-on-sur transition duration-300 **:box-border before:border before:border-solid before:border-otl before:transition before:duration-300 enabled:hover:before:bg-pri/10 disabled:cursor-not-allowed disabled:text-dis disabled:before:border-dis',
-      state && 'text-pri before:border-pri before:bg-pri/10'
-    ]"
+    :class="
+      cn(
+        ui('outline_focus_visible', 'cover_by_before'),
+        block ? 'flex' : 'inline-flex',
+        'relative box-border h-9 cursor-pointer items-center justify-center gap-2.5 rounded-v2 border-none bg-transparent px-4 text-sm text-on-sur transition duration-300 **:box-border before:border before:border-solid before:border-otl before:transition before:duration-300 enabled:hover:before:bg-pri/10 disabled:cursor-not-allowed disabled:text-dis disabled:before:border-dis',
+        state && 'text-pri before:border-pri before:bg-pri/10'
+      )
+    "
   >
     <span
-      :class="['mb-px flex-1 text-left', !disabled && modelText ? 'text-on-sur' : 'text-otl/70']"
+      :class="cn('mb-px flex-1 text-left', disabled || (modelText ? 'text-on-sur' : 'text-otl/70'))"
     >
       {{ modelText ?? placeholder }}
     </span>
     <Icon
       icon="i-[fluent--chevron-right-24-regular]"
-      :class="['-mr-1 transition duration-300', state && 'rotate-90 text-pri']"
+      :class="cn('-mr-1 transition duration-300', state && 'rotate-90 text-pri')"
     />
   </button>
 

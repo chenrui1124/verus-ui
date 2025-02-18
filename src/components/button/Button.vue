@@ -44,12 +44,12 @@ function onClick(evt: MouseEvent) {
 
 <template>
   <button
-    @click="onClick"
     :data-status="danger ? 'error' : void 0"
     :disabled
+    @click="onClick"
     :class="
       cn(
-        'relative box-border h-9 cursor-pointer items-center justify-center gap-2 border border-solid transition duration-300 select-none **:box-border disabled:cursor-not-allowed',
+        'relative box-border h-9 cursor-pointer items-center justify-center gap-2 border border-solid transition duration-300 select-none **:box-border',
         '*:transition *:duration-300',
         block ? 'flex' : 'inline-flex',
         rounded ? 'rounded-full px-5' : 'rounded-v2 px-4',
@@ -59,40 +59,41 @@ function onClick(evt: MouseEvent) {
           outlined: 'border-otl bg-transparent text-pri',
           clean: 'border-transparent bg-transparent text-pri'
         }[variant],
-        !loading &&
+        loading ||
           {
             solid: 'enabled:hover:brightness-110 enabled:focus:brightness-90',
             tonal: 'enabled:hover:brightness-105 enabled:focus:brightness-90',
             outlined: 'enabled:hover:bg-pri/10 enabled:focus:border-pri enabled:focus:bg-pri/15',
             clean: 'enabled:hover:bg-pri/10 enabled:focus:bg-pri/15'
           }[variant],
+        'disabled:cursor-not-allowed disabled:text-dis',
         {
           'cursor-wait *:not-last:opacity-0': loading,
           'disabled:border-dis': variant === 'outlined',
           'disabled:bg-dis/30': ['solid', 'tonal'].includes(variant)
         },
-        'disabled:text-dis',
         ui('outline_focus_visible')
       )
     "
   >
     <Icon v-if="icon" :icon class="-ml-1 size-5" />
     <span
-      :class="[
-        'text pointer-events-none text-sm tracking-wide text-nowrap',
-        textTransform
-          ? {
+      :class="
+        cn(
+          'pointer-events-none text-sm tracking-wide text-nowrap',
+          textTransform &&
+            {
               uppercase: 'uppercase',
               lowercase: 'lowercase',
               capitalize: 'capitalize'
-            }[textTransform]
-          : void 0,
-        {
-          normal: 'font-normal',
-          semibold: 'font-semibold',
-          bold: 'font-bold'
-        }[fontWeight]
-      ]"
+            }[textTransform],
+          {
+            normal: 'font-normal',
+            semibold: 'font-semibold',
+            bold: 'font-bold'
+          }[fontWeight]
+        )
+      "
     >
       <slot>{{ text }}</slot>
     </span>
@@ -100,7 +101,7 @@ function onClick(evt: MouseEvent) {
     <Transition enter-from-class="opacity-0" leave-to-class="opacity-0">
       <Icon
         v-if="!disabled && loading"
-        :icon="typeof loading === 'string' ? loading : 'i-[svg-spinners--3-dots-fade]'"
+        :icon="typeof loading === 'string' && loading ? loading : 'i-[svg-spinners--3-dots-fade]'"
         class="absolute inset-0 m-auto size-6 rounded-[inherit]"
       />
     </Transition>

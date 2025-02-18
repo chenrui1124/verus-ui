@@ -17,7 +17,7 @@ export interface HorizontalScrollingProps {
 <script lang="ts" setup>
 const { width = 'auto', height = 'auto' } = defineProps<HorizontalScrollingProps>()
 
-const size = reactive({ height: '', width: '' })
+const size = reactive<Partial<Record<'height' | 'width', string>>>({})
 
 function onResize(entry: ResizeObserverEntry) {
   const rect = entry.contentRect
