@@ -84,9 +84,7 @@ function isInViewport(el: HTMLElement, isIntersecting: boolean) {
       )
     "
   >
-    <span
-      :class="cn('mb-px flex-1 text-left', disabled || (modelText ? 'text-on-sur' : 'text-otl/70'))"
-    >
+    <span :class="cn('flex-1 text-left', disabled || (modelText ? 'text-on-sur' : 'text-otl/70'))">
       {{ modelText ?? placeholder }}
     </span>
     <Icon
