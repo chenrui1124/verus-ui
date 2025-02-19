@@ -30,9 +30,9 @@ const rendedIcon = computed(() => (fallbackIcon ? (state.value ? icon : fallback
     :class="
       cn(
         ui('outline_focus_visible'),
-        'relative box-border h-12 cursor-pointer border-none bg-transparent p-2.5 transition duration-300 **:box-border disabled:cursor-not-allowed disabled:text-dis',
+        'relative box-border h-10 cursor-pointer border-none bg-transparent p-2 transition duration-300 **:box-border disabled:cursor-not-allowed disabled:text-dis',
         rounded ? 'rounded-full' : 'rounded-v2',
-        state ? 'bg-pri/10 text-pri disabled:bg-dis/30' : 'text-on-sur enabled:hover:bg-on-sur/5'
+        state ? 'bg-pri/10 text-pri disabled:bg-dis/30' : 'text-otl enabled:hover:bg-on-sur/5'
       )
     "
   >
@@ -45,7 +45,7 @@ const rendedIcon = computed(() => (fallbackIcon ? (state.value ? icon : fallback
         v-if="rendedIcon"
         :icon="rendedIcon"
         :key="rendedIcon"
-        class="size-7 transition duration-300"
+        class="size-6 transition duration-300"
       />
     </Transition>
   </button>
