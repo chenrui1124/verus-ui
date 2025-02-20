@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import type { DropdownSelectProps } from './DropdownSelect.vue'
 
-import { onBeforeMount, onMounted, onUnmounted, ref } from 'vue'
-import { useListener } from '@/composable'
+import { onMounted, onUnmounted } from 'vue'
+import { useCycler, useListener } from '@/composable'
 import { vAutofocus, vFocus } from '@/directives'
 import { cn, disableScroll, ui } from '@/utils'
 
@@ -21,35 +21,22 @@ const { items, off } = defineProps<{
   off: () => void
 }>()
 
-useListener({ keydown: evt => evt.key === 'Escape' && off() })
-
 const modelValue = defineModel<string | undefined>()
-
-function autofocus(value: string, index: number) {
-  if (!modelValue.value) return index === 0
-  return value === modelValue.value
-}
 
 function setValue(value: string) {
   modelValue.value = value
   off()
 }
 
-const focusIndex = ref()
+useListener({ keydown: evt => evt.key === 'Escape' && off() })
 
-function onArrowUp() {
-  const len = items.length
-  focusIndex.value = (focusIndex.value - 1 + len) % len
-}
-
-function onArrowDown() {
-  focusIndex.value = (focusIndex.value + 1) % items.length
-}
-
-onBeforeMount(() => {
-  const index = items.findIndex(i => modelValue.value === i.value)
-  focusIndex.value = index === -1 ? 0 : index
-})
+const { item, prev, next } = useCycler(
+  items.length,
+  Math.max(
+    0,
+    items.findIndex(i => i.value === modelValue.value)
+  )
+)
 
 onMounted(() => disableScroll(true))
 
@@ -60,8 +47,8 @@ onUnmounted(() => disableScroll(false))
   <div
     popover="manual"
     @click.self="off"
-    @keydown.up="onArrowUp"
-    @keydown.down="onArrowDown"
+    @keydown.up="prev"
+    @keydown.down="next"
     class="inset-0 m-0 box-border size-full border-none bg-transparent p-0 transition duration-300 **:box-border"
   >
     <div
@@ -75,8 +62,8 @@ onUnmounted(() => disableScroll(false))
         <button
           v-for="({ text, value }, index) of items"
           :key="index"
-          v-autofocus="autofocus(value, index)"
-          v-focus="index === focusIndex"
+          v-autofocus="!modelValue ? index === 0 : value === modelValue"
+          v-focus="index === item"
           @click="setValue(value)"
           @keydown.up.down.prevent="null"
           :class="
