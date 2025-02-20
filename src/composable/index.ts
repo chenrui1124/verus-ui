@@ -1,4 +1,5 @@
 export { useBackdrop } from './useBackdrop'
+export { useCycler } from './useCycler'
 export { useListener } from './useListener'
 export { useRender } from './useRender'
 export { useResize } from './useResize'
