@@ -1,11 +1,11 @@
 <script lang="ts">
 import type { PopoverContentStyle } from './DropdownSelectOptions.vue'
 
-import { computed, reactive, useTemplateRef } from 'vue'
+import { computed, reactive, ref, useTemplateRef } from 'vue'
 import { Icon } from '@/basic'
 import { useResize, useSwitch } from '@/composable'
 import { vInViewport } from '@/directives'
-import { cn, disableScroll, ui } from '@/utils'
+import { cn, ui } from '@/utils'
 import DropdownSelectOptions from './DropdownSelectOptions.vue'
 
 export interface DropdownSelectProps {
@@ -19,9 +19,9 @@ export interface DropdownSelectProps {
 </script>
 
 <script lang="ts" setup>
-const { items } = defineProps<Omit<DropdownSelectProps, 'modelValue'>>()
+const { disabled, items } = defineProps<Omit<DropdownSelectProps, 'modelValue'>>()
 
-const { state, off, toggle } = useSwitch({ onSwitch: newState => disableScroll(newState) })
+const { state, off, toggle } = useSwitch()
 
 useResize(off)
 
@@ -32,6 +32,15 @@ const modelText = computed(() => items.find(i => i.value === modelValue.value)?.
 const trigger = useTemplateRef('trigger')
 
 const contentStyle = reactive<PopoverContentStyle>({})
+
+const isSideTop = ref<boolean>()
+
+const computedDisabled = computed({
+  get: () => disabled,
+  set: newValue => {
+    if (newValue) off()
+  }
+})
 
 function onEnter(el: Element) {
   if (!trigger.value) return
@@ -51,10 +60,12 @@ function onEnter(el: Element) {
     contentStyle.top = `${tRect.bottom}px`
     contentStyle.bottom = 'auto'
     contentStyle.transformOrigin = 'top'
+    isSideTop.value = true
   } else {
     contentStyle.top = 'auto'
     contentStyle.bottom = `${tRect.height + toViewBottom}px`
     contentStyle.transformOrigin = 'bottom'
+    isSideTop.value = false
   }
 
   if (el.hasAttribute('popover')) (el as HTMLDivElement).showPopover()
@@ -71,7 +82,7 @@ function isInViewport(el: HTMLElement, isIntersecting: boolean) {
 <template>
   <button
     ref="trigger"
-    :disabled
+    :disabled="computedDisabled"
     @click="toggle"
     v-in-viewport="isInViewport"
     :style="{ width }"
@@ -89,7 +100,13 @@ function isInViewport(el: HTMLElement, isIntersecting: boolean) {
     </span>
     <Icon
       icon="i-[fluent--chevron-right-24-regular]"
-      :class="cn('-mr-1 transition duration-300', state && 'rotate-90 text-pri')"
+      :class="
+        cn(
+          '-mr-1 text-otl transition duration-300',
+          modelText && 'text-on-sur',
+          state && [isSideTop ? 'rotate-90' : '-rotate-90', 'text-pri']
+        )
+      "
     />
   </button>
 

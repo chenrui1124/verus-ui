@@ -23,13 +23,7 @@ const meta: Meta<typeof VDropdownSelect> = {
     width: '12rem'
   },
   render(args) {
-    return () => (
-      <>
-        <div class='h-dvh'></div>
-        <VDropdownSelect {...args}></VDropdownSelect>
-        <div class='h-dvh'></div>
-      </>
-    )
+    return () => <VDropdownSelect {...args} />
   }
 }
 
@@ -48,5 +42,14 @@ export const MoreItems: Story = {
       }
       return items
     })()
+  },
+  render(args) {
+    return () => (
+      <>
+        <div class='h-dvh'></div>
+        <VDropdownSelect {...args} />
+        <div class='h-dvh'></div>
+      </>
+    )
   }
 }
