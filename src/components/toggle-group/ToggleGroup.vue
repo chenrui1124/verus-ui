@@ -27,6 +27,7 @@ function setValue(value: string) {
     <button
       v-for="{ icon, value } in items"
       :key="value"
+      :tabindex="modelValue === value ? '-1' : void 0"
       @click="setValue(value)"
       :class="
         cn(
@@ -34,7 +35,7 @@ function setValue(value: string) {
           'relative box-border h-10 cursor-pointer border-none bg-transparent p-2 transition duration-300 **:box-border disabled:cursor-not-allowed disabled:text-dis',
           rounded ? 'rounded-full' : 'rounded-v2',
           modelValue === value
-            ? 'bg-pri/10 text-pri disabled:bg-dis/30'
+            ? 'pointer-events-none bg-pri/10 text-pri disabled:bg-dis/30'
             : 'text-otl enabled:hover:bg-on-sur/5'
         )
       "
