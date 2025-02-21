@@ -18,8 +18,8 @@ const meta: Meta<typeof VDialog> = {
         {...args}
         v-slots={
           {
-            trigger: ({ open }) => (
-              <VButton onClick={open} variant='solid'>
+            trigger: ({ show }) => (
+              <VButton onClick={show} variant='solid'>
                 打开对话框
               </VButton>
             ),

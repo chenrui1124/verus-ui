@@ -10,8 +10,8 @@ export interface DialogProps {
 }
 
 export interface DialogSlots {
-  trigger?(props: { open: () => void }): any
-  default?(props: { close: () => void }): any
+  trigger?(props: { show: () => void }): any
+  default?(props: { hide: () => void }): any
 }
 </script>
 
@@ -28,7 +28,7 @@ useBackdrop({ state, className: 'bg-on-sur/30' })
 </script>
 
 <template>
-  <slot name="trigger" :="{ open: on }"></slot>
+  <slot name="trigger" :="{ show: on }"></slot>
 
   <Teleport to="body">
     <Transition
@@ -57,7 +57,7 @@ useBackdrop({ state, className: 'bg-on-sur/30' })
           style="max-height: calc(100dvh - 3rem - 10vmin)"
           class="rounded-[inherit] p-3 transition-all duration-300 has-data-dialog-content:flex"
         >
-          <slot :="{ close: off }"></slot>
+          <slot :="{ hide: off }"></slot>
         </div>
       </dialog>
     </Transition>

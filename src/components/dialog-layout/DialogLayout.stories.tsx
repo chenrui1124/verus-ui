@@ -9,8 +9,8 @@ const rendered = (args: any, paragraph: string) => (
   <VDialog
     v-slots={
       {
-        trigger: ({ open }) => <VButton onClick={open}>Open</VButton>,
-        default: ({ close }) => (
+        trigger: ({ show }) => <VButton onClick={show}>打开</VButton>,
+        default: ({ hide }) => (
           <VDialogLayout
             {...args}
             v-slots={
@@ -18,11 +18,11 @@ const rendered = (args: any, paragraph: string) => (
                 default: () => paragraph,
                 actions: () => (
                   <>
-                    <VButton onClick={close} variant='solid'>
-                      Cancel
+                    <VButton onClick={hide} variant='solid'>
+                      取消
                     </VButton>
-                    <VButton onClick={close} variant='clean'>
-                      Confirm
+                    <VButton onClick={hide} variant='clean'>
+                      确认
                     </VButton>
                   </>
                 )
