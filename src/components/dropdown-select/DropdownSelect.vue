@@ -35,11 +35,9 @@ const contentStyle = reactive<PopoverContentStyle>({})
 
 const isSideTop = ref<boolean>()
 
-const computedDisabled = computed({
-  get: () => disabled,
-  set: newValue => {
-    if (newValue) off()
-  }
+const computedDisabled = computed(() => {
+  if (disabled) off()
+  return disabled
 })
 
 function onEnter(el: Element) {
@@ -47,35 +45,34 @@ function onEnter(el: Element) {
 
   const tRect = trigger.value.getBoundingClientRect()
 
-  const toViewTop = tRect.top
-  const toViewBottom = (window.visualViewport?.height ?? window.innerHeight) - tRect.bottom
+  const heighToTop = tRect.top
+  const heightToBottom = (window.visualViewport?.height ?? window.innerHeight) - tRect.bottom
   const halfViewHeight = (window.visualViewport?.height ?? window.innerHeight) / 2
 
-  const h = [toViewTop, toViewBottom, halfViewHeight].sort((a, b) => a - b)[1]
+  const edgeDistance = 16
+  const mh = [heighToTop, heightToBottom, halfViewHeight].sort((a, b) => a - b)[1] - edgeDistance
 
   contentStyle.left = `${tRect.left}px`
   contentStyle.width = `${tRect.width}px`
+  contentStyle.maxHeight = `${mh}px`
 
-  if (toViewTop < toViewBottom) {
+  if (heighToTop < heightToBottom) {
     contentStyle.top = `${tRect.bottom}px`
     contentStyle.bottom = 'auto'
     contentStyle.transformOrigin = 'top'
     isSideTop.value = true
   } else {
     contentStyle.top = 'auto'
-    contentStyle.bottom = `${tRect.height + toViewBottom}px`
+    contentStyle.bottom = `${tRect.height + heightToBottom}px`
     contentStyle.transformOrigin = 'bottom'
     isSideTop.value = false
   }
 
   if (el.hasAttribute('popover')) (el as HTMLDivElement).showPopover()
-
-  if (el.getBoundingClientRect().height > h) contentStyle.maxHeight = `${h}px`
 }
 
 function isInViewport(el: HTMLElement, isIntersecting: boolean) {
-  if (isIntersecting) el.style.pointerEvents = ''
-  else el.style.pointerEvents = 'none'
+  el.style.pointerEvents = isIntersecting ? '' : 'none'
 }
 </script>
 
@@ -103,7 +100,7 @@ function isInViewport(el: HTMLElement, isIntersecting: boolean) {
       :class="
         cn(
           '-mr-1 text-otl transition duration-300',
-          modelText && 'text-on-sur',
+          disabled ? 'text-dis' : modelText && 'text-on-sur',
           state && [isSideTop ? 'rotate-90' : '-rotate-90', 'text-pri']
         )
       "

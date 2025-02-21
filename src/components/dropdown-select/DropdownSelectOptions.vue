@@ -3,7 +3,7 @@ import type { DropdownSelectProps } from './DropdownSelect.vue'
 
 import { onMounted, onUnmounted } from 'vue'
 import { useCycler, useListener } from '@/composable'
-import { vAutofocus, vFocus } from '@/directives'
+import { vFocus } from '@/directives'
 import { cn, disableScroll, ui } from '@/utils'
 
 export type PopoverContentStyle = {
@@ -22,11 +22,6 @@ const { items, off } = defineProps<{
 }>()
 
 const modelValue = defineModel<string | undefined>()
-
-function setValue(value: string) {
-  modelValue.value = value
-  off()
-}
 
 useListener({ keydown: evt => evt.key === 'Escape' && off() })
 
@@ -52,7 +47,6 @@ onUnmounted(() => disableScroll(false))
     class="inset-0 m-0 box-border size-full border-none bg-transparent p-0 transition duration-300 **:box-border"
   >
     <div
-      tabindex="-1"
       :style="contentStyle"
       class="absolute inline-flex max-h-[50%dvh] flex-col rounded-v2 border border-otl-var bg-sur p-0.5 text-on-sur drop-shadow-sm transition duration-300 ease-braking"
     >
@@ -62,9 +56,8 @@ onUnmounted(() => disableScroll(false))
         <button
           v-for="({ text, value }, index) of items"
           :key="index"
-          v-autofocus="!modelValue ? index === 0 : value === modelValue"
           v-focus="index === item"
-          @click="setValue(value)"
+          @click="((modelValue = value), off())"
           @keydown.up.down.prevent="null"
           :class="
             cn(
