@@ -3,18 +3,21 @@ import { ref } from 'vue'
 import { useSwitch } from '@/composable'
 import PopoverContent from './PopoverContent.vue'
 
-type PopoverPropsLocateMode = 'eventTarget' | 'pointer'
+type PopoverPropsLocateMode = 'target' | 'pointer'
 
 type PopoverSlotsSide = 'top' | 'bottom'
 
-type PopoverSlotsShowParams<T> = T extends 'eventTarget'
+type PopoverSlotsShowParams<T> = T extends 'target'
   ? Event | null
   : T extends 'pointer'
-    ? { x: number; y: number }
+    ? MouseEvent | PointerEvent
     : never
 
 interface PopoverProps<T extends PopoverPropsLocateMode> {
   disabled?: boolean
+  /**
+   * @default 'target'
+   */
   locateMode?: T
 }
 
@@ -29,7 +32,7 @@ interface PopoverSlots<T extends PopoverPropsLocateMode> {
 </script>
 
 <script lang="ts" setup generic="T extends PopoverPropsLocateMode">
-const { disabled, locateMode = 'eventTarget' } = defineProps<PopoverProps<T>>()
+const { disabled, locateMode = 'target' } = defineProps<PopoverProps<T>>()
 
 const { state, on, off: hidePopover } = useSwitch()
 
@@ -39,11 +42,11 @@ const style = ref<
 
 const side = ref<PopoverSlotsSide>()
 
-function showPopover(eventOrCoord: PopoverSlotsShowParams<T>) {
+function showPopover(event: PopoverSlotsShowParams<T>) {
   if (disabled) return
-  if (!eventOrCoord) return
-  if (locateMode === 'eventTarget') {
-    const el = (eventOrCoord as Event).target as HTMLElement
+  if (!event) return
+  if (locateMode === 'target') {
+    const el = (event as Event).target as HTMLElement
     const tRect = el.getBoundingClientRect()
     const vh = window.visualViewport?.height ?? window.innerHeight
     const elToViewTop = tRect.top
@@ -71,11 +74,10 @@ function showPopover(eventOrCoord: PopoverSlotsShowParams<T>) {
     style.value.maxHeight = `${mh}px`
   }
   if (locateMode === 'pointer') {
-    // TODO
-    const coord = eventOrCoord as { x: number; y: number }
+    const evt = event as MouseEvent | PointerEvent
     style.value = {
-      top: `${coord.y}px`,
-      left: `${coord.x}px`,
+      top: `${evt.clientY}px`,
+      left: `${evt.clientX}px`,
       transformOrigin: 'top left'
     }
   }

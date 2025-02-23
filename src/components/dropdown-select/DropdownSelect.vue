@@ -36,7 +36,7 @@ const { item, prev, next } = useCycler(
 </script>
 
 <template>
-  <Popover locate-mode="eventTarget" :disabled>
+  <Popover :disabled>
     <template #trigger="{ state, side, togglePopover }">
       <button
         :disabled
@@ -86,7 +86,7 @@ const { item, prev, next } = useCycler(
           :key="index"
           v-focus="index === item"
           @click="((modelValue = value), hidePopover())"
-          @keydown.up.down="null"
+          @keydown.up.down.prevent="null"
           :class="
             cn(
               ui('outline_focus_visible'),
