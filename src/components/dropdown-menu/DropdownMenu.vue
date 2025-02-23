@@ -3,6 +3,7 @@ import type { ButtonProps } from '@/components'
 
 import { Icon, Popover } from '@/basic'
 import { VButton } from '@/components'
+import { vFocus } from '@/directives'
 import { ui } from '@/utils'
 
 interface DropdownMenuPropsItem {
@@ -26,8 +27,8 @@ const { items, ...buttonProps } = defineProps<DropdownMenuProps>()
     <template #trigger="{ togglePopover }">
       <VButton
         ref="button"
-        @click="togglePopover"
         :="buttonProps"
+        @click="togglePopover"
         append-icon="i-[fluent--chevron-down-24-regular]"
       />
     </template>
@@ -36,6 +37,7 @@ const { items, ...buttonProps } = defineProps<DropdownMenuProps>()
         <button
           v-for="({ text, icon, action, disabled }, index) of items"
           :key="index"
+          v-focus="index === 0"
           :disabled
           @click="(action?.($event), hidePopover())"
           :class="[
