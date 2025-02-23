@@ -10,7 +10,7 @@ const { disabled, hidePopover } = defineProps<{
   hidePopover: () => void
 }>()
 
-useListener({ keydown: () => hidePopover() })
+useListener({ keydown: evt => evt.key === 'Escape' && hidePopover() })
 
 useResize(() => hidePopover())
 
