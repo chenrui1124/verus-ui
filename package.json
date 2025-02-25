@@ -59,6 +59,7 @@
     "@vitejs/plugin-vue": "^5.2.1",
     "@vitejs/plugin-vue-jsx": "^4.1.1",
     "@vue/tsconfig": "^0.7.0",
+    "mm2r": "^0.2.0",
     "mockjs": "^1.1.0",
     "prettier": "^3.5.1",
     "prettier-plugin-tailwindcss": "^0.6.11",
