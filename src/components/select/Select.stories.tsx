@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import { VDropdownSelect, type DropdownSelectProps } from '.'
+import { VSelect, type SelectProps } from './index.ts'
 import { Random } from 'mockjs'
 
-const meta: Meta<typeof VDropdownSelect> = {
-  title: 'Components/DropdownSelect',
-  component: VDropdownSelect,
+const meta: Meta<typeof VSelect> = {
+  title: 'Components/Select',
+  component: VSelect,
   argTypes: {
     modelValue: { control: false },
     disabled: { control: 'boolean' },
@@ -23,7 +23,7 @@ const meta: Meta<typeof VDropdownSelect> = {
     width: '12rem'
   },
   render(args) {
-    return () => <VDropdownSelect {...args} />
+    return () => <VSelect {...args} />
   }
 }
 
@@ -36,7 +36,7 @@ export const Default: Story = {}
 export const MoreItems: Story = {
   args: {
     items: (() => {
-      const items: DropdownSelectProps['items'] = []
+      const items: SelectProps['items'] = []
       for (let i = 0; i < 20; i++) {
         items.push({ text: Random.cword(7), value: Random.word() })
       }
@@ -47,7 +47,7 @@ export const MoreItems: Story = {
     return () => (
       <>
         <div class='h-dvh'></div>
-        <VDropdownSelect {...args} />
+        <VSelect {...args} />
         <div class='h-dvh'></div>
       </>
     )

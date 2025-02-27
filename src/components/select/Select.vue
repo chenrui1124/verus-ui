@@ -5,7 +5,7 @@ import { useCycler } from '@/composable'
 import { vFocus, vInViewport } from '@/directives'
 import { cn, ui } from '@/utils'
 
-export interface DropdownSelectProps {
+export interface SelectProps {
   modelValue?: string
   block?: boolean
   disabled?: boolean
@@ -16,9 +16,9 @@ export interface DropdownSelectProps {
 </script>
 
 <script lang="ts" setup>
-const { disabled, items } = defineProps<Omit<DropdownSelectProps, 'modelValue'>>()
+const { disabled, items } = defineProps<Omit<SelectProps, 'modelValue'>>()
 
-const modelValue = defineModel<DropdownSelectProps['modelValue']>()
+const modelValue = defineModel<SelectProps['modelValue']>()
 
 const modelText = computed(() => items.find(i => i.value === modelValue.value)?.text)
 
