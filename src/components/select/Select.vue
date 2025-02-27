@@ -1,5 +1,7 @@
 <script lang="ts">
-import { computed } from 'vue'
+import type { HTMLAttributes } from 'vue'
+
+import { computed, useAttrs } from 'vue'
 import { BaseIcon, BasePopover } from '@/base'
 import { useCycler } from '@/composable'
 import { vFocus, vInViewport } from '@/directives'
@@ -16,6 +18,8 @@ export interface SelectProps {
 </script>
 
 <script lang="ts" setup>
+defineOptions({ inheritAttrs: false })
+
 const { disabled, items } = defineProps<Omit<SelectProps, 'modelValue'>>()
 
 const modelValue = defineModel<SelectProps['modelValue']>()
@@ -33,12 +37,15 @@ const { item, prev, next } = useCycler(
     items.findIndex(i => i.value === modelValue.value)
   )
 )
+
+const { class: cv, ...others } = useAttrs()
 </script>
 
 <template>
-  <BasePopover :disabled>
+  <BasePopover :disabled class="**:box-border">
     <template #trigger="{ state, side, togglePopover }">
       <button
+        :="others"
         :disabled
         @click="togglePopover"
         v-in-viewport="isInViewport"
@@ -46,30 +53,29 @@ const { item, prev, next } = useCycler(
         :class="
           cn(
             ui('outline_focus_visible', 'cover_by_before'),
-            'relative box-border h-9 cursor-pointer items-center justify-center gap-2.5 rounded-v2 border-none bg-transparent px-4 text-sm text-on-sur transition duration-300 **:box-border before:border before:border-solid before:border-otl before:transition before:duration-300 enabled:hover:before:bg-pri/10 disabled:cursor-not-allowed disabled:text-dis disabled:before:border-dis',
+            'relative box-border h-9 cursor-pointer items-center justify-center gap-3 rounded-v2 border-none bg-transparent px-4 transition duration-300 **:box-border before:border before:border-solid before:border-otl before:transition before:duration-300 enabled:hover:before:bg-pri/10 disabled:cursor-not-allowed disabled:text-on-dis disabled:before:border-on-dis',
             block ? 'flex' : 'inline-flex',
-            state && 'text-pri before:border-pri before:bg-pri/10'
+            state && 'before:border-pri before:bg-pri/10',
+            cv as HTMLAttributes['class']
           )
         "
       >
         <span
-          :class="
-            cn(
-              'pointer-events-none flex-1 text-left',
-              disabled || (modelText ? 'text-on-sur' : 'text-otl/70')
-            )
-          "
+          :class="[
+            'pointer-events-none flex-1 text-left text-sm/loose transition duration-300',
+            disabled || (modelText ? 'text-on-sur' : 'text-otl/70'),
+            state && 'text-pri'
+          ]"
         >
           {{ modelText ?? placeholder }}
         </span>
         <BaseIcon
-          icon="i-[fluent--chevron-right-24-regular]"
+          icon="i-[fluent--caret-right-24-filled]"
           :class="
             cn(
-              '-mr-1 text-otl transition duration-300',
-              disabled ? 'text-dis' : modelText && 'text-on-sur',
-              state && side && { top: '-rotate-90', bottom: 'rotate-90' }[side],
-              state && 'text-pri'
+              '-mr-1 transition duration-300',
+              disabled ? 'text-dis' : 'text-otl',
+              state && ['text-pri', side && { top: '-rotate-90', bottom: 'rotate-90' }[side]]
             )
           "
         />
@@ -90,12 +96,14 @@ const { item, prev, next } = useCycler(
           :class="
             cn(
               ui('outline_focus_visible'),
-              'inline-flex cursor-pointer items-center rounded-v1 border-none bg-transparent px-3 text-sm/9 transition duration-300 select-none focus:z-10',
-              modelValue === value ? 'pointer-events-none bg-pri-ctr text-pri' : 'hover:bg-on-sur/5'
+              'inline-flex h-8 grow-8 cursor-pointer items-center rounded-v1 border-none bg-transparent px-3.75 transition duration-300 select-none focus:z-10',
+              modelValue === value
+                ? 'pointer-events-none bg-pri-ctr text-pri'
+                : 'text-inherit hover:bg-sur-var'
             )
           "
         >
-          <span class="overflow-hidden text-nowrap text-ellipsis">{{ text }}</span>
+          <span class="overflow-hidden text-sm/loose text-nowrap text-ellipsis">{{ text }}</span>
         </button>
       </div>
     </template>

@@ -1,29 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import { VSelect, type SelectProps } from './index.ts'
-import { Random } from 'mockjs'
+import { VSelect } from '.'
 
 const meta: Meta<typeof VSelect> = {
   title: 'Components/Select',
   component: VSelect,
   argTypes: {
     modelValue: { control: false },
+    block: { control: 'boolean' },
     disabled: { control: 'boolean' },
     items: { control: 'object' },
     placeholder: { control: 'text' },
     width: { control: 'text' }
   },
   args: {
-    items: [
-      { text: 'Windows Phone', value: 'windows-phone' },
-      { text: 'Android', value: 'android' },
-      { text: 'iOS', value: 'ios' }
-    ],
-    placeholder: 'Platform',
-    width: '12rem'
-  },
-  render(args) {
-    return () => <VSelect {...args} />
+    width: '10rem'
   }
 }
 
@@ -31,25 +22,41 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
-
-export const MoreItems: Story = {
+export const Default: Story = {
   args: {
-    items: (() => {
-      const items: SelectProps['items'] = []
-      for (let i = 0; i < 20; i++) {
-        items.push({ text: Random.cword(7), value: Random.word() })
-      }
-      return items
-    })()
+    items: Array.from({ length: 20 }).map((_, index) => ({
+      text: `选项 ${index + 1}`,
+      value: `item-${index + 1}`
+    })),
+    placeholder: '请选择'
+  },
+  parameters: {
+    layout: 'fullscreen'
   },
   render(args) {
     return () => (
-      <>
-        <div class='h-dvh'></div>
-        <VSelect {...args} />
-        <div class='h-dvh'></div>
-      </>
+      <div class='box-border flex h-screen flex-col p-6'>
+        <VSelect {...args} class='mb-6' />
+        <div class='flex-1'></div>
+        <VSelect {...args} class='mb-6' />
+      </div>
     )
+  }
+}
+
+export const Example: Story = {
+  args: {
+    items: [
+      { text: 'Windows', value: 'windows' },
+      { text: 'MacOS', value: 'macos' },
+      { text: 'Linux', value: 'linux' }
+    ],
+    placeholder: '选择系统'
+  },
+  parameters: {
+    layout: 'centered'
+  },
+  render(args) {
+    return () => <VSelect {...args} class='mb-6' />
   }
 }
