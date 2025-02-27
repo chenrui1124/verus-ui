@@ -9,32 +9,23 @@ const meta: Meta<typeof VButton> = {
   component: VButton,
   argTypes: {
     appendIcon: { control: false },
-    disabled: { control: 'boolean' },
-    icon: { control: false },
-    loading: { control: 'boolean' },
-    text: { control: 'text' },
     block: { control: 'boolean' },
     danger: { control: 'boolean' },
+    disabled: { control: 'boolean' },
     fontWeight: { control: 'select', options: fontWeightOptions() },
+    icon: { control: false },
+    loading: { control: 'boolean' },
     rounded: { control: 'boolean' },
+    text: { control: 'text' },
     textTransform: { control: 'select', options: textTransformOptions() },
-    variant: { control: 'select', options: variantOptions() }
+    variant: { control: 'select', options: variantOptions() },
+    width: { control: 'text' }
   },
   args: {
-    text: '新应用',
     onClick: fn()
   },
   parameters: {
     layout: 'centered'
-  },
-  render(args) {
-    return () => (
-      <div class='flex flex-col gap-3'>
-        {variantOptions().map(v => (
-          <VButton {...args} variant={v} />
-        ))}
-      </div>
-    )
   }
 }
 
@@ -42,12 +33,39 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-const icon = 'i-[fluent--apps-add-in-20-regular]'
+const icon = 'i-[fluent--square-24-filled]'
 
-export const Default: Story = {}
+export const Default: Story = {
+  args: {
+    text: '按钮'
+  },
+  render(args) {
+    return () => (
+      <div class='flex flex-col items-start gap-3'>
+        <VButton {...args} />
+        <VButton {...args} icon={icon} />
+        <VButton {...args} appendIcon={icon} />
+        <VButton {...args} icon={icon} appendIcon={icon} />
+      </div>
+    )
+  }
+}
 
-export const Latin: Story = { args: { text: 'New App', icon } }
-
-export const WithIcon: Story = { args: { icon } }
-
-export const WithAppendIcon: Story = { args: { appendIcon: icon } }
+export const Example: Story = {
+  argTypes: {
+    text: { control: false }
+  },
+  args: {
+    icon: 'i-[fluent--add-square-multiple-24-filled]',
+    textTransform: 'uppercase',
+    variant: 'solid'
+  },
+  render(args) {
+    return () => (
+      <div class='flex flex-col items-start gap-3'>
+        <VButton {...args}>新建文件</VButton>
+        <VButton {...args}>New file</VButton>
+      </div>
+    )
+  }
+}

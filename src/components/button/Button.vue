@@ -22,6 +22,11 @@ export interface ButtonProps {
    * @default 'tonal'
    */
   variant?: VariantProp
+  width?: string
+}
+
+export interface ButtonSlots {
+  default?(): string
 }
 </script>
 
@@ -31,9 +36,10 @@ const { loading, fontWeight = 'normal', variant = 'tonal' } = defineProps<Button
 const emit = defineEmits<{ click: [evt: MouseEvent] }>()
 
 function onClick(evt: MouseEvent) {
-  if (loading) return
-  emit('click', evt)
+  loading || emit('click', evt)
 }
+
+defineSlots<ButtonSlots>()
 </script>
 
 <template>
@@ -41,9 +47,10 @@ function onClick(evt: MouseEvent) {
     :data-status="danger ? 'error' : void 0"
     :disabled
     @click="onClick"
+    :style="{ width }"
     :class="
       cn(
-        'relative box-border h-9 cursor-pointer items-center justify-center gap-2 border border-solid transition duration-300 select-none **:box-border',
+        'relative box-border h-9 min-w-9 cursor-pointer items-center justify-center gap-3 border border-solid transition duration-300 select-none **:box-border',
         '*:transition *:duration-300',
         block ? 'flex' : 'inline-flex',
         rounded ? 'rounded-full px-5' : 'rounded-v2 px-4',
@@ -60,38 +67,35 @@ function onClick(evt: MouseEvent) {
             outlined: 'enabled:hover:bg-pri/10 enabled:focus:border-pri enabled:focus:bg-pri/15',
             clean: 'enabled:hover:bg-pri/10 enabled:focus:bg-pri/15'
           }[variant],
-        'disabled:cursor-not-allowed disabled:text-dis',
+        'disabled:cursor-not-allowed disabled:text-on-dis',
         {
           'cursor-wait *:not-last:opacity-0': loading,
           'disabled:border-dis': variant === 'outlined',
-          'disabled:bg-dis/30': ['solid', 'tonal'].includes(variant)
+          'disabled:bg-dis': ['solid', 'tonal'].includes(variant)
         },
+        textTransform &&
+          {
+            uppercase: 'uppercase',
+            lowercase: 'lowercase',
+            capitalize: 'capitalize'
+          }[textTransform],
+        {
+          normal: 'font-normal',
+          semibold: 'font-semibold',
+          bold: 'font-bold'
+        }[fontWeight],
         ui('outline_focus_visible')
       )
     "
   >
-    <BaseIcon v-if="icon" :icon class="-ml-1 size-5" />
+    <BaseIcon v-if="icon" :icon class="-mx-1.5 size-5" />
     <span
-      :class="
-        cn(
-          'pointer-events-none text-sm tracking-wide text-nowrap',
-          textTransform &&
-            {
-              uppercase: 'uppercase',
-              lowercase: 'lowercase',
-              capitalize: 'capitalize'
-            }[textTransform],
-          {
-            normal: 'font-normal',
-            semibold: 'font-semibold',
-            bold: 'font-bold'
-          }[fontWeight]
-        )
-      "
+      v-if="text || $slots.default"
+      class="pointer-events-none text-sm/loose tracking-wide text-nowrap"
     >
       <slot>{{ text }}</slot>
     </span>
-    <BaseIcon v-if="appendIcon" :icon="appendIcon" class="-mr-1 size-5" />
+    <BaseIcon v-if="appendIcon" :icon="appendIcon" class="-mx-1.5 size-5" />
     <Transition enter-from-class="opacity-0" leave-to-class="opacity-0">
       <BaseIcon
         v-if="!disabled && loading"
