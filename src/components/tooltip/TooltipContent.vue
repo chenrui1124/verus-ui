@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { TooltipProps } from '.'
 
+import { iconUri } from '@/base'
 import { cn } from '@/utils'
 
 const { side = 'top' } = defineProps<Pick<TooltipProps, 'side'> & { state?: boolean }>()
@@ -22,20 +23,23 @@ const { side = 'top' } = defineProps<Pick<TooltipProps, 'side'> & { state?: bool
         )
       "
     >
-      <slot></slot>
       <span
-        :class="
-          cn(
-            'absolute inline-block size-2 origin-center rotate-45 bg-inherit drop-shadow-md',
-            {
-              top: '-bottom-1 left-1/2 -translate-x-1/2',
-              right: 'top-1/2 -left-1 -translate-y-1/2',
-              bottom: '-top-1 left-1/2 -translate-x-1/2',
-              left: 'top-1/2 -right-1 -translate-y-1/2'
-            }[side]
-          )
-        "
+        :style="{
+          maskImage: `url(${iconUri.tooltipArrow})`,
+          maskRepeat: 'no-repeat',
+          maskSize: '100% 100%'
+        }"
+        :class="[
+          'absolute inline-block size-6 bg-current text-on-sur',
+          {
+            top: '-bottom-3 left-1/2 -translate-x-1/2',
+            right: 'top-1/2 -left-3 -translate-y-1/2 rotate-90',
+            bottom: '-top-3 left-1/2 -translate-x-1/2 rotate-180',
+            left: 'top-1/2 -right-3 -translate-y-1/2 -rotate-90'
+          }[side]
+        ]"
       ></span>
+      <slot></slot>
     </div>
   </Transition>
 </template>
