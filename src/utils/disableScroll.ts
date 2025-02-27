@@ -16,6 +16,7 @@ export const disableScroll = (() => {
   let scrollbarWidth: string
 
   return (disabled: boolean | undefined) => {
+    if (document.documentElement.scrollHeight <= document.documentElement.clientHeight) return
     if (disabled) {
       originalOverflow = document.body.style.overflow
       originalPaddingRight = document.body.style.paddingRight
