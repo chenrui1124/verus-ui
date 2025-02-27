@@ -1,19 +1,19 @@
 import type { FunctionalComponent } from 'vue'
 import type { Meta, StoryObj } from '@storybook/vue3'
-import type { SelectProps } from '.'
+import type { ChoiceProps } from './index.ts'
 
 import { directionOptions } from '@/ts'
-import { VSelect } from '.'
+import { VChoice } from './index.ts'
 
-const VSelectWithoutMultiple: FunctionalComponent<SelectProps<false>> = args => (
-  <VSelect {...args} />
+const VChoiceWithoutMultiple: FunctionalComponent<ChoiceProps<false>> = args => (
+  <VChoice {...args} />
 )
 
-const VSelectWithMultiple: FunctionalComponent<SelectProps<true>> = args => <VSelect {...args} />
+const VChoiceWithMultiple: FunctionalComponent<ChoiceProps<true>> = args => <VChoice {...args} />
 
-const meta: Meta<typeof VSelectWithoutMultiple> = {
-  title: 'Components/Select',
-  component: VSelectWithoutMultiple,
+const meta: Meta<typeof VChoiceWithoutMultiple> = {
+  title: 'Components/Choice',
+  component: VChoiceWithoutMultiple,
   argTypes: {
     modelValue: { control: false },
     disabled: { control: 'boolean' },
@@ -23,7 +23,7 @@ const meta: Meta<typeof VSelectWithoutMultiple> = {
     name: { control: 'text' }
   },
   render(args) {
-    return () => <VSelect {...args} />
+    return () => <VChoice {...args} />
   }
 }
 
@@ -31,7 +31,7 @@ export default meta
 
 type StoryWithoutMultiple = StoryObj<typeof meta>
 
-type StoryWithMultiple = StoryObj<Meta<typeof VSelectWithMultiple>>
+type StoryWithMultiple = StoryObj<Meta<typeof VChoiceWithMultiple>>
 
 const mock = [
   { zh: '视窗', en: 'Windows Phone', icon: 'i-[lineicons--windows]', value: 'windows' },

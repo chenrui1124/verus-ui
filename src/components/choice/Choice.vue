@@ -5,7 +5,7 @@ import { useId } from 'vue'
 import { BaseIcon } from '@/base'
 import { cn, ui } from '@/utils'
 
-export interface SelectProps<M extends boolean> {
+export interface ChoiceProps<M extends boolean> {
   modelValue?: M extends true ? string[] : string
   /**
    * @default 'column'
@@ -25,9 +25,9 @@ export interface SelectProps<M extends boolean> {
 </script>
 
 <script lang="ts" setup generic="M extends boolean">
-const { direction = 'column', name = useId() } = defineProps<Omit<SelectProps<M>, 'modelValue'>>()
+const { direction = 'column', name = useId() } = defineProps<Omit<ChoiceProps<M>, 'modelValue'>>()
 
-const modelValue = defineModel<SelectProps<M>['modelValue']>()
+const modelValue = defineModel<ChoiceProps<M>['modelValue']>()
 </script>
 
 <template>
