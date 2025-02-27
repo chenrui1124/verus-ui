@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Icon } from '@/basic'
+import { BaseIcon } from '@/base'
 import { cn, ui } from '@/utils'
 
 export interface IconButtonProps {
@@ -43,6 +43,6 @@ function onClick(evt: MouseEvent) {
       )
     "
   >
-    <Icon v-if="icon" :icon class="size-7 transition duration-300 ease-in-out" />
+    <BaseIcon v-if="icon" :icon class="size-7 transition duration-300 ease-in-out" />
   </button>
 </template>

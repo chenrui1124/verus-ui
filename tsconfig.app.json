@@ -3,7 +3,7 @@
 
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "noEmit": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
@@ -24,7 +24,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "paths": {
-      "@/basic": ["./src/basic/index.ts"],
+      "@/base": ["./src/base/index.ts"],
       "@/components": ["./src/components/index.ts"],
       "@/composable": ["./src/composable/index.ts"],
       "@/directives": ["./src/directives/index.ts"],

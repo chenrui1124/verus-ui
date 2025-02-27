@@ -50,7 +50,7 @@ export default defineConfig({
 
   resolve: {
     alias: setAlias({
-      '@/basic': './src/basic/index.ts',
+      '@/base': './src/base/index.ts',
       '@/components': './src/components/index.ts',
       '@/composable': './src/composable/index.ts',
       '@/directives': './src/directives/index.ts',

@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { FontWeightProp, TextTransformProp, VariantProp } from '@/ts'
 
-import { Icon } from '@/basic'
+import { BaseIcon } from '@/base'
 import { cn, ui } from '@/utils'
 
 export interface ButtonProps {
@@ -14,13 +14,7 @@ export interface ButtonProps {
    */
   fontWeight?: FontWeightProp
   icon?: string
-  /**
-   * If loading's type is string, it will be used as icon name.
-   */
   loading?: boolean | string
-  /**
-   * `true` => `border-radius: calc(infinity * 1px)`, `false` => `border-radius: 0.4rem`
-   */
   rounded?: boolean
   text?: string
   textTransform?: TextTransformProp
@@ -76,7 +70,7 @@ function onClick(evt: MouseEvent) {
       )
     "
   >
-    <Icon v-if="icon" :icon class="-ml-1 size-5" />
+    <BaseIcon v-if="icon" :icon class="-ml-1 size-5" />
     <span
       :class="
         cn(
@@ -97,9 +91,9 @@ function onClick(evt: MouseEvent) {
     >
       <slot>{{ text }}</slot>
     </span>
-    <Icon v-if="appendIcon" :icon="appendIcon" class="-mr-1 size-5" />
+    <BaseIcon v-if="appendIcon" :icon="appendIcon" class="-mr-1 size-5" />
     <Transition enter-from-class="opacity-0" leave-to-class="opacity-0">
-      <Icon
+      <BaseIcon
         v-if="!disabled && loading"
         :icon="typeof loading === 'string' && loading ? loading : 'i-[svg-spinners--3-dots-fade]'"
         class="absolute inset-0 m-auto size-6 rounded-[inherit]"

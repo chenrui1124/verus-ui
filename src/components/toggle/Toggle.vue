@@ -1,6 +1,6 @@
 <script lang="ts">
 import { computed } from 'vue'
-import { Icon } from '@/basic'
+import { BaseIcon } from '@/base'
 import { useSwitch } from '@/composable'
 import { cn, ui } from '@/utils'
 
@@ -41,7 +41,7 @@ const rendedIcon = computed(() => (fallbackIcon ? (state.value ? icon : fallback
       leave-to-class="opacity-0"
       leave-active-class="absolute"
     >
-      <Icon
+      <BaseIcon
         v-if="rendedIcon"
         :icon="rendedIcon"
         :key="rendedIcon"

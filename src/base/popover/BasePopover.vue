@@ -1,7 +1,7 @@
 <script lang="ts">
 import { ref } from 'vue'
 import { useSwitch } from '@/composable'
-import PopoverContent from './PopoverContent.vue'
+import PopoverContent from './BasePopoverContent.vue'
 
 type PopoverPropsLocateMode = 'target' | 'pointer'
 

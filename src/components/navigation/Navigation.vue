@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Icon } from '@/basic'
+import { BaseIcon } from '@/base'
 
 type NavigationPropsItem = { text: string; icon?: string; value: string }
 
@@ -41,7 +41,7 @@ function setModelValue(evt: MouseEvent) {
           : 'bg-transparent text-on-sur hover:bg-on-sur/5'
       ]"
     >
-      <Icon v-if="icon" :icon class="mr-3 -ml-1 size-5" />
+      <BaseIcon v-if="icon" :icon class="mr-3 -ml-1 size-5" />
       <span class="pointer-events-none col-start-2">{{ text }} </span>
     </span>
   </div>

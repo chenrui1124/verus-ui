@@ -2,7 +2,7 @@
 import type { DirectionProp } from '@/ts'
 
 import { useId } from 'vue'
-import { Icon } from '@/basic'
+import { BaseIcon } from '@/base'
 import { cn, ui } from '@/utils'
 
 export interface SelectProps<M extends boolean> {
@@ -52,7 +52,7 @@ const modelValue = defineModel<SelectProps<M>['modelValue']>()
         )
       "
     >
-      <Icon v-if="icon" :icon class="-ml-1 size-5" />
+      <BaseIcon v-if="icon" :icon class="-ml-1 size-5" />
       <span class="pointer-events-none flex-1">{{ text }}</span>
       <input
         :type="multiple ? 'checkbox' : 'radio'"

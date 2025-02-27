@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { DirectionProp } from '@/ts'
 
-import { Icon } from '@/basic'
+import { BaseIcon } from '@/base'
 import { cn, ui } from '@/utils'
 
 export interface ToggleGroupProps {
@@ -40,7 +40,7 @@ function setValue(value: string) {
         )
       "
     >
-      <Icon :icon class="size-6 transition duration-300" />
+      <BaseIcon :icon class="size-6 transition duration-300" />
     </button>
   </div>
 </template>

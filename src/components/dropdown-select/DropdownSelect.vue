@@ -1,6 +1,6 @@
 <script lang="ts">
 import { computed } from 'vue'
-import { Icon, Popover } from '@/basic'
+import { BaseIcon, BasePopover } from '@/base'
 import { useCycler } from '@/composable'
 import { vFocus, vInViewport } from '@/directives'
 import { cn, ui } from '@/utils'
@@ -36,7 +36,7 @@ const { item, prev, next } = useCycler(
 </script>
 
 <template>
-  <Popover :disabled>
+  <BasePopover :disabled>
     <template #trigger="{ state, side, togglePopover }">
       <button
         :disabled
@@ -62,7 +62,7 @@ const { item, prev, next } = useCycler(
         >
           {{ modelText ?? placeholder }}
         </span>
-        <Icon
+        <BaseIcon
           icon="i-[fluent--chevron-right-24-regular]"
           :class="
             cn(
@@ -99,5 +99,5 @@ const { item, prev, next } = useCycler(
         </button>
       </div>
     </template>
-  </Popover>
+  </BasePopover>
 </template>

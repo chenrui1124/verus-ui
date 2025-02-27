@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Icon } from '@/basic'
+import { BaseIcon } from '@/base'
 import { cn, ui } from '@/utils'
 
 export interface AccordionProps {
@@ -27,7 +27,7 @@ defineProps<AccordionProps>()
         )
       "
     >
-      <Icon v-if="icon" :icon class="-ml-0.5 size-5" />
+      <BaseIcon v-if="icon" :icon class="-ml-0.5 size-5" />
       <span class="mb-px flex-1 text-base">{{ title }}</span>
       <input
         type="checkbox"

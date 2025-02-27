@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Icon } from '@/basic'
+import { BaseIcon } from '@/base'
 
 export interface AlertProps {
   icon?: string
@@ -13,7 +13,7 @@ defineProps<AlertProps>()
 
 <template>
   <div class="flex gap-3 rounded-v4 bg-pri-ctr px-5 py-3 text-sm/loose text-on-pri-var">
-    <Icon v-if="icon" :icon class="mt-1 size-5 text-pri" />
+    <BaseIcon v-if="icon" :icon class="mt-1 size-5 text-pri" />
     <div class="flex flex-1 flex-col gap-1">
       <span v-if="title" class="font-semibold text-pri">
         {{ title }}
