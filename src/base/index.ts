@@ -1,2 +1,2 @@
 export { default as BaseIcon } from './BaseIcon'
-export { default as BasePopover } from './popover/BasePopover.vue'
+export { default as BasePopover } from './BasePopover'
