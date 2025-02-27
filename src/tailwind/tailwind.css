@@ -19,20 +19,25 @@
   --default-transition-timing-function-*: initial;
   --perspective-*: initial;
 
+  /* 
+   * (outerRadius - innerRadius) / sqrt(2) = padding
+   */
   --radius-*: initial;
-  --radius-v1: 0.2rem;
-  --radius-v2: 0.4rem;
-  --radius-v3: 0.6rem;
-  --radius-v4: 0.8rem;
+  --radius-v1: 0.2rem; /* 3.2px */
+  --radius-v2: 0.4rem; /* 6.4px */
+  --radius-v3: 0.6rem; /* 9.6px */
+  --radius-v4: 1.05rem; /* 16.8px */
 
   --ease-braking: cubic-bezier(0.36, 0.72, 0, 1);
 
   --color-*: initial;
-  --color-black: #000;
-  --color-white: #fff;
+  --color-black: rgb(0, 0, 0);
+  --color-white: rgb(255, 255, 255);
 
   --color-sur: light-dark(rgb(255, 255, 255), rgb(18, 18, 20));
   --color-on-sur: light-dark(rgb(25, 25, 30), rgb(240, 240, 248));
+  --color-sur-var: light-dark(rgb(245, 245, 245), rgb(30, 30, 32));
+
   --color-pri: light-dark(rgb(0, 94, 177), rgb(166, 200, 255));
   --color-on-pri: light-dark(rgb(255, 255, 255), rgb(0, 48, 96));
   --color-pri-var: light-dark(rgb(195, 230, 255), rgb(50, 70, 115));
@@ -43,7 +48,7 @@
   --color-on-err: light-dark(rgb(255, 255, 255), rgb(94, 17, 51));
   --color-err-var: light-dark(rgb(255, 217, 226), rgb(123, 41, 73));
   --color-on-err-var: light-dark(rgb(62, 0, 29), rgb(255, 217, 226));
-  --color-err-ctr: light-dark(rgb(255, 243, 246), rgb(123, 41, 73));
+  --color-err-ctr: light-dark(rgb(255, 243, 246), rgb(59, 31, 43));
   --color-on-err-ctr: light-dark(rgb(62, 0, 29), rgb(255, 217, 226) ;);
 
   --color-suc-ctr: light-dark(rgb(230, 244, 234), rgb(33, 55, 50));
@@ -54,7 +59,8 @@
   --color-otl: light-dark(rgb(130, 125, 135), rgb(140, 135, 145));
   --color-otl-var: light-dark(rgb(225, 230, 235), rgb(40, 45, 50));
 
-  --color-dis: light-dark(rgb(200, 200, 200), rgb(80, 80, 80));
+  --color-dis: light-dark(rgb(233, 233, 233), rgb(44, 44, 46));
+  --color-on-dis: light-dark(rgb(200, 200, 200), rgb(80, 80, 80));
 }
 
 [data-status='error'] {

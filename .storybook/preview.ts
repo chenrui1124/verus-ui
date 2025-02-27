@@ -17,8 +17,8 @@ const preview: Preview = {
     withThemeByDataAttribute({
       attributeName: 'data-theme',
       themes: {
-        auto: 'auto',
         light: 'light',
+        auto: 'auto',
         dark: 'dark'
       },
       defaultTheme: 'auto'
