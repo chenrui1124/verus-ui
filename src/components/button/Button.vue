@@ -88,14 +88,14 @@ defineSlots<ButtonSlots>()
       )
     "
   >
-    <BaseIcon v-if="icon" :icon class="-mx-1.5 size-5" />
+    <BaseIcon v-if="icon" :icon class="-mx-1.5" />
     <span
       v-if="text || $slots.default"
       class="pointer-events-none text-sm/loose tracking-wide text-nowrap"
     >
       <slot>{{ text }}</slot>
     </span>
-    <BaseIcon v-if="appendIcon" :icon="appendIcon" class="-mx-1.5 size-5" />
+    <BaseIcon v-if="appendIcon" :icon="appendIcon" class="-mx-1.5" />
     <Transition enter-from-class="opacity-0" leave-to-class="opacity-0">
       <BaseIcon
         v-if="!disabled && loading"

@@ -1,14 +1,17 @@
 <script lang="ts">
+import type { MaybeReadonly } from 'mm2r'
 import type { DirectionProp } from '@/ts'
 
 import { BaseIcon } from '@/base'
 import { cn, ui } from '@/utils'
 
+type ToggleGroupPropsItem = { value: string; icon: string }
+
 export interface ToggleGroupProps {
   modelValue?: string
   direction?: DirectionProp
   rounded?: boolean
-  items?: { icon: string; value: string }[]
+  items?: MaybeReadonly<ToggleGroupPropsItem>[]
 }
 </script>
 
@@ -23,7 +26,7 @@ function setValue(value: string) {
 </script>
 
 <template>
-  <div :class="['box-border inline-flex gap-3', direction === 'column' && 'flex-col']">
+  <div :class="['box-border inline-flex gap-1.5', direction === 'column' && 'flex-col']">
     <button
       v-for="{ icon, value } in items"
       :key="value"
@@ -32,15 +35,15 @@ function setValue(value: string) {
       :class="
         cn(
           ui('outline_focus_visible'),
-          'relative box-border h-10 cursor-pointer border-none bg-transparent p-2 transition duration-300 **:box-border disabled:cursor-not-allowed disabled:text-dis',
+          'relative box-border h-9 cursor-pointer border-none bg-transparent p-1.5 transition duration-300 **:box-border disabled:cursor-not-allowed disabled:text-dis',
           rounded ? 'rounded-full' : 'rounded-v2',
           modelValue === value
-            ? 'pointer-events-none bg-pri/10 text-pri disabled:bg-dis/30'
-            : 'text-otl enabled:hover:bg-on-sur/5'
+            ? 'pointer-events-none bg-pri-ctr text-pri disabled:bg-dis/30'
+            : 'text-otl enabled:hover:bg-sur-var'
         )
       "
     >
-      <BaseIcon :icon class="size-6 transition duration-300" />
+      <BaseIcon :icon size="md" class="transition duration-300" />
     </button>
   </div>
 </template>

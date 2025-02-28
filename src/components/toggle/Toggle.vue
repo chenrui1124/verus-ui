@@ -6,21 +6,20 @@ import { cn, ui } from '@/utils'
 
 export interface ToggleProps {
   modelValue?: boolean
-  fallbackIcon?: string
   disabled?: boolean
-  icon?: string
+  icon?: string | [IconWhenModelValueIsTrue: string, IconWhenModelValueIsFalse: string]
   rounded?: boolean
 }
 </script>
 
 <script lang="ts" setup>
-const { fallbackIcon, icon } = defineProps<Omit<ToggleProps, 'modelValue'>>()
+const { icon } = defineProps<Omit<ToggleProps, 'modelValue'>>()
 
 const modelValue = defineModel<ToggleProps['modelValue']>()
 
 const { state, toggle } = useSwitch({ modelValue })
 
-const rendedIcon = computed(() => (fallbackIcon ? (state.value ? icon : fallbackIcon) : icon))
+const computedIcon = computed(() => (Array.isArray(icon) ? icon[state.value ? 0 : 1] : icon))
 </script>
 
 <template>
@@ -30,9 +29,9 @@ const rendedIcon = computed(() => (fallbackIcon ? (state.value ? icon : fallback
     :class="
       cn(
         ui('outline_focus_visible'),
-        'relative box-border h-10 cursor-pointer border-none bg-transparent p-2 transition duration-300 **:box-border disabled:cursor-not-allowed disabled:text-dis',
+        'relative box-border h-9 cursor-pointer border-none bg-transparent p-1.5 transition duration-300 **:box-border disabled:cursor-not-allowed disabled:text-on-dis',
         rounded ? 'rounded-full' : 'rounded-v2',
-        state ? 'bg-pri/10 text-pri disabled:bg-dis/30' : 'text-otl enabled:hover:bg-on-sur/5'
+        state ? 'bg-pri-ctr text-pri disabled:bg-dis' : 'text-otl enabled:hover:bg-sur-var'
       )
     "
   >
@@ -42,10 +41,11 @@ const rendedIcon = computed(() => (fallbackIcon ? (state.value ? icon : fallback
       leave-active-class="absolute"
     >
       <BaseIcon
-        v-if="rendedIcon"
-        :icon="rendedIcon"
-        :key="rendedIcon"
-        class="size-6 transition duration-300"
+        v-if="computedIcon"
+        :icon="computedIcon"
+        :key="computedIcon"
+        size="md"
+        class="transition duration-300"
       />
     </Transition>
   </button>

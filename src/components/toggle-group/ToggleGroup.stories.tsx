@@ -12,12 +12,8 @@ const meta: Meta<typeof VToggleGroup> = {
     rounded: { control: 'boolean' },
     items: { control: 'object' }
   },
-  args: {
-    items: [
-      { icon: 'i-[fluent--text-align-left-24-filled]', value: 'left' },
-      { icon: 'i-[fluent--text-align-center-24-filled]', value: 'center' },
-      { icon: 'i-[fluent--text-align-right-24-filled]', value: 'right' }
-    ]
+  parameters: {
+    layout: 'centered'
   },
   render(args) {
     return () => <VToggleGroup {...args} />
@@ -28,4 +24,21 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
+export const Default: Story = {
+  args: {
+    items: Array.from({ length: 5 }).map((_, i) => ({
+      value: `${i}`,
+      icon: 'i-[fluent--square-24-filled]'
+    }))
+  }
+}
+
+export const Example: Story = {
+  args: {
+    items: [
+      { value: 'left', icon: 'i-[fluent--text-align-left-24-filled]' },
+      { value: 'center', icon: 'i-[fluent--text-align-center-24-filled]' },
+      { value: 'right', icon: 'i-[fluent--text-align-right-24-filled]' }
+    ]
+  }
+}
