@@ -1,23 +1,29 @@
 import { generateOptions } from './utils'
 
-export type DirectionProp = 'row' | 'column'
-export const directionOptions = generateOptions<DirectionProp>(['row', 'column'])
+export type Direction = 'row' | 'column'
+export type DirectionProp<T extends Direction = Direction> = T
+export const directionOptions = generateOptions<Direction>(['row', 'column'])
 
-export type SideProp = 'top' | 'right' | 'bottom' | 'left'
-export const sideOptions = generateOptions<SideProp>(['top', 'right', 'bottom', 'left'])
+export type FontWeight = 'normal' | 'semibold' | 'bold'
+export type FontWeightProp<T extends FontWeight = FontWeight> = T
+export const fontWeightOptions = generateOptions<FontWeight>(['normal', 'semibold', 'bold'])
 
-export type SizeProp = 'sm' | 'md' | 'lg'
-export const sizeOptions = generateOptions<SizeProp>(['sm', 'md', 'lg'])
+export type Side = 'top' | 'right' | 'bottom' | 'left'
+export type SideProp<T extends Side = Side> = T
+export const sideOptions = generateOptions<Side>(['top', 'right', 'bottom', 'left'])
 
-export type TextTransformProp = 'uppercase' | 'lowercase' | 'capitalize'
-export const textTransformOptions = generateOptions<TextTransformProp>([
+export type Size = 'sm' | 'md' | 'lg'
+export type SizeProp<T extends Size = Size> = T
+export const sizeOptions = generateOptions<Size>(['sm', 'md', 'lg'])
+
+export type TextTransform = 'uppercase' | 'lowercase' | 'capitalize'
+export type TextTransformProp<T extends TextTransform = TextTransform> = T
+export const textTransformOptions = generateOptions<TextTransform>([
   'uppercase',
   'lowercase',
   'capitalize'
 ])
 
-export type VariantProp = 'solid' | 'tonal' | 'outlined' | 'clean'
-export const variantOptions = generateOptions<VariantProp>(['solid', 'tonal', 'outlined', 'clean'])
-
-export type FontWeightProp = 'normal' | 'semibold' | 'bold'
-export const fontWeightOptions = generateOptions<FontWeightProp>(['normal', 'semibold', 'bold'])
+export type Variant = 'solid' | 'tonal' | 'outlined' | 'clean'
+export type VariantProp<T extends Variant = Variant> = T
+export const variantOptions = generateOptions<Variant>(['solid', 'tonal', 'outlined', 'clean'])
