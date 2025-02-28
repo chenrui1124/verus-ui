@@ -11,9 +11,6 @@ const meta: Meta<typeof VIconButton> = {
     disabled: { control: 'boolean' },
     rounded: { control: 'boolean' }
   },
-  args: {
-    icon: 'i-[fluent--apps-add-in-20-regular]'
-  },
   parameters: {
     layout: 'centered'
   },
@@ -26,4 +23,15 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
+export const Default: Story = {
+  args: {
+    icon: 'i-[fluent--square-24-filled]'
+  }
+}
+
+export const Example: Story = {
+  args: {
+    danger: true,
+    icon: 'i-[fluent--delete-24-filled]'
+  }
+}

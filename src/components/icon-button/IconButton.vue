@@ -3,9 +3,9 @@ import { BaseIcon } from '@/base'
 import { cn, ui } from '@/utils'
 
 export interface IconButtonProps {
-  icon?: string
   danger?: boolean
   disabled?: boolean
+  icon?: string
   rounded?: boolean
 }
 </script>
@@ -37,12 +37,12 @@ function onClick(evt: MouseEvent) {
     @click="onClick"
     :class="
       cn(
-        'box-border size-12 cursor-pointer border-none bg-transparent p-2.5 text-pri transition duration-300 **:box-border hover:bg-pri/10 hover:brightness-110 focus:bg-pri/20 focus:brightness-110 active:*:first:scale-75',
+        'box-border size-9 cursor-pointer border-none bg-transparent p-1.5 text-pri transition duration-300 **:box-border hover:bg-pri/10 hover:brightness-110 focus:bg-pri/20 focus:brightness-110 active:*:first:scale-75',
         ui('outline_focus_visible'),
         rounded ? 'rounded-full' : 'rounded-v2'
       )
     "
   >
-    <BaseIcon v-if="icon" :icon class="size-7 transition duration-300 ease-in-out" />
+    <BaseIcon v-if="icon" :icon size="md" class="transition duration-300 ease-in-out" />
   </button>
 </template>
