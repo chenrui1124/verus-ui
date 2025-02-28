@@ -30,7 +30,7 @@ const { side = 'top' } = defineProps<Pick<TooltipProps, 'side'> & { state?: bool
           maskSize: '100% 100%'
         }"
         :class="[
-          'absolute inline-block size-6 bg-current text-on-sur',
+          'absolute inline-block size-6 bg-current text-on-sur drop-shadow-md',
           {
             top: '-bottom-3 left-1/2 -translate-x-1/2',
             right: 'top-1/2 -left-3 -translate-y-1/2 rotate-90',

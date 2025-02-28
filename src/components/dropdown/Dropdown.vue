@@ -31,7 +31,7 @@ defineSlots<DropdownSlots>()
 </script>
 
 <template>
-  <BasePopover v-if="items" :width class="border-none bg-on-sur">
+  <BasePopover v-if="items" :width class="border-none bg-on-sur drop-shadow-md">
     <template #trigger="props">
       <slot name="trigger" :="props"></slot>
     </template>
@@ -44,7 +44,7 @@ defineSlots<DropdownSlots>()
           :disabled
           @click="(action?.($event), hidePopover())"
           :class="[
-            'col-span-2 inline-grid h-8 cursor-pointer grid-cols-subgrid items-center rounded-v1 border-none bg-transparent px-3.75 text-sur transition duration-300 hover:bg-pri hover:text-on-pri hover:brightness-110',
+            'col-span-2 inline-grid h-8 cursor-pointer grid-cols-subgrid items-center rounded-v1 border-none bg-transparent px-3.75 text-sur transition duration-300 hover:bg-pri hover:text-on-pri',
             ui('outline_focus_visible')
           ]"
         >

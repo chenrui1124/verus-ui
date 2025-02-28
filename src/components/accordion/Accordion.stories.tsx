@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
 import { Random } from 'mockjs'
+import { variantOptions } from '@/ts'
 import { VAccordion } from '.'
 
 const meta: Meta<typeof VAccordion> = {
@@ -10,13 +11,8 @@ const meta: Meta<typeof VAccordion> = {
     danger: { control: 'boolean' },
     icon: { control: false },
     open: { control: 'boolean' },
-    title: { control: 'text' }
-  },
-  args: {
-    title: Random.ctitle()
-  },
-  render(args) {
-    return () => <VAccordion {...args}>{Random.cparagraph()}</VAccordion>
+    title: { control: 'text' },
+    variant: { control: 'select', options: variantOptions('solid', 'outlined') }
   }
 }
 
@@ -24,17 +20,21 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-const icon = 'i-[fluent--error-circle-24-filled]'
-
-export const Default: Story = {}
-
-export const Latin: Story = {
+export const Default: Story = {
   args: {
-    title: Random.title(2)
+    title: '标题'
+  },
+  render(args) {
+    return () => <VAccordion {...args}>{Random.cparagraph()}</VAccordion>
+  }
+}
+
+export const Icon: Story = {
+  args: {
+    icon: 'i-[fluent--square-24-filled]',
+    title: 'Title'
   },
   render(args) {
     return () => <VAccordion {...args}>{Random.paragraph()}</VAccordion>
   }
 }
-
-export const WithIcon: Story = { args: { icon } }
