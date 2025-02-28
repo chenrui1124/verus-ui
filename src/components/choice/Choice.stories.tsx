@@ -1,26 +1,25 @@
 import type { FunctionalComponent } from 'vue'
 import type { Meta, StoryObj } from '@storybook/vue3'
-import type { ChoiceProps } from './index.ts'
+import type { ChoiceProps } from '.'
 
-import { directionOptions } from '@/ts'
-import { VChoice } from './index.ts'
+import { directionOptions, variantOptions } from '@/ts'
+import { VChoice } from '.'
 
-const VChoiceWithoutMultiple: FunctionalComponent<ChoiceProps<false>> = args => (
-  <VChoice {...args} />
-)
+const VChoiceDefault: FunctionalComponent<ChoiceProps<false>> = args => <VChoice {...args} />
 
 const VChoiceWithMultiple: FunctionalComponent<ChoiceProps<true>> = args => <VChoice {...args} />
 
-const meta: Meta<typeof VChoiceWithoutMultiple> = {
+const meta: Meta<typeof VChoiceDefault> = {
   title: 'Components/Choice',
-  component: VChoiceWithoutMultiple,
+  component: VChoiceDefault,
   argTypes: {
     modelValue: { control: false },
     disabled: { control: 'boolean' },
     direction: { control: 'select', options: directionOptions() },
     items: { control: 'object' },
     multiple: { control: 'boolean' },
-    name: { control: 'text' }
+    width: { control: 'text' },
+    variant: { control: 'select', options: variantOptions('solid', 'outlined') }
   },
   render(args) {
     return () => <VChoice {...args} />
@@ -29,28 +28,48 @@ const meta: Meta<typeof VChoiceWithoutMultiple> = {
 
 export default meta
 
-type StoryWithoutMultiple = StoryObj<typeof meta>
+type StoryDefault = StoryObj<typeof meta>
 
 type StoryWithMultiple = StoryObj<Meta<typeof VChoiceWithMultiple>>
 
-const mock = [
-  { zh: '视窗', en: 'Windows Phone', icon: 'i-[lineicons--windows]', value: 'windows' },
-  { zh: '安卓', en: 'Android', icon: 'i-[lineicons--android]', value: 'android' },
-  { zh: '苹果', en: 'iOS', icon: 'i-[lineicons--apple-brand]', value: 'ios' }
-]
-
-export const Default: StoryWithoutMultiple = {
-  args: { items: mock.map(({ zh, value }) => ({ text: zh, value })) }
-}
-
-export const Latin: StoryWithoutMultiple = {
-  args: { items: mock.map(({ en, value, icon }) => ({ text: en, value, icon })) }
-}
-
-export const WithMultiple: StoryWithMultiple = {
+export const Default: StoryDefault = {
   args: {
-    items: mock.map(({ zh, value, icon }) => ({ text: zh, value, icon })),
+    items: [
+      { text: '选项 1', value: '1', icon: 'i-[fluent--square-24-filled]' },
+      { text: '选项 2', value: '2' },
+      { text: '选项 3', value: '3' }
+    ],
+    width: '16rem'
+  },
+  parameters: {
+    layout: 'centered'
+  }
+}
+
+export const Multiple: StoryWithMultiple = {
+  args: {
     modelValue: [],
-    multiple: true
+    items: [
+      { text: 'Option 1', value: '1', icon: 'i-[fluent--square-24-filled]' },
+      { text: 'Option 2', value: '2' },
+      { text: 'Option 3', value: '3' }
+    ],
+    multiple: true,
+    width: '16rem'
+  },
+  parameters: {
+    layout: 'centered'
+  }
+}
+
+export const Example: StoryDefault = {
+  args: {
+    direction: 'row',
+    items: [
+      { text: 'Rabbit Pay', value: 'rabbit', icon: 'i-[fluent--animal-rabbit-24-filled]' },
+      { text: 'Cat Pay', value: 'cat', icon: 'i-[fluent--animal-cat-24-filled]' },
+      { text: 'Dog Pay', value: 'dog', icon: 'i-[fluent--animal-dog-24-filled]' }
+    ],
+    variant: 'outlined'
   }
 }
