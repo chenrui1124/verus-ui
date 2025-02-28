@@ -15,7 +15,7 @@ export interface HorizontalScrollingProps {
 </script>
 
 <script lang="ts" setup>
-const { width = 'auto', height = 'auto' } = defineProps<HorizontalScrollingProps>()
+const { height = 'auto', width = 'auto' } = defineProps<HorizontalScrollingProps>()
 
 const size = reactive<Partial<Record<'height' | 'width', string>>>({})
 

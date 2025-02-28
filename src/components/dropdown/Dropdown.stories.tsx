@@ -23,7 +23,7 @@ const icon = 'i-[fluent--square-24-filled]'
 export const Default: Story = {
   args: {
     items: [
-      { text: '按钮 1', icon, action: fn() },
+      { text: '按钮 1', action: fn(), icon: 'i-[fluent--square-24-filled]' },
       { text: '按钮 2', action: fn() }
     ]
   },
@@ -58,9 +58,9 @@ export const Example: Story = {
   },
   render(args) {
     const items1 = [
-      { text: '文档', icon: 'i-[fluent--textbox-24-filled]', action: fn() },
-      { text: '电子表格', icon: 'i-[fluent--table-24-filled]', action: fn() },
-      { text: '演示文稿', icon: 'i-[fluent--slide-play-24-filled]', action: fn() }
+      { text: '文档', action: fn(), icon: 'i-[fluent--textbox-24-filled]' },
+      { text: '电子表格', action: fn(), icon: 'i-[fluent--table-24-filled]' },
+      { text: '演示文稿', action: fn(), icon: 'i-[fluent--slide-play-24-filled]' }
     ]
     const slots1: DropdownSlots = {
       trigger: ({ togglePopover }) => (

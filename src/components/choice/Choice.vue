@@ -1,4 +1,5 @@
 <script lang="ts">
+import type { MaybeReadonly } from 'mm2r'
 import type { Direction, VariantProp } from '@/ts'
 
 import { computed, useId } from 'vue'
@@ -6,8 +7,8 @@ import { BaseIcon } from '@/base'
 import { cn, ui } from '@/utils'
 
 type ChoicePropsItem = { value: string } & (
-  | { icon?: string; text: string }
-  | { icon: string; text?: string }
+  | { text: string; icon?: string }
+  | { text?: string; icon: string }
 )
 
 export interface ChoiceProps<M extends boolean> {
@@ -17,7 +18,7 @@ export interface ChoiceProps<M extends boolean> {
    */
   direction?: Direction
   disabled?: boolean
-  items: ChoicePropsItem[]
+  items: MaybeReadonly<ChoicePropsItem>[]
   /**
    * When multiple is true, the type of modelValue will be `string[]`.
    */

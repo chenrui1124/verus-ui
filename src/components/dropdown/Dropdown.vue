@@ -3,11 +3,11 @@ import { BaseIcon, BasePopover } from '@/base'
 import { vFocus } from '@/directives'
 import { ui } from '@/utils'
 
-interface DropdownPropsItem {
+type DropdownPropsItem = {
   text: string
-  icon?: string
   action?: (evt: MouseEvent) => void
   disabled?: boolean
+  icon?: string
 }
 
 export interface DropdownProps {
@@ -48,7 +48,7 @@ defineSlots<DropdownSlots>()
             ui('outline_focus_visible')
           ]"
         >
-          <BaseIcon v-if="icon" :icon class="col-start-1 mr-0.5 -ml-1.5 size-5" />
+          <BaseIcon v-if="icon" :icon class="col-start-1 mr-0.5 -ml-1.5" />
           <span
             class="pointer-events-none col-start-2 overflow-hidden text-left text-sm/loose text-nowrap text-ellipsis"
           >

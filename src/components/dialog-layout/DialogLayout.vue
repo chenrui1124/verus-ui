@@ -2,9 +2,9 @@
 import { cn, ui } from '@/utils'
 
 export interface DialogLayoutProps {
-  title?: string
-  subtitle?: string
   reverseActions?: boolean
+  subtitle?: string
+  title?: string
 }
 
 export interface DialogLayoutSlots {

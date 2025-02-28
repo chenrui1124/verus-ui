@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { HTMLAttributes } from 'vue'
+import type { MaybeReadonly } from 'mm2r'
 
 import { computed, useAttrs } from 'vue'
 import { BaseIcon, BasePopover } from '@/base'
@@ -7,11 +8,13 @@ import { useCycler } from '@/composable'
 import { vFocus, vInViewport } from '@/directives'
 import { cn, ui } from '@/utils'
 
+type SelectPropsItem = { text: string; value: string }
+
 export interface SelectProps {
   modelValue?: string
   block?: boolean
   disabled?: boolean
-  items: { text: string; value: string }[]
+  items: MaybeReadonly<SelectPropsItem>[]
   placeholder?: string
   width?: string
 }
