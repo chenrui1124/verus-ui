@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { MaybeReadonly } from 'mm2r'
-import type { Direction, VariantProp } from '@/ts'
+import type { DirectionProp, VariantProp } from '@/ts'
 
 import { computed, useId } from 'vue'
 import { BaseIcon } from '@/base'
@@ -16,7 +16,7 @@ export interface ChoiceProps<M extends boolean> {
   /**
    * @default 'column'
    */
-  direction?: Direction
+  direction?: DirectionProp
   disabled?: boolean
   items: MaybeReadonly<ChoicePropsItem>[]
   /**
