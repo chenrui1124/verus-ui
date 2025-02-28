@@ -1,16 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import { VAlert } from '.'
 import { Random } from 'mockjs'
+import { statusOptions } from '@/ts'
+import { VAlert } from '.'
 
 const meta: Meta<typeof VAlert> = {
   title: 'Components/Alert',
   component: VAlert,
   argTypes: {
     title: { control: 'text' },
-    icon: { control: false }
+    icon: { control: false },
+    status: { control: 'select', options: statusOptions('primary', 'success', 'warning', 'error') }
   },
-  args: {},
   render(args) {
     return () => <VAlert {...args}>{Random.cparagraph()}</VAlert>
   }
@@ -22,17 +23,17 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {}
 
-export const WithIcon: Story = {
-  args: { icon: 'i-[fluent--circle-24-filled]' }
+export const Icon: Story = {
+  args: { icon: 'i-[fluent--square-24-filled]' }
 }
 
-export const WithTitle: Story = {
+export const Title: Story = {
   args: { title: Random.ctitle() }
 }
 
-export const WithIconAndTitle: Story = {
+export const IconAndTitle: Story = {
   args: {
-    ...WithIcon.args,
-    ...WithTitle.args
+    ...Icon.args,
+    ...Title.args
   }
 }

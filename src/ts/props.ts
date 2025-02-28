@@ -8,6 +8,16 @@ type FontWeight = 'normal' | 'semibold' | 'bold'
 export type FontWeightProp<T extends FontWeight = FontWeight> = T
 export const fontWeightOptions = generateOptions<FontWeight>(['normal', 'semibold', 'bold'])
 
+type Status = 'default' | 'primary' | 'success' | 'warning' | 'error'
+export type StatusProp<T extends Status = Status> = T
+export const statusOptions = generateOptions<Status>([
+  'default',
+  'primary',
+  'success',
+  'warning',
+  'error'
+])
+
 type Side = 'top' | 'right' | 'bottom' | 'left'
 export type SideProp<T extends Side = Side> = T
 export const sideOptions = generateOptions<Side>(['top', 'right', 'bottom', 'left'])
