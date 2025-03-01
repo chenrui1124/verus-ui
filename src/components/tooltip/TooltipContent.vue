@@ -1,14 +1,41 @@
-<script lang="ts" setup>
+<script lang="ts">
+import type { TransitionProps } from 'vue'
 import type { TooltipProps } from '.'
 
 import { iconUri } from '@/base'
 import { cn } from '@/utils'
 
-const { side = 'top' } = defineProps<Pick<TooltipProps, 'side'> & { state?: boolean }>()
+interface TooltipContentProps extends Pick<TooltipProps, 'side'> {
+  delay?: number
+  state?: boolean
+}
+
+interface TooltipContentSlots {
+  default(): any
+}
+</script>
+
+<script lang="ts" setup>
+const { delay, side = 'top' } = defineProps<TooltipContentProps>()
+
+const onBeforeEnter: TransitionProps['onBeforeEnter'] = el => {
+  delay && ((el as HTMLDivElement).style.transitionDelay = `${delay}ms`)
+}
+
+const onAfterEnter: TransitionProps['onAfterEnter'] = el => {
+  delay && ((el as HTMLDivElement).style.transitionDelay = '')
+}
+
+defineSlots<TooltipContentSlots>()
 </script>
 
 <template>
-  <Transition enter-from-class="scale-75 opacity-0" leave-to-class="scale-75 opacity-0">
+  <Transition
+    @before-enter="onBeforeEnter"
+    @after-enter="onAfterEnter"
+    enter-from-class="scale-75 opacity-0"
+    leave-to-class="scale-75 opacity-0"
+  >
     <div
       v-if="state"
       :class="

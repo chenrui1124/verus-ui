@@ -1,10 +1,12 @@
 import type { PropType } from 'vue'
 import type { SideProp } from '@/ts'
 
-import { defineComponent } from 'vue'
-import { useSingleTooltip } from './useSingleTooltip'
+import { defineComponent, mergeProps, reactive } from 'vue'
+import { useListener, useRender, useSwitch } from '@/composable'
+import TooltipContent from './TooltipContent.vue'
 
 export interface TooltipProps {
+  delay?: number
   disabled?: boolean
   /**
    * @default 'top'
@@ -13,8 +15,76 @@ export interface TooltipProps {
   text?: string
 }
 
+export const useSingleTooltip = (() => {
+  const props = reactive<Pick<TooltipProps, 'delay' | 'side' | 'text'>>({})
+  const style = reactive<{ top?: string; left?: string }>({})
+
+  const { state, on, off } = useSwitch()
+
+  return () => {
+    useRender(() => (
+      <TooltipContent delay={props?.delay} state={state.value} side={props.side} style={style}>
+        {props?.text}
+      </TooltipContent>
+    ))
+
+    useListener({
+      mouseover: evt => {
+        const el = evt.target as HTMLElement
+        const { tooltipDelay, tooltipSide, tooltipText } = el.dataset
+        if (
+          tooltipSide &&
+          tooltipText &&
+          ['top', 'right', 'bottom', 'left'].includes(tooltipSide) &&
+          props &&
+          style
+        ) {
+          props.side = tooltipSide as TooltipProps['side']
+          props.text = tooltipText
+          const { top, right, bottom, left } = el.getBoundingClientRect()
+          const center = { left: `${(top + bottom) / 2}px`, top: `${(right + left) / 2}px` }
+          switch (tooltipSide) {
+            case 'top':
+              style.left = center.top
+              style.top = `${top}px`
+              break
+            case 'right':
+              style.left = `${right}px`
+              style.top = center.top
+              break
+            case 'bottom':
+              style.left = center.left
+              style.top = `${bottom}px`
+              break
+            case 'left':
+              style.left = `${left}px`
+              style.top = center.top
+              break
+          }
+          if (tooltipDelay) props.delay = parseInt(tooltipDelay)
+          on()
+        }
+      },
+      mouseout: () => {
+        if (!state.value) return
+        off()
+        requestAnimationFrame(() => {
+          if (props && style) {
+            props.delay = void 0
+            props.side = void 0
+            props.text = void 0
+            style.top = void 0
+            style.left = void 0
+          }
+        })
+      }
+    })
+  }
+})()
+
 const Tooltip = defineComponent({
   props: {
+    delay: Number,
     disabled: Boolean,
     side: {
       type: String as PropType<TooltipProps['side']>,
@@ -29,12 +99,13 @@ const Tooltip = defineComponent({
       if (!slots.default) return null
 
       const rendered = slots.default()
+
       if (!props.disabled) {
-        rendered[0].props = {
-          ...(rendered[0].props ?? {}),
+        rendered[0].props = mergeProps(rendered[0].props ?? {}, {
+          'data-tooltip-delay': props.delay,
           'data-tooltip-side': props.side,
           'data-tooltip-text': props.text
-        }
+        })
       }
 
       return <>{rendered}</>

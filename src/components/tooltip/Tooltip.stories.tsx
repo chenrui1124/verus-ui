@@ -11,6 +11,7 @@ const meta: Meta<typeof VTooltip> = {
   title: 'Components/Tooltip',
   component: VTooltip,
   argTypes: {
+    delay: { control: 'number' },
     disabled: { control: 'boolean' },
     side: { control: 'select', options: sideOptions() },
     text: { control: 'text' }
