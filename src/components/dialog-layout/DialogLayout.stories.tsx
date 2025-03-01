@@ -9,7 +9,7 @@ const rendered = (args: any, paragraph: string) => (
   <VDialog
     v-slots={
       {
-        trigger: ({ show }) => <VButton onClick={show}>打开</VButton>,
+        trigger: ({ show }) => <VButton onClick={show}>打开对话框</VButton>,
         default: ({ hide }) => (
           <VDialogLayout
             {...args}
@@ -39,14 +39,17 @@ const meta: Meta<typeof VDialogLayout> = {
   title: 'Components/DialogLayout',
   component: VDialogLayout,
   argTypes: {
-    title: { control: 'text' },
+    reverseActions: { control: 'boolean' },
     subtitle: { control: 'text' },
-    reverseActions: { control: 'boolean' }
+    title: { control: 'text' }
   },
   args: {
-    title: Random.ctitle(),
-    subtitle: Random.ctitle(),
-    reverseActions: true
+    reverseActions: true,
+    subtitle: '副标题',
+    title: '标题'
+  },
+  parameters: {
+    layout: 'centered'
   },
   render: args => () => rendered(args, Random.cparagraph())
 }

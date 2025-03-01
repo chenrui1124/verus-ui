@@ -12,7 +12,9 @@ const meta: Meta<typeof VDialog> = {
     status: { control: 'select', options: statusOptions('primary', 'error') },
     width: { control: 'text' }
   },
-  args: {},
+  parameters: {
+    layout: 'centered'
+  },
   render(args) {
     return () => (
       <VDialog
@@ -24,7 +26,7 @@ const meta: Meta<typeof VDialog> = {
                 打开对话框
               </VButton>
             ),
-            default: () => <div class='h-60 w-full border border-dashed border-on-pri-var'></div>
+            default: () => <div class='h-60 w-full border border-dashed border-pri'></div>
           } satisfies DialogSlots
         }
       />

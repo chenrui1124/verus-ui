@@ -1,6 +1,7 @@
 <script lang="ts">
-import { useBackdrop, useSwitch } from '@/composable'
 import type { StatusProp } from '@/ts'
+
+import { useBackdrop, useSwitch } from '@/composable'
 
 export interface DialogProps {
   /**
