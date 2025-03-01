@@ -8,9 +8,9 @@ const meta: Meta<typeof VAlert> = {
   title: 'Components/Alert',
   component: VAlert,
   argTypes: {
-    title: { control: 'text' },
     icon: { control: false },
-    status: { control: 'select', options: statusOptions('primary', 'success', 'warning', 'error') }
+    status: { control: 'select', options: statusOptions('primary', 'success', 'warning', 'error') },
+    title: { control: 'text' }
   },
   render(args) {
     return () => <VAlert {...args}>{Random.cparagraph()}</VAlert>

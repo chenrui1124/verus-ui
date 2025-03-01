@@ -51,10 +51,10 @@
   --color-err-ctr: light-dark(rgb(255, 243, 246), rgb(59, 31, 43));
   --color-on-err-ctr: light-dark(rgb(62, 0, 29), rgb(255, 217, 226) ;);
 
+  --color-suc: light-dark(rgb(32, 70, 43), rgb(166, 222, 133));
   --color-suc-ctr: light-dark(rgb(230, 244, 234), rgb(33, 55, 50));
-  --color-on-suc-ctr: light-dark(rgb(32, 70, 43), rgb(166, 222, 133));
+  --color-wan: light-dark(rgb(199, 69, 17), rgb(250, 214, 204));
   --color-wan-ctr: light-dark(rgb(254, 247, 224), rgb(59, 52, 43));
-  --color-on-wan-ctr: light-dark(rgb(199, 69, 17), rgb(250, 214, 204));
 
   --color-otl: light-dark(rgb(130, 125, 135), rgb(140, 135, 145));
   --color-otl-var: light-dark(rgb(225, 230, 235), rgb(40, 45, 50));

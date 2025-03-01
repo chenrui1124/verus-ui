@@ -6,8 +6,11 @@ import { cn } from '@/utils'
 
 export interface AlertProps {
   icon?: string
-  title?: string
+  /**
+   * @default 'primary'
+   */
   status?: StatusProp<'primary' | 'success' | 'warning' | 'error'>
+  title?: string
 }
 </script>
 
@@ -22,8 +25,8 @@ const { status = 'primary' } = defineProps<AlertProps>()
         'grid rounded-v4 px-5 py-3 text-sm/loose',
         {
           primary: 'bg-pri-ctr text-pri',
-          success: 'bg-suc-ctr text-on-suc-ctr',
-          warning: 'bg-wan-ctr text-on-wan-ctr',
+          success: 'bg-suc-ctr text-suc',
+          warning: 'bg-wan-ctr text-wan',
           error: 'bg-err-ctr text-err'
         }[status]
       )
