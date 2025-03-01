@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
 import { Random } from 'mockjs'
-import { variantOptions } from '@/ts'
+import { statusOptions, variantOptions } from '@/ts'
 import { VAccordion } from '.'
 
 const meta: Meta<typeof VAccordion> = {
   title: 'Components/Accordion',
   component: VAccordion,
   argTypes: {
-    danger: { control: 'boolean' },
     icon: { control: false },
     open: { control: 'boolean' },
+    status: { control: 'select', options: statusOptions('primary', 'error') },
     title: { control: 'text' },
     variant: { control: 'select', options: variantOptions('solid', 'outlined') }
   }

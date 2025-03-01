@@ -10,8 +10,8 @@ type ToggleGroupPropsItem = { value: string; icon: string }
 export interface ToggleGroupProps {
   modelValue?: string
   direction?: DirectionProp
-  rounded?: boolean
   items?: MaybeReadonly<ToggleGroupPropsItem>[]
+  rounded?: boolean
 }
 </script>
 

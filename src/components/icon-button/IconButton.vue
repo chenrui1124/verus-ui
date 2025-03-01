@@ -1,17 +1,22 @@
 <script lang="ts">
+import type { StatusProp } from '@/ts'
+
 import { BaseIcon } from '@/base'
 import { cn, ui } from '@/utils'
 
 export interface IconButtonProps {
-  danger?: boolean
   disabled?: boolean
   icon?: string
   rounded?: boolean
+  /**
+   * @default 'primary'
+   */
+  status?: StatusProp<'primary' | 'error'>
 }
 </script>
 
 <script lang="ts" setup>
-defineProps<IconButtonProps>()
+const { status = 'primary' } = defineProps<IconButtonProps>()
 
 const emit = defineEmits<{ click: [evt: MouseEvent] }>()
 
@@ -32,8 +37,8 @@ function onClick(evt: MouseEvent) {
 
 <template>
   <button
-    :data-status="danger ? 'error' : void 0"
     :disabled
+    :data-status="status"
     @click="onClick"
     :class="
       cn(

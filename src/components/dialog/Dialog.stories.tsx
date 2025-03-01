@@ -2,13 +2,14 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import type { DialogSlots } from '.'
 
 import { VButton } from '@/components'
+import { statusOptions } from '@/ts'
 import { VDialog } from '.'
 
 const meta: Meta<typeof VDialog> = {
   title: 'Components/Dialog',
   component: VDialog,
   argTypes: {
-    danger: { control: 'boolean' },
+    status: { control: 'select', options: statusOptions('primary', 'error') },
     width: { control: 'text' }
   },
   args: {},

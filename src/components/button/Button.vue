@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { FontWeightProp, TextTransformProp, VariantProp } from '@/ts'
+import type { FontWeightProp, StatusProp, TextTransformProp, VariantProp } from '@/ts'
 
 import { BaseIcon } from '@/base'
 import { cn, ui } from '@/utils'
@@ -7,7 +7,6 @@ import { cn, ui } from '@/utils'
 export interface ButtonProps {
   appendIcon?: string
   block?: boolean
-  danger?: boolean
   disabled?: boolean
   /**
    * @default 'normal'
@@ -16,6 +15,10 @@ export interface ButtonProps {
   icon?: string
   loading?: boolean | string
   rounded?: boolean
+  /**
+   * @default 'primary'
+   */
+  status?: StatusProp<'primary' | 'error'>
   text?: string
   textTransform?: TextTransformProp
   /**
@@ -31,7 +34,12 @@ export interface ButtonSlots {
 </script>
 
 <script lang="ts" setup>
-const { loading, fontWeight = 'normal', variant = 'tonal' } = defineProps<ButtonProps>()
+const {
+  fontWeight = 'normal',
+  loading,
+  status = 'primary',
+  variant = 'tonal'
+} = defineProps<ButtonProps>()
 
 const emit = defineEmits<{ click: [evt: MouseEvent] }>()
 
@@ -44,7 +52,7 @@ defineSlots<ButtonSlots>()
 
 <template>
   <button
-    :data-status="danger ? 'error' : void 0"
+    :data-status="status"
     :disabled
     @click="onClick"
     :style="{ width }"

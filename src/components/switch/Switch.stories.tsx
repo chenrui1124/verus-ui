@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
+import { statusOptions } from '@/ts'
 import { VSwitch } from '.'
 
 const meta: Meta<typeof VSwitch> = {
@@ -8,9 +9,8 @@ const meta: Meta<typeof VSwitch> = {
   argTypes: {
     modelValue: { control: 'boolean' },
     disabled: { control: 'boolean' },
-    danger: { control: 'boolean' }
+    status: { control: 'select', options: statusOptions('primary', 'error') }
   },
-  args: {},
   parameters: {
     layout: 'centered'
   },

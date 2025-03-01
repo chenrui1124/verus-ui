@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
+import { statusOptions } from '@/ts'
 import { VIconButton } from '.'
 
 const meta: Meta<typeof VIconButton> = {
@@ -7,9 +8,9 @@ const meta: Meta<typeof VIconButton> = {
   component: VIconButton,
   argTypes: {
     icon: { control: false },
-    danger: { control: 'boolean' },
     disabled: { control: 'boolean' },
-    rounded: { control: 'boolean' }
+    rounded: { control: 'boolean' },
+    status: { control: 'select', options: statusOptions('primary', 'error') }
   },
   parameters: {
     layout: 'centered'
@@ -31,7 +32,7 @@ export const Default: Story = {
 
 export const Example: Story = {
   args: {
-    danger: true,
+    status: 'error',
     icon: 'i-[fluent--delete-24-filled]'
   }
 }

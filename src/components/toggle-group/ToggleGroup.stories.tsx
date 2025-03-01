@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import { VToggleGroup } from '.'
 import { directionOptions } from '@/ts'
+import { VToggleGroup } from '.'
 
 const meta: Meta<typeof VToggleGroup> = {
   title: 'Components/ToggleGroup',
@@ -9,8 +9,8 @@ const meta: Meta<typeof VToggleGroup> = {
   argTypes: {
     modelValue: { control: 'text' },
     direction: { control: 'select', options: directionOptions() },
-    rounded: { control: 'boolean' },
-    items: { control: 'object' }
+    items: { control: 'object' },
+    rounded: { control: 'boolean' }
   },
   parameters: {
     layout: 'centered'

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
 import { fn } from '@storybook/test'
-import { fontWeightOptions, textTransformOptions, variantOptions } from '@/ts'
+import { fontWeightOptions, statusOptions, textTransformOptions, variantOptions } from '@/ts'
 import { VButton } from '.'
 
 const meta: Meta<typeof VButton> = {
@@ -10,12 +10,12 @@ const meta: Meta<typeof VButton> = {
   argTypes: {
     appendIcon: { control: false },
     block: { control: 'boolean' },
-    danger: { control: 'boolean' },
     disabled: { control: 'boolean' },
     fontWeight: { control: 'select', options: fontWeightOptions() },
     icon: { control: false },
     loading: { control: 'boolean' },
     rounded: { control: 'boolean' },
+    status: { control: 'select', options: statusOptions('primary', 'error') },
     text: { control: 'text' },
     textTransform: { control: 'select', options: textTransformOptions() },
     variant: { control: 'select', options: variantOptions() },

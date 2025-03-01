@@ -1,8 +1,12 @@
 <script lang="ts">
 import { useBackdrop, useSwitch } from '@/composable'
+import type { StatusProp } from '@/ts'
 
 export interface DialogProps {
-  danger?: boolean
+  /**
+   * @default 'primary'
+   */
+  status?: StatusProp<'primary' | 'error'>
   /**
    * @default '24rem'
    */
@@ -16,7 +20,7 @@ export interface DialogSlots {
 </script>
 
 <script lang="ts" setup>
-const { width = '24rem' } = defineProps<DialogProps>()
+const { status = 'primary', width = '24rem' } = defineProps<DialogProps>()
 
 const { state, on, off } = useSwitch()
 
@@ -43,19 +47,19 @@ useBackdrop({ state })
     >
       <dialog
         v-if="state"
+        :data-status="status"
         @cancel="off"
-        :data-status="danger ? 'error' : void 0"
         :style="{ width }"
         style="
           max-width: calc(100vw - 10vmin);
           max-height: calc(100vh - 10vmin);
           max-height: calc(100dvh - 10vmin);
         "
-        class="fixed inset-0 z-40 m-auto box-border grid grid-cols-1 rounded-v4 border-none bg-pri-ctr p-3 transition-all duration-500 ease-braking outline-none **:box-border backdrop:hidden"
+        class="fixed inset-0 z-40 m-auto box-border grid grid-cols-1 rounded-v4 border-none bg-pri-ctr p-3 transition-all duration-500 ease-braking outline-none backdrop:hidden"
       >
         <div
           style="max-height: calc(100dvh - 3rem - 10vmin)"
-          class="rounded-[inherit] p-3 transition-all duration-300 has-data-dialog-content:flex"
+          class="box-border rounded-[inherit] p-3 transition-all duration-300 has-data-dialog-content:flex"
         >
           <slot :="{ hide: off }"></slot>
         </div>

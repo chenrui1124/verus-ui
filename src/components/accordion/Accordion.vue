@@ -1,24 +1,28 @@
 <script lang="ts">
+import type { StatusProp, VariantProp } from '@/ts'
+
 import { BaseIcon } from '@/base'
-import type { VariantProp } from '@/ts'
 import { cn, ui } from '@/utils'
 
 export interface AccordionProps {
-  danger?: boolean
   icon?: string
   open?: boolean
+  /**
+   * @default 'primary'
+   */
+  status?: StatusProp<'primary' | 'error'>
   title?: string
   variant?: VariantProp<'solid' | 'outlined'>
 }
 </script>
 
 <script lang="ts" setup>
-const { variant = 'solid' } = defineProps<AccordionProps>()
+const { status = 'primary', variant = 'solid' } = defineProps<AccordionProps>()
 </script>
 
 <template>
   <div
-    :data-status="danger ? 'error' : void 0"
+    :data-status="status"
     :class="
       cn(
         'relative box-border grid grid-cols-1 grid-rows-[min-content_0fr] rounded-v3 transition-all duration-500 ease-braking has-checked:grid-rows-[min-content_1fr]',

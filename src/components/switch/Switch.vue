@@ -1,9 +1,14 @@
 <script lang="ts">
+import type { StatusProp } from '@/ts'
+
 import { cn, ui } from '@/utils'
 
 export interface SwitchProps {
   modelValue?: boolean
-  danger?: boolean
+  /**
+   * @default 'primary'
+   */
+  status?: StatusProp<'primary' | 'error'>
   disabled?: boolean
 }
 </script>
@@ -16,7 +21,7 @@ const modelValue = defineModel<SwitchProps['modelValue']>()
 
 <template>
   <label
-    :data-status="danger ? 'error' : void 0"
+    :data-status="status"
     :class="
       cn(
         'group/switch relative box-border inline-block h-7 w-12 cursor-pointer rounded-full bg-sur transition duration-300 **:box-border',
