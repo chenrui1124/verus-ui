@@ -19,11 +19,7 @@ export interface TabsSlots {
 </script>
 
 <script lang="ts" setup generic="T extends TabsPropItem">
-interface TabsGenericProps extends TabsProps {
-  items: MaybeReadonly<T[]>
-}
-
-const { items } = defineProps<Omit<TabsGenericProps, 'modelValue'>>()
+const { items } = defineProps<Omit<TabsProps & { items: MaybeReadonly<T[]> }, 'modelValue'>>()
 
 const modelValue = defineModel<T['value']>()
 
