@@ -44,7 +44,7 @@ const computedIcon = computed(() => (Array.isArray(icon) ? icon[state.value ? 0 
         v-if="computedIcon"
         :icon="computedIcon"
         :key="computedIcon"
-        size="md"
+        size="lg"
         class="transition duration-300"
       />
     </Transition>

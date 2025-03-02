@@ -48,6 +48,6 @@ function onClick(evt: MouseEvent) {
       )
     "
   >
-    <BaseIcon v-if="icon" :icon size="md" class="transition duration-300 ease-in-out" />
+    <BaseIcon v-if="icon" :icon size="lg" class="transition duration-300 ease-in-out" />
   </button>
 </template>

@@ -7,13 +7,13 @@ interface BaseIconProps {
   class?: HTMLAttributes['class']
   icon: string
   /**
-   * @default 'sm' = 'size-5'
+   * @default 'md' = 'size-5'
    */
-  size?: SizeProp<'sm' | 'md'>
+  size?: SizeProp<'sm' | 'md' | 'lg'>
 }
 
 const BaseIcon: FunctionalComponent<BaseIconProps> = (
-  { class: cv, icon, size = 'sm' },
+  { class: cv, icon, size = 'md' },
   { attrs }
 ) => (
   <span
@@ -22,8 +22,9 @@ const BaseIcon: FunctionalComponent<BaseIconProps> = (
       icon,
       'pointer-events-none inline-block',
       {
-        sm: 'size-5 min-h-5 min-w-5',
-        md: 'size-6 min-h-6 min-w-6'
+        sm: 'size-4 min-h-4 min-w-4',
+        md: 'size-5 min-h-5 min-w-5',
+        lg: 'size-6 min-h-6 min-w-6'
       }[size],
       cv
     )}

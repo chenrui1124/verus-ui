@@ -46,7 +46,7 @@ const BasePopoverContent = defineComponent(
       <div
         popover='manual'
         onClick={withModifiers(() => props.hidePopover(), ['self'])}
-        class='inset-0 z-40 m-0 box-border size-full border-none bg-transparent p-0 transition duration-300'
+        class='inset-0 z-40 m-0 box-border size-full border-none bg-transparent p-0 transition duration-300 ease-braking'
       >
         <div
           {...others}
@@ -137,8 +137,8 @@ const BasePopover = defineComponent<BasePopoverProps, any, any, SlotsType<BasePo
         {slots.trigger?.({ side: side.value, state: state.value, togglePopover })}
         <Transition
           {...{ onEnter, onAfterLeave }}
-          enterFromClass='opacity-0 *:first:scale-75 *:first:drop-shadow-none'
-          leaveToClass='opacity-0 *:first:scale-75 *:first:drop-shadow-none'
+          enterFromClass='opacity-0 *:first:scale-90 *:first:drop-shadow-none'
+          leaveToClass='opacity-0 *:first:scale-90 *:first:drop-shadow-none'
         >
           {state.value && (
             <BasePopoverContent

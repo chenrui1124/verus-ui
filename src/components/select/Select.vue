@@ -74,9 +74,10 @@ const { class: cv, ...others } = useAttrs()
         </span>
         <BaseIcon
           icon="i-[fluent--caret-right-24-filled]"
+          size="sm"
           :class="
             cn(
-              '-mr-1 transition duration-300',
+              '-mr-1.5 transition duration-300',
               disabled ? 'text-dis' : 'text-otl',
               state && ['text-pri', side && { top: '-rotate-90', bottom: 'rotate-90' }[side]]
             )

@@ -43,7 +43,7 @@ function setValue(value: string) {
         )
       "
     >
-      <BaseIcon :icon size="md" class="transition duration-300" />
+      <BaseIcon :icon size="lg" class="transition duration-300" />
     </button>
   </div>
 </template>
