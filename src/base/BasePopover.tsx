@@ -1,4 +1,4 @@
-import type { HTMLAttributes, PropType, SlotsType } from 'vue'
+import type { HTMLAttributes, PropType, SlotsType, TransitionProps } from 'vue'
 
 import {
   defineComponent,
@@ -123,11 +123,11 @@ const BasePopover = defineComponent<BasePopoverProps, any, any, SlotsType<BasePo
       state.value ? hidePopover() : showPopover(evt)
     }
 
-    function onEnter(el: Element) {
+    const onEnter: TransitionProps['onEnter'] = (el: Element) => {
       if (el.hasAttribute('popover')) (el as HTMLDivElement).showPopover()
     }
 
-    function onAfterLeave() {
+    const onAfterLeave: TransitionProps['onAfterLeave'] = () => {
       side.value = void 0
       style.value = {}
     }

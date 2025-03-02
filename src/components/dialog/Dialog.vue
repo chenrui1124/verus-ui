@@ -1,4 +1,5 @@
 <script lang="ts">
+import type { TransitionProps } from 'vue'
 import type { StatusProp } from '@/ts'
 
 import { useBackdrop, useSwitch } from '@/composable'
@@ -25,9 +26,13 @@ const { status = 'primary', width = '24rem' } = defineProps<DialogProps>()
 
 const { state, on, off } = useSwitch()
 
-const onEnter = (el: Element) => void (el as HTMLDialogElement).showModal()
+const onEnter: TransitionProps['onEnter'] = (el: Element) => {
+  void (el as HTMLDialogElement).showModal()
+}
 
-const onAfterLeave = (el: Element) => void (el as HTMLDialogElement).close()
+const onAfterLeave: TransitionProps['onAfterEnter'] = (el: Element) => {
+  void (el as HTMLDialogElement).close()
+}
 
 useBackdrop({ state })
 </script>
