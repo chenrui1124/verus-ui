@@ -9,7 +9,7 @@ import {
   Transition,
   withModifiers
 } from 'vue'
-import { useListener, useResize, useSwitch } from '@/composable'
+import { useDelegation, useResize, useSwitch } from '@/composable'
 import { cn, disableScroll } from '@/utils'
 
 type PopoverSlotsSide = 'top' | 'bottom'
@@ -35,7 +35,7 @@ interface BasePopoverContentProps extends Pick<BasePopoverProps, 'disabled'> {
 
 const BasePopoverContent = defineComponent(
   (props: BasePopoverContentProps, { attrs, slots }) => {
-    useListener({ keydown: evt => evt.key === 'Escape' && props.hidePopover() })
+    useDelegation({ keydown: evt => evt.key === 'Escape' && props.hidePopover() })
     useResize(() => props.hidePopover())
     onMounted(() => disableScroll(true))
     onUpdated(() => props.disabled && props.hidePopover())

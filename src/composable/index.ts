@@ -1,6 +1,6 @@
 export { useBackdrop } from './useBackdrop'
 export { useCycler } from './useCycler'
-export { useListener } from './useListener'
+export { useDelegation } from './useDelegation'
 export { useRender } from './useRender'
 export { useResize } from './useResize'
 export { useSwitch } from './useSwitch'

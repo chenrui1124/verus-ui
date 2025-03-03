@@ -2,7 +2,7 @@ import type { PropType } from 'vue'
 import type { SideProp } from '@/ts'
 
 import { defineComponent, mergeProps, reactive } from 'vue'
-import { useListener, useRender, useSwitch } from '@/composable'
+import { useDelegation, useRender, useSwitch } from '@/composable'
 import TooltipContent from './TooltipContent.vue'
 
 export interface TooltipProps {
@@ -79,9 +79,9 @@ function useSingleTooltipCreator() {
       </TooltipContent>
     ))
 
-    useListener({
+    useDelegation({
       mouseover: showTooltip,
-      mouseout: hideTooltip,
+      mouseout: hideTooltip
     })
   }
 }
