@@ -15,11 +15,62 @@ export interface TooltipProps {
   text?: string
 }
 
-export const useSingleTooltip = (() => {
+function useSingleTooltipCreator() {
   const props = reactive<Pick<TooltipProps, 'delay' | 'side' | 'text'>>({})
   const style = reactive<{ top?: string; left?: string }>({})
 
   const { state, on, off } = useSwitch()
+
+  function showTooltip(evt: Event) {
+    const el = evt.target as HTMLElement
+    const { tooltipDelay, tooltipSide, tooltipText } = el.dataset
+    if (
+      tooltipSide &&
+      tooltipText &&
+      ['top', 'right', 'bottom', 'left'].includes(tooltipSide) &&
+      props &&
+      style
+    ) {
+      props.side = tooltipSide as TooltipProps['side']
+      props.text = tooltipText
+      const { top, right, bottom, left } = el.getBoundingClientRect()
+      const center = { top: `${(top + bottom) / 2}px`, left: `${(right + left) / 2}px` }
+      switch (tooltipSide) {
+        case 'top':
+          style.top = `${top}px`
+          style.left = center.left
+          break
+        case 'right':
+          style.top = center.top
+          style.left = `${right}px`
+          break
+        case 'bottom':
+          style.top = `${bottom}px`
+          style.left = center.left
+          break
+        case 'left':
+          style.top = center.top
+          style.left = `${left}px`
+          break
+      }
+      if (tooltipDelay) props.delay = parseInt(tooltipDelay)
+      on()
+    }
+  }
+
+  function hideTooltip() {
+    if (!state.value) return
+    off()
+    requestAnimationFrame(() => {
+      if (props && style) {
+        props.delay = void 0
+        props.side = void 0
+        props.text = void 0
+        style.top = void 0
+        style.left = void 0
+      }
+    })
+  }
 
   return () => {
     useRender(() => (
@@ -29,58 +80,13 @@ export const useSingleTooltip = (() => {
     ))
 
     useListener({
-      mouseover: evt => {
-        const el = evt.target as HTMLElement
-        const { tooltipDelay, tooltipSide, tooltipText } = el.dataset
-        if (
-          tooltipSide &&
-          tooltipText &&
-          ['top', 'right', 'bottom', 'left'].includes(tooltipSide) &&
-          props &&
-          style
-        ) {
-          props.side = tooltipSide as TooltipProps['side']
-          props.text = tooltipText
-          const { top, right, bottom, left } = el.getBoundingClientRect()
-          const center = { left: `${(top + bottom) / 2}px`, top: `${(right + left) / 2}px` }
-          switch (tooltipSide) {
-            case 'top':
-              style.left = center.top
-              style.top = `${top}px`
-              break
-            case 'right':
-              style.left = `${right}px`
-              style.top = center.top
-              break
-            case 'bottom':
-              style.left = center.left
-              style.top = `${bottom}px`
-              break
-            case 'left':
-              style.left = `${left}px`
-              style.top = center.top
-              break
-          }
-          if (tooltipDelay) props.delay = parseInt(tooltipDelay)
-          on()
-        }
-      },
-      mouseout: () => {
-        if (!state.value) return
-        off()
-        requestAnimationFrame(() => {
-          if (props && style) {
-            props.delay = void 0
-            props.side = void 0
-            props.text = void 0
-            style.top = void 0
-            style.left = void 0
-          }
-        })
-      }
+      mouseover: showTooltip,
+      mouseout: hideTooltip,
     })
   }
-})()
+}
+
+const useSingleTooltip = useSingleTooltipCreator()
 
 const Tooltip = defineComponent({
   props: {
