@@ -6,6 +6,9 @@ import { useDelegation, useRender, useSwitch } from '@/composable'
 import TooltipContent from './TooltipContent.vue'
 
 export interface TooltipProps {
+  /**
+   * @default 200
+   */
   delay?: number
   disabled?: boolean
   /**
@@ -81,7 +84,9 @@ function useSingleTooltipCreator() {
 
     useDelegation({
       mouseover: showTooltip,
-      mouseout: hideTooltip
+      mouseout: hideTooltip,
+      focusin: showTooltip,
+      focusout: hideTooltip
     })
   }
 }
@@ -90,7 +95,10 @@ const useSingleTooltip = useSingleTooltipCreator()
 
 const Tooltip = defineComponent({
   props: {
-    delay: Number,
+    delay: {
+      type: Number,
+      default: 200
+    },
     disabled: Boolean,
     side: {
       type: String as PropType<TooltipProps['side']>,
@@ -108,6 +116,7 @@ const Tooltip = defineComponent({
 
       if (!props.disabled) {
         rendered[0].props = mergeProps(rendered[0].props ?? {}, {
+          'aria-describedby': 'v-tooltip',
           'data-tooltip-delay': props.delay,
           'data-tooltip-side': props.side,
           'data-tooltip-text': props.text

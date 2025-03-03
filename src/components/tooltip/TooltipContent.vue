@@ -38,6 +38,8 @@ defineSlots<TooltipContentSlots>()
   >
     <div
       v-if="state"
+      id="v-tooltip"
+      role="tooltip"
       :class="
         cn(
           {
