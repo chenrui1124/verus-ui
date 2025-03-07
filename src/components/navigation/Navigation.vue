@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { Either } from 'mm2r'
+import type { Either, MaybeReadonly } from 'mm2r'
 
 import { BaseIcon } from '@/base'
 
@@ -11,8 +11,8 @@ type NavigationPropsItemDefault = {
 
 type NavigationPropsItemGroup = {
   text: string
-  open?: boolean
   group: NavigationPropsItemDefault[]
+  open?: boolean
   icon?: string
 }
 
@@ -20,7 +20,7 @@ type NavigationPropsItem = Either<NavigationPropsItemDefault, NavigationPropsIte
 
 export interface NavigationProps {
   modelValue?: string
-  items?: NavigationPropsItem[]
+  items?: MaybeReadonly<NavigationPropsItem[]>
 }
 </script>
 
@@ -39,7 +39,7 @@ function setModelValue(evt: MouseEvent) {
 </script>
 
 <template>
-  <div
+  <nav
     v-if="items"
     @click="setModelValue"
     class="box-border grid grid-cols-[min-content_1fr_min-content] space-y-1 text-sm/loose text-on-sur select-none **:box-border"
@@ -101,5 +101,5 @@ function setModelValue(evt: MouseEvent) {
         <span class="pointer-events-none col-start-2">{{ first.text }}</span>
       </div>
     </template>
-  </div>
+  </nav>
 </template>

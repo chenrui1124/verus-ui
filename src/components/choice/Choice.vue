@@ -4,6 +4,7 @@ import type { DirectionProp, VariantProp } from '@/ts'
 
 import { computed, useId } from 'vue'
 import { BaseIcon } from '@/base'
+import { Direction, Variant } from '@/ts'
 import { cn, ui } from '@/utils'
 
 type ChoicePropsItem = { value: string } & (
@@ -27,15 +28,15 @@ export interface ChoiceProps<M extends boolean> {
   /**
    * @default 'solid'
    */
-  variant?: VariantProp<'solid' | 'outlined'>
+  variant?: VariantProp<Variant.Solid | Variant.Outlined>
 }
 </script>
 
 <script lang="ts" setup generic="M extends boolean">
 const {
-  direction = 'column',
+  direction = Direction.Column,
   multiple,
-  variant = 'solid'
+  variant = Variant.Solid
 } = defineProps<Omit<ChoiceProps<M>, 'modelValue'>>()
 
 const name = computed(() => (multiple ? void 0 : useId()))

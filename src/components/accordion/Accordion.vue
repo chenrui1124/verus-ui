@@ -1,7 +1,8 @@
 <script lang="ts">
 import type { StatusProp, VariantProp } from '@/ts'
 
-import { BaseIcon } from '@/base'
+import { BaseCollapsible, BaseIcon } from '@/base'
+import { Status, Variant } from '@/ts'
 import { cn, ui } from '@/utils'
 
 export interface AccordionProps {
@@ -10,14 +11,17 @@ export interface AccordionProps {
   /**
    * @default 'primary'
    */
-  status?: StatusProp<'primary' | 'error'>
+  status?: StatusProp<Status.Primary | Status.Error>
   title?: string
-  variant?: VariantProp<'solid' | 'outlined'>
+  /**
+   * @default 'solid'
+   */
+  variant?: VariantProp<Variant.Solid | Variant.Outlined>
 }
 </script>
 
 <script lang="ts" setup>
-const { status = 'primary', variant = 'solid' } = defineProps<AccordionProps>()
+const { open, status = Status.Primary, variant = Variant.Solid } = defineProps<AccordionProps>()
 </script>
 
 <template>
@@ -25,41 +29,42 @@ const { status = 'primary', variant = 'solid' } = defineProps<AccordionProps>()
     :data-status="status"
     :class="
       cn(
-        'relative box-border grid grid-cols-1 grid-rows-[min-content_0fr] rounded-v3 transition-all duration-500 ease-braking has-checked:grid-rows-[min-content_1fr]',
+        'relative box-border flex flex-col rounded-v3',
         {
-          solid: 'bg-pri-ctr',
-          outlined: [
+          [Variant.Solid]: 'bg-pri-ctr text-on-pri-var',
+          [Variant.Outlined]: [
             ui('cover_by_before'),
-            'bg-transparent before:border before:border-otl before:transition before:duration-300 has-checked:before:border-pri'
+            'bg-transparent text-on-sur before:border before:border-otl before:transition before:duration-300 has-aria-expanded:before:border-pri'
           ]
         }[variant]
       )
     "
   >
-    <label
-      :class="
-        cn(
-          'peer box-content flex h-12 cursor-pointer items-center gap-3 rounded-[inherit] px-6 transition-[color,padding,background-color] duration-300 select-none **:box-border has-checked:py-1',
-          ui('outline_has_focus_visible'),
-          {
-            solid: 'bg-pri-ctr text-pri hover:bg-pri/10',
-            outlined: 'bg-transparent text-pri hover:bg-pri-ctr'
-          }[variant]
-        )
-      "
-    >
-      <BaseIcon v-if="icon" :icon class="-ml-0.5" />
-      <span class="mb-px flex-1 overflow-hidden text-base text-ellipsis">{{ title }}</span>
-      <input
-        type="checkbox"
-        :checked="!!open"
-        class="m-0 -mr-1 i-[fluent--caret-right-24-filled] size-5 min-w-5 appearance-none text-inherit transition duration-500 ease-braking checked:rotate-90"
-      />
-    </label>
-    <div
-      class="box-border overflow-y-hidden px-6 py-0 text-sm/loose tracking-wide transition-all duration-500 ease-braking peer-has-checked:pt-3 peer-has-checked:pb-6"
-    >
-      <slot></slot>
-    </div>
+    <BaseCollapsible :open>
+      <template #trigger="{ aria, toggle }">
+        <button
+          :="aria"
+          @click="toggle"
+          :class="[
+            ui('outline_focus_visible'),
+            'box-content flex h-12 cursor-pointer list-none items-center gap-3 rounded-v3 border-none bg-transparent px-6 text-pri transition-all duration-300 select-none *:box-border aria-expanded:py-2 aria-expanded:*:last:rotate-90'
+          ]"
+        >
+          <BaseIcon v-if="icon" :icon class="-ml-1" />
+          <span class="pointer-events-none flex-1 text-left text-base/loose tracking-wide">
+            {{ title }}
+          </span>
+          <BaseIcon
+            icon="i-[fluent--caret-right-24-filled]"
+            class="-mr-1 transition duration-500 ease-braking"
+          />
+        </button>
+      </template>
+      <template #default>
+        <p class="m-0 box-border rounded-v3 px-6 pt-3 pb-6 text-sm/6">
+          <slot></slot>
+        </p>
+      </template>
+    </BaseCollapsible>
   </div>
 </template>

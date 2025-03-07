@@ -13,7 +13,7 @@
     "jsxImportSource": "vue",
     "noImplicitThis": true,
     "strict": true,
-    "verbatimModuleSyntax": true,
+    "preserveConstEnums": false,
     "target": "ESNext",
     "useDefineForClassFields": true,
     "esModuleInterop": true,

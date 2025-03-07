@@ -2,6 +2,7 @@
 import type { StatusProp } from '@/ts'
 
 import { BaseIcon } from '@/base'
+import { Status } from '@/ts'
 import { cn } from '@/utils'
 
 export interface AlertProps {
@@ -9,31 +10,36 @@ export interface AlertProps {
   /**
    * @default 'primary'
    */
-  status?: StatusProp<'primary' | 'success' | 'warning' | 'error'>
+  status?: StatusProp<Status.Primary | Status.Success | Status.Warning | Status.Error>
   title?: string
 }
 </script>
 
 <script lang="ts" setup>
-const { status = 'primary' } = defineProps<AlertProps>()
+const { status = Status.Primary } = defineProps<AlertProps>()
 </script>
 
 <template>
   <div
+    role="region"
     :class="
       cn(
-        'grid rounded-v4 px-5 py-3 text-sm/loose',
+        'grid rounded-v3 px-5 py-3 text-sm/6',
         {
-          primary: 'bg-pri-ctr text-pri',
-          success: 'bg-suc-ctr text-suc',
-          warning: 'bg-wan-ctr text-wan',
-          error: 'bg-err-ctr text-err'
+          [Status.Primary]: 'bg-pri-ctr text-pri',
+          [Status.Success]: 'bg-suc-ctr text-suc',
+          [Status.Warning]: 'bg-wan-ctr text-wan',
+          [Status.Error]: 'bg-err-ctr text-err'
         }[status]
       )
     "
   >
-    <BaseIcon v-if="icon" :icon class="col-start-1 row-span-2 row-start-1 mt-1 mr-3 size-5" />
-    <span v-if="title" class="col-start-2 row-start-1 mb-1">
+    <BaseIcon
+      v-if="icon"
+      :icon
+      class="col-start-1 row-span-2 row-start-1 mt-0.5 mr-3 -ml-1 size-5"
+    />
+    <span v-if="title" class="col-start-2 row-start-1 mb-1 tracking-wide">
       {{ title }}
     </span>
     <p class="col-start-2 row-start-2 m-0 mb-1 p-0 text-on-sur">

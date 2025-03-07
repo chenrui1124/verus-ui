@@ -2,6 +2,7 @@
 import type { StatusProp } from '@/ts'
 
 import { useSwitch } from '@/composable'
+import { Status } from '@/ts'
 import { cn, ui } from '@/utils'
 
 export interface SwitchProps {
@@ -9,13 +10,13 @@ export interface SwitchProps {
   /**
    * @default 'primary'
    */
-  status?: StatusProp<'primary' | 'error'>
+  status?: StatusProp<Status.Primary | Status.Error>
   disabled?: boolean
 }
 </script>
 
 <script lang="ts" setup>
-defineProps<Omit<SwitchProps, 'modelValue'>>()
+const { status = Status.Primary } = defineProps<Omit<SwitchProps, 'modelValue'>>()
 
 const modelValue = defineModel<SwitchProps['modelValue']>()
 

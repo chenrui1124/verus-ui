@@ -14,6 +14,7 @@ const meta: Meta<typeof VButton> = {
     fontWeight: { control: 'select', options: fontWeightOptions() },
     icon: { control: false },
     loading: { control: 'boolean' },
+    loadingIcon: { control: 'text' },
     rounded: { control: 'boolean' },
     status: { control: 'select', options: statusOptions('primary', 'error') },
     text: { control: 'text' },

@@ -2,6 +2,7 @@
 import type { FontWeightProp, StatusProp, TextTransformProp, VariantProp } from '@/ts'
 
 import { BaseIcon } from '@/base'
+import { FontWeight, Status, TextTransform, Variant } from '@/ts'
 import { cn, ui } from '@/utils'
 
 export interface ButtonProps {
@@ -13,12 +14,13 @@ export interface ButtonProps {
    */
   fontWeight?: FontWeightProp
   icon?: string
-  loading?: boolean | string
+  loading?: boolean
+  loadingIcon?: string
   rounded?: boolean
   /**
    * @default 'primary'
    */
-  status?: StatusProp<'primary' | 'error'>
+  status?: StatusProp<Status.Primary | Status.Error>
   text?: string
   textTransform?: TextTransformProp
   /**
@@ -35,10 +37,10 @@ export interface ButtonSlots {
 
 <script lang="ts" setup>
 const {
-  fontWeight = 'normal',
+  fontWeight = FontWeight.Normal,
   loading,
-  status = 'primary',
-  variant = 'tonal'
+  status = Status.Primary,
+  variant = Variant.Tonal
 } = defineProps<ButtonProps>()
 
 const emit = defineEmits<{ click: [evt: MouseEvent] }>()
@@ -52,8 +54,9 @@ defineSlots<ButtonSlots>()
 
 <template>
   <button
-    :data-status="status"
     :disabled
+    :aria-busy="loading"
+    :data-status="status"
     @click="onClick"
     :style="{ width }"
     :class="
@@ -63,34 +66,35 @@ defineSlots<ButtonSlots>()
         block ? 'flex' : 'inline-flex',
         rounded ? 'rounded-full px-5' : 'rounded-v2 px-4',
         {
-          solid: 'border-transparent bg-pri text-on-pri',
-          tonal: 'border-transparent bg-pri-var text-on-pri-var',
-          outlined: 'border-otl bg-transparent text-pri',
-          clean: 'border-transparent bg-transparent text-pri'
+          [Variant.Solid]: 'border-transparent bg-pri text-on-pri',
+          [Variant.Tonal]: 'border-transparent bg-pri-var text-on-pri-var',
+          [Variant.Outlined]: 'border-otl bg-transparent text-pri',
+          [Variant.Clean]: 'border-transparent bg-transparent text-pri'
         }[variant],
         loading ||
           {
-            solid: 'enabled:hover:brightness-110 enabled:focus:brightness-90',
-            tonal: 'enabled:hover:brightness-105 enabled:focus:brightness-90',
-            outlined: 'enabled:hover:bg-pri/10 enabled:focus:border-pri enabled:focus:bg-pri/15',
-            clean: 'enabled:hover:bg-pri/10 enabled:focus:bg-pri/15'
+            [Variant.Solid]: 'enabled:hover:brightness-110 enabled:focus:brightness-90',
+            [Variant.Tonal]: 'enabled:hover:brightness-105 enabled:focus:brightness-90',
+            [Variant.Outlined]:
+              'enabled:hover:bg-pri/10 enabled:focus:border-pri enabled:focus:bg-pri/15',
+            [Variant.Clean]: 'enabled:hover:bg-pri/10 enabled:focus:bg-pri/15'
           }[variant],
         'disabled:cursor-not-allowed disabled:text-on-dis',
         {
           'cursor-wait *:not-last:opacity-0': loading,
-          'disabled:border-dis': variant === 'outlined',
-          'disabled:bg-dis': ['solid', 'tonal'].includes(variant)
+          'disabled:border-dis': variant === Variant.Outlined,
+          'disabled:bg-dis': variant === Variant.Solid || variant === Variant.Tonal
         },
         textTransform &&
           {
-            uppercase: 'uppercase',
-            lowercase: 'lowercase',
-            capitalize: 'capitalize'
+            [TextTransform.Uppercase]: 'uppercase',
+            [TextTransform.Lowercase]: 'lowercase',
+            [TextTransform.Capitalize]: 'capitalize'
           }[textTransform],
         {
-          normal: 'font-normal',
-          semibold: 'font-semibold',
-          bold: 'font-bold'
+          [FontWeight.Normal]: 'font-normal',
+          [FontWeight.Semibold]: 'font-semibold',
+          [FontWeight.Bold]: 'font-bold'
         }[fontWeight],
         ui('outline_focus_visible')
       )
@@ -99,7 +103,7 @@ defineSlots<ButtonSlots>()
     <BaseIcon v-if="icon" :icon class="-mx-1.5" />
     <span
       v-if="text || $slots.default"
-      class="pointer-events-none text-sm/loose tracking-wide text-nowrap"
+      class="pointer-events-none text-sm/relaxed tracking-wide text-nowrap"
     >
       <slot>{{ text }}</slot>
     </span>
@@ -107,7 +111,7 @@ defineSlots<ButtonSlots>()
     <Transition enter-from-class="opacity-0" leave-to-class="opacity-0">
       <BaseIcon
         v-if="!disabled && loading"
-        :icon="typeof loading === 'string' && loading ? loading : 'i-[svg-spinners--3-dots-fade]'"
+        :icon="loadingIcon ?? 'i-[svg-spinners--3-dots-fade]'"
         class="absolute inset-0 m-auto size-6 rounded-[inherit]"
       />
     </Transition>

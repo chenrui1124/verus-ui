@@ -1,8 +1,11 @@
 <script lang="ts">
+import type { SideProp } from '@/ts'
+
 import { BaseIcon, BasePopover } from '@/base'
 import { vFocus } from '@/directives'
-import { ui } from '@/utils'
+import { Side } from '@/ts'
 
+import { ui } from '@/utils'
 type DropdownPropsItem = {
   text: string
   action?: (evt: MouseEvent) => void
@@ -17,7 +20,7 @@ export interface DropdownProps {
 
 export interface DropdownSlots {
   trigger?(props: {
-    side?: 'top' | 'bottom'
+    side?: SideProp<Side.Top | Side.Bottom>
     state?: boolean
     togglePopover: (evt: Event) => void
   }): any

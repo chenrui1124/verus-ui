@@ -19,9 +19,9 @@ defineSlots<DialogLayoutSlots>()
 
 <template>
   <div class="box-border flex h-full flex-col gap-3 **:box-border">
-    <div v-if="title" class="-mt-0.5 text-xl text-pri">{{ title }}</div>
-    <div v-if="subtitle" class="-mt-0.5 text-sm text-otl">{{ subtitle }}</div>
-    <div data-dialog-content class="flex-1 overflow-auto text-sm/loose tracking-wide text-on-sur">
+    <div v-if="title" class="-mt-1 text-xl text-pri">{{ title }}</div>
+    <div v-if="subtitle" class="-mt-1 text-sm/relaxed text-otl">{{ subtitle }}</div>
+    <div data-dialog-content class="flex-1 overflow-auto text-sm/relaxed tracking-wide text-on-sur">
       <slot></slot>
     </div>
     <div

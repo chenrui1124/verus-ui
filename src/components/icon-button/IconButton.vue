@@ -2,6 +2,7 @@
 import type { StatusProp } from '@/ts'
 
 import { BaseIcon } from '@/base'
+import { Status } from '@/ts'
 import { cn, ui } from '@/utils'
 
 export interface IconButtonProps {
@@ -11,12 +12,12 @@ export interface IconButtonProps {
   /**
    * @default 'primary'
    */
-  status?: StatusProp<'primary' | 'error'>
+  status?: StatusProp<Status.Primary | Status.Error>
 }
 </script>
 
 <script lang="ts" setup>
-const { status = 'primary' } = defineProps<IconButtonProps>()
+const { status = Status.Primary } = defineProps<IconButtonProps>()
 
 const emit = defineEmits<{ click: [evt: MouseEvent] }>()
 
