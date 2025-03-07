@@ -86,8 +86,8 @@ export const Card: Story = {
         <div class='h-5 bg-sur-var text-sm text-otl'></div>
         <div class='h-40 bg-sur-var text-sm/loose'></div>
         <div class='box-border flex h-9 justify-end gap-3 bg-sur-var'>
-          <div class='h-full w-16 rounded-v2 border border-otl'></div>
-          <div class='h-full w-16 rounded-v2 border border-otl'></div>
+          <div class='h-full w-16 rounded-v2 border border-otl-var bg-otl-var'></div>
+          <div class='h-full w-16 rounded-v2 border border-otl-var bg-otl-var'></div>
         </div>
       </div>
     </div>
