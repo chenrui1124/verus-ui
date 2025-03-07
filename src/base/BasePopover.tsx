@@ -36,10 +36,15 @@ interface BasePopoverContentProps extends Pick<BasePopoverProps, 'disabled'> {
 const BasePopoverContent = defineComponent(
   (props: BasePopoverContentProps, { attrs, slots }) => {
     useDelegation({ keydown: evt => evt.key === 'Escape' && props.hidePopover() })
+
     useResize(() => props.hidePopover())
+
     onMounted(() => disableScroll(true))
+
     onUpdated(() => props.disabled && props.hidePopover())
+
     onUnmounted(() => disableScroll(false))
+
     const { class: cv, ...others } = attrs
 
     return () => (

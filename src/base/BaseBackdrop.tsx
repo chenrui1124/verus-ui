@@ -8,6 +8,8 @@ interface BaseBackdropProps {
 
 const BaseBackdrop: FunctionalComponent<BaseBackdropProps> = ({ class: cv }) => (
   <div
+    role='backdrop'
+    aria-hidden='true'
     class={cn(
       'pointer-events-none fixed inset-0 z-30 bg-on-sur/30 backdrop-blur-sm transition duration-500',
       cv

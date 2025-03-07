@@ -18,6 +18,7 @@ const BaseIcon: FunctionalComponent<BaseIconProps> = (
 ) => (
   <span
     {...attrs}
+    aria-hidden='true'
     class={cn(
       icon,
       'pointer-events-none inline-block',
