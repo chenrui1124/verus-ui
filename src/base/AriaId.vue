@@ -1,5 +1,5 @@
 <script lang="ts">
-import { useId } from 'vue'
+import { computed, useId } from 'vue'
 
 interface AriaIdSlots {
   default?(props: {
@@ -16,18 +16,23 @@ interface AriaIdSlots {
 </script>
 
 <script lang="ts" setup>
+defineSlots<AriaIdSlots>()
+
 const controlsId = useId()
 
 const labelledbyId = useId()
 
-defineSlots<AriaIdSlots>()
+const controlsProps = computed(() => ({
+  id: controlsId,
+  'aria-controls': labelledbyId
+}))
+
+const labelledbyProps = computed(() => ({
+  id: labelledbyId,
+  'aria-labelledby': controlsId
+}))
 </script>
 
 <template>
-  <slot
-    :="{
-      controlsProps: { id: controlsId, 'aria-controls': labelledbyId },
-      labelledbyProps: { id: labelledbyId, 'aria-labelledby': controlsId }
-    }"
-  ></slot>
+  <slot :="{ controlsProps, labelledbyProps }"></slot>
 </template>

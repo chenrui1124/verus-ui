@@ -1,48 +1,51 @@
-import type { App, Component } from 'vue'
+import type { App, Component, EffectScope } from 'vue'
 
-import { createApp, onMounted, onUnmounted } from 'vue'
+import {
+  createApp,
+  defineComponent,
+  effectScope,
+  getCurrentScope,
+  h,
+  onScopeDispose,
+  reactive
+} from 'vue'
 
-interface RenderedComponentInfo {
-  container: HTMLDivElement
-  instance: App
-  count: number
-}
+export const useRender = (() => {
+  let subscribers = 0
+  let scope: EffectScope | null
+  let comps: Component[] | null
+  let ctr: HTMLElement | null
+  let app: App | null
 
-function useRenderCreator() {
-  const comps = new WeakMap<Component, RenderedComponentInfo>()
+  const setup = () => {
+    document.body.appendChild((ctr = document.createElement('div')))
+    app = createApp(defineComponent(() => () => (comps ? comps.map(comp => h(comp)) : null)))
+    app.mount(ctr)
+  }
 
-  function register(comp: Component) {
-    const info = comps.get(comp)
-
-    if (info) {
-      info.count++
-    } else {
-      const container = document.createElement('div')
-      document.body.appendChild(container)
-      const instance = createApp(comp)
-      comps.set(comp, { container, instance, count: 1 })
-      instance.mount(container)
+  const dispose = () => {
+    if (scope && --subscribers <= 0) {
+      scope.stop()
+      app?.unmount()
+      ctr?.remove()
+      app = ctr = comps = scope = null
     }
   }
 
-  function unregister(comp: Component) {
-    const info = comps.get(comp)
+  return function (comp: Component) {
+    if (!getCurrentScope()) return
 
-    if (info) {
-      info.count--
-      if (info.count <= 0) {
-        info.instance.unmount()
-        info.container.remove()
-        comps.delete(comp)
-      }
+    subscribers++
+    if (!Array.isArray(comps)) {
+      comps = reactive([])
+      scope = effectScope(true)
+      scope.run(setup)
     }
+    comps.push(comp)
+
+    onScopeDispose(() => {
+      if (Array.isArray(comps)) comps.splice(comps.indexOf(comp), 1)
+      dispose()
+    })
   }
-
-  return (component: Component) => {
-    onMounted(() => register(component))
-
-    onUnmounted(() => unregister(component))
-  }
-}
-
-export const useRender = useRenderCreator()
+})()

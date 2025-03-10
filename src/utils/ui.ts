@@ -1,6 +1,6 @@
 export const ui = (() => {
   const base = {
-    outline: 'outline-pri/75 outline-offset-3 outline-2 outline-none'
+    outline: 'outline-pri/75 outline-offset-2 outline-2 outline-none'
   } as const
 
   const each = {

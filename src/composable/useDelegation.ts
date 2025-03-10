@@ -1,23 +1,30 @@
-import { onMounted, onUnmounted } from 'vue'
+import { getCurrentScope, onScopeDispose } from 'vue'
 
-function useDelegationCreator() {
-  const availEvents = ['focusin', 'focusout', 'keydown', 'mouseover', 'mouseout'] as const
+export const useDelegation = (() => {
+  const enum DelegableEvents {
+    Focusin = 'focusin',
+    Focusout = 'focusout',
+    Keydown = 'keydown',
+    Mouseover = 'mouseover',
+    Mouseout = 'mouseout'
+  }
+  const delegable: `${DelegableEvents}`[] = [
+    'focusin',
+    'focusout',
+    'keydown',
+    'mouseover',
+    'mouseout'
+  ]
 
-  type AvailableEvents = (typeof availEvents)[number]
+  const fnm: Map<`${DelegableEvents}`, { controller: AbortController; callbacks: Set<Function> }> =
+    new Map()
 
-  type ListenerMap = Map<
-    AvailableEvents,
-    { abortController: AbortController; callbacks: Set<Function> }
-  >
+  function registerListener(availEvt: DelegableEvents) {
+    const controller = new AbortController()
+    controller.signal.addEventListener('abort', () => fnm.delete(availEvt))
 
-  const listenerMap: ListenerMap = new Map()
-
-  function registerListener(availEvt: AvailableEvents) {
-    const abortController = new AbortController()
-    abortController.signal.addEventListener('abort', () => listenerMap.delete(availEvt))
-
-    listenerMap.set(availEvt, {
-      abortController,
+    fnm.set(availEvt, {
+      controller,
       callbacks: new Proxy(new Set(), {
         get(target, p, receiver) {
           if (p === 'size') return target.size
@@ -27,11 +34,11 @@ function useDelegationCreator() {
               e => {
                 for (const cb of target) cb(e)
               },
-              { signal: abortController.signal }
+              { signal: controller.signal }
             )
           }
           if (p === 'delete' && target.size === 1) {
-            abortController.abort()
+            controller.abort()
           }
           return Reflect.get(target, p, receiver).bind(target)
         }
@@ -40,24 +47,23 @@ function useDelegationCreator() {
   }
 
   return (listeners: {
-    [T in AvailableEvents]+?: Parameters<typeof document.body.addEventListener<T>>[1]
+    [T in `${DelegableEvents}`]+?: Parameters<typeof document.body.addEventListener<T>>[1]
   }) => {
-    onMounted(() => {
-      for (const [e, cb] of Object.entries(listeners)) {
-        const evt = e as AvailableEvents
-        if (!listenerMap.has(evt)) registerListener(evt)
-        listenerMap.get(evt)!.callbacks.add(cb)
-      }
-    })
+    if (!getCurrentScope()) return
 
-    onUnmounted(() => {
+    for (const [e, cb] of Object.entries(listeners)) {
+      const evt = e as DelegableEvents
+      if (!delegable.includes(evt)) continue
+      if (!fnm.has(evt)) registerListener(evt)
+      fnm.get(evt)!.callbacks.add(cb)
+    }
+
+    onScopeDispose(() => {
       for (const [e, cb] of Object.entries(listeners)) {
-        const evt = e as AvailableEvents
-        if (!listenerMap.has(evt)) continue
-        listenerMap.get(evt)!.callbacks.delete(cb)
+        const evt = e as DelegableEvents
+        if (!fnm.has(evt)) continue
+        fnm.get(evt)!.callbacks.delete(cb)
       }
     })
   }
-}
-
-export const useDelegation = useDelegationCreator()
+})()

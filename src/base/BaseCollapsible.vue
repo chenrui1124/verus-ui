@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Aria } from '@/ts'
 
-import { computed, useId } from 'vue'
+import { AriaId } from '@/base'
 import { useSwitch } from '@/composable'
 
 interface BaseCollapsibleProps {
@@ -25,42 +25,36 @@ const emit = defineEmits<{ switch: [state: boolean] }>()
 
 const hook = () => emit('switch', state.value)
 
-const regionId = useId()
-
-const controllerId = useId()
-
-const aria = computed(() => ({
-  id: controllerId,
-  'aria-controls': regionId,
-  'aria-expanded': state.value
-}))
-
 defineSlots<BaseCollapsibleSlots>()
 </script>
 
 <template>
-  <slot name="trigger" :="{ aria, state, toggle }"></slot>
+  <AriaId #="{ controlsProps, labelledbyProps }">
+    <slot
+      name="trigger"
+      :="{ aria: { ...controlsProps, 'aria-expanded': state }, state, toggle }"
+    ></slot>
 
-  <div :id="regionId" role="region" :aria-labelledby="controllerId" class="box-border">
-    <Transition
-      @before-enter="hook"
-      @after-leave="hook"
-      enter-from-class="grid-rows-[0fr]"
-      enter-active-class="transition-all duration-500 ease-braking"
-      enter-to-class="grid-rows-[1fr]"
-      leave-from-class="grid-rows-[1fr]"
-      leave-active-class="transition-all duration-500 ease-braking"
-      leave-to-class="grid-rows-[0fr]"
-    >
-      <div
-        v-if="state"
-        :="$attrs"
-        class="grid-col-1 box-border grid rounded-[inherit] transition duration-300"
+    <div role="region" :="labelledbyProps" class="box-border">
+      <Transition
+        @before-enter="hook"
+        @after-leave="hook"
+        enter-from-class="grid-rows-[0fr]"
+        enter-active-class="transition-all duration-500 ease-braking"
+        enter-to-class="grid-rows-[1fr]"
+        leave-from-class="grid-rows-[1fr]"
+        leave-active-class="transition-all duration-500 ease-braking"
+        leave-to-class="grid-rows-[0fr]"
       >
-        <div class="box-border overflow-hidden rounded-[inherit]">
-          <slot></slot>
+        <div
+          v-if="state"
+          class="grid-col-1 box-border grid rounded-[inherit] transition duration-300"
+        >
+          <div :="$attrs" class="box-border overflow-hidden rounded-[inherit]">
+            <slot></slot>
+          </div>
         </div>
-      </div>
-    </Transition>
-  </div>
+      </Transition>
+    </div>
+  </AriaId>
 </template>
