@@ -2,12 +2,14 @@
 import type { TransitionProps } from 'vue'
 import type { TooltipProps } from '.'
 
+import { useId } from 'vue'
 import { iconUri } from '@/base'
 import { cn } from '@/utils'
 
 interface TooltipContentProps extends Pick<TooltipProps, 'side'> {
   delay?: number
   state?: boolean
+  text?: string
 }
 
 interface TooltipContentSlots {
@@ -26,6 +28,10 @@ const onAfterEnter: TransitionProps['onAfterEnter'] = el => {
   delay && ((el as HTMLDivElement).style.transitionDelay = '')
 }
 
+const id = useId()
+
+defineExpose({ id })
+
 defineSlots<TooltipContentSlots>()
 </script>
 
@@ -34,11 +40,14 @@ defineSlots<TooltipContentSlots>()
     @before-enter="onBeforeEnter"
     @after-enter="onAfterEnter"
     enter-from-class="scale-75 opacity-0"
+    enter-active-class="duration-300 ease-braking"
+    leave-active-class="duration-150"
     leave-to-class="scale-75 opacity-0"
   >
     <div
       v-if="state"
-      id="v-tooltip"
+      :key="text"
+      :id
       role="tooltip"
       :class="
         cn(
@@ -48,11 +57,12 @@ defineSlots<TooltipContentSlots>()
             bottom: 'mt-2 origin-top -translate-x-1/2',
             left: '-ml-2 origin-right -translate-x-full -translate-y-1/2'
           }[side],
-          'pointer-events-none fixed z-40 box-border h-8 rounded-v2 bg-on-sur px-3 text-center text-sm/8 text-nowrap text-sur drop-shadow-md transition duration-300 ease-braking **:box-border'
+          'pointer-events-none fixed z-40 box-border h-8 rounded-v2 bg-on-sur px-3 text-center text-sm/8 text-nowrap text-sur drop-shadow-xs transition **:box-border'
         )
       "
     >
       <span
+        aria-hidden="true"
         :style="{
           maskImage: `url(${iconUri.tooltipArrow})`,
           maskRepeat: 'no-repeat',
