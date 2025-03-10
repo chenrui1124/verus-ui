@@ -18,9 +18,14 @@ export interface TooltipProps {
   text?: string
 }
 
-function useSingleTooltipCreator() {
-  const props = reactive<Pick<TooltipProps, 'delay' | 'side' | 'text'>>({})
+export interface TooltipSlots {
+  default?(): any
+}
+
+const useSingleTooltip = (() => {
+  const props = reactive<Partial<Pick<TooltipProps, 'delay' | 'side' | 'text'>>>({})
   const style = reactive<{ top?: string; left?: string }>({})
+  let id: string
 
   const { state, on, off } = useSwitch()
 
@@ -56,28 +61,39 @@ function useSingleTooltipCreator() {
           style.left = `${left}px`
           break
       }
+
       if (tooltipDelay) props.delay = parseInt(tooltipDelay)
+      el.setAttribute('aria-describedby', id)
+
       on()
     }
   }
 
-  function hideTooltip() {
+  function hideTooltip(evt: Event) {
     if (!state.value) return
+
+    const el = evt.target as HTMLElement
+
     off()
-    requestAnimationFrame(() => {
-      if (props && style) {
-        props.delay = void 0
-        props.side = void 0
-        props.text = void 0
-        style.top = void 0
-        style.left = void 0
+
+    for (const key of Object.keys(el.dataset)) {
+      if (key.startsWith('tooltip')) {
+        el.removeAttribute('aria-describedby')
+        break
       }
-    })
+    }
   }
 
   return () => {
     useRender(() => (
-      <TooltipContent delay={props?.delay} state={state.value} side={props.side} style={style}>
+      <TooltipContent
+        ref={el => (id = (el as InstanceType<typeof TooltipContent>).id)}
+        delay={props.delay}
+        side={props.side}
+        state={state.value}
+        text={props.text}
+        style={style}
+      >
         {props?.text}
       </TooltipContent>
     ))
@@ -89,9 +105,7 @@ function useSingleTooltipCreator() {
       focusout: hideTooltip
     })
   }
-}
-
-const useSingleTooltip = useSingleTooltipCreator()
+})()
 
 const Tooltip = defineComponent({
   props: {
@@ -116,7 +130,6 @@ const Tooltip = defineComponent({
 
       if (!props.disabled) {
         rendered[0].props = mergeProps(rendered[0].props ?? {}, {
-          'aria-describedby': 'v-tooltip',
           'data-tooltip-delay': props.delay,
           'data-tooltip-side': props.side,
           'data-tooltip-text': props.text
