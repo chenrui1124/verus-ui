@@ -9,7 +9,8 @@ const meta: Meta<typeof VToggle> = {
     modelValue: { control: false },
     disabled: { control: 'boolean' },
     icon: { control: 'text' },
-    rounded: { control: 'boolean' }
+    rounded: { control: 'boolean' },
+    value: { control: 'text' }
   },
   parameters: {
     layout: 'centered'
