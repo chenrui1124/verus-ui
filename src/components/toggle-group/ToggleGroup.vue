@@ -1,49 +1,41 @@
 <script lang="ts">
-import type { MaybeReadonly } from 'mm2r'
+import type { ComputedRef, InjectionKey, Ref } from 'vue'
 import type { DirectionProp } from '@/ts'
 
-import { BaseIcon } from '@/base'
-import { cn, ui } from '@/utils'
-
-type ToggleGroupPropsItem = { value: string; icon: string }
+import { computed, provide, readonly } from 'vue'
 
 export interface ToggleGroupProps {
   modelValue?: string
   direction?: DirectionProp
-  items?: MaybeReadonly<ToggleGroupPropsItem>[]
+  disabled?: boolean
   rounded?: boolean
 }
+
+export interface ToggleGroupSlots {
+  default?(): any
+}
+
+export const toggleGroupKey = Symbol() as InjectionKey<{
+  props: ComputedRef<Pick<ToggleGroupProps, 'disabled' | 'rounded'>>
+  groupModel?: Readonly<Ref<string | undefined>>
+  setGroupModel?: (value: string) => void
+}>
 </script>
 
 <script lang="ts" setup>
-defineProps<Omit<ToggleGroupProps, 'modelValue'>>()
+const { disabled, rounded } = defineProps<Omit<ToggleGroupProps, 'modelValue'>>()
 
 const modelValue = defineModel<ToggleGroupProps['modelValue']>()
 
-function setValue(value: string) {
-  modelValue.value = value
-}
+provide(toggleGroupKey, {
+  props: computed(() => ({ disabled, rounded })),
+  groupModel: readonly(modelValue),
+  setGroupModel: (value: string) => void (modelValue.value = value)
+})
 </script>
 
 <template>
   <div :class="['box-border inline-flex gap-1.5', direction === 'column' && 'flex-col']">
-    <button
-      v-for="{ icon, value } in items"
-      :key="value"
-      :tabindex="modelValue === value ? '-1' : void 0"
-      @click="setValue(value)"
-      :class="
-        cn(
-          ui('outline_focus_visible'),
-          'relative box-border h-9 cursor-pointer border-none bg-transparent p-1.5 transition duration-300 **:box-border disabled:cursor-not-allowed disabled:text-dis',
-          rounded ? 'rounded-full' : 'rounded-v2',
-          modelValue === value
-            ? 'pointer-events-none bg-pri-ctr text-pri disabled:bg-dis/30'
-            : 'text-otl enabled:hover:bg-sur-var'
-        )
-      "
-    >
-      <BaseIcon :icon size="lg" class="transition duration-300" />
-    </button>
+    <slot></slot>
   </div>
 </template>
