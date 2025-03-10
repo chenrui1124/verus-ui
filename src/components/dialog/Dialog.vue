@@ -35,7 +35,9 @@ const onAfterLeave: TransitionProps['onAfterEnter'] = (el: Element) => {
   void (el as HTMLDialogElement).close()
 }
 
-useBackdrop({ state })
+useBackdrop(state)
+
+defineSlots<DialogSlots>()
 </script>
 
 <template>

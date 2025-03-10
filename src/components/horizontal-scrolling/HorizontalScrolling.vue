@@ -12,6 +12,10 @@ export interface HorizontalScrollingProps {
    */
   width?: string
 }
+
+export interface HorizontalScrollingSlots {
+  default?(): any
+}
 </script>
 
 <script lang="ts" setup>
@@ -24,6 +28,8 @@ function onResize(entry: ResizeObserverEntry) {
   size.width = `${rect.height}px`
   size.height = `${rect.width}px`
 }
+
+defineSlots<HorizontalScrollingSlots>()
 </script>
 
 <template>

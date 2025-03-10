@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { StatusProp } from '@/ts'
 
+import { normalizeClass } from 'vue'
 import { BaseIcon } from '@/base'
 import { Status } from '@/ts'
 import { cn } from '@/utils'
@@ -13,10 +14,16 @@ export interface AlertProps {
   status?: StatusProp<Status.Primary | Status.Success | Status.Warning | Status.Error>
   title?: string
 }
+
+export interface AlertSlots {
+  default?(): any
+}
 </script>
 
 <script lang="ts" setup>
 const { status = Status.Primary } = defineProps<AlertProps>()
+
+defineSlots<AlertSlots>()
 </script>
 
 <template>
@@ -24,7 +31,7 @@ const { status = Status.Primary } = defineProps<AlertProps>()
     role="region"
     :class="
       cn(
-        'grid rounded-v3 px-5 py-3 text-sm/6',
+        'grid grid-cols-[min-content_1fr] rounded-v3 px-5 py-3 text-sm/6',
         {
           [Status.Primary]: 'bg-pri-ctr text-pri',
           [Status.Success]: 'bg-suc-ctr text-suc',

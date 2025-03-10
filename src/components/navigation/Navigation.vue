@@ -48,7 +48,7 @@ function onClick(evt: MouseEvent) {
 <template>
   <ul
     @click="onClick"
-    class="col-span-3 m-0 grid list-none grid-cols-[min-content_1fr_min-content] space-y-1 p-0 text-on-sur/80"
+    class="m-0 grid list-none grid-cols-[min-content_1fr_min-content] space-y-1 p-0 text-on-sur/80"
   >
     <template v-for="(fl, fIndex) of items" :key="fIndex">
       <li

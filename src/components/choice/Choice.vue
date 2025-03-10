@@ -52,8 +52,8 @@ const modelValue = defineModel<ChoiceProps<M>['modelValue']>()
       cn(
         'box-border **:box-border',
         {
-          row: 'grid grid-flow-col grid-rows-[min-content_1fr] gap-1.5',
-          column: 'grid grid-cols-[min-content_1fr_min-content] gap-x-3 gap-y-1.5'
+          [Direction.Row]: 'grid auto-cols-fr grid-flow-col grid-rows-[min-content_1fr] gap-1.5',
+          [Direction.Column]: 'grid grid-cols-[min-content_1fr_min-content] gap-x-3 gap-y-1.5'
         }[direction]
       )
     "
@@ -67,13 +67,13 @@ const modelValue = defineModel<ChoiceProps<M>['modelValue']>()
           ui('outline_has_focus_visible'),
           'has-disabled:cursor-not-allowed has-disabled:text-on-dis has-[:checked:disabled]:bg-dis',
           {
-            solid: 'border-transparent bg-sur-var',
-            outlined:
+            [Variant.Solid]: 'border-transparent bg-sur-var',
+            [Variant.Outlined]:
               'border-otl-var bg-transparent has-checked:border-transparent has-[:not(:checked):disabled]:border-dis'
           }[variant],
           {
-            row: 'row-span-2 grid grid-rows-subgrid items-center px-4.5 py-3',
-            column: 'col-span-3 grid h-12 grid-cols-subgrid items-center px-4.5'
+            [Direction.Row]: 'row-span-2 grid grid-rows-subgrid items-center px-4.5 py-3',
+            [Direction.Column]: 'col-span-3 grid h-12 grid-cols-subgrid items-center px-4.5'
           }[direction]
         )
       "
@@ -83,7 +83,10 @@ const modelValue = defineModel<ChoiceProps<M>['modelValue']>()
         :icon
         :class="[
           'size-5',
-          { row: 'col-start-1 row-start-1 -ml-0.5', column: 'col-start-1 -ml-1' }[direction]
+          {
+            [Direction.Row]: 'col-start-1 row-start-1 -ml-0.5',
+            [Direction.Column]: 'col-start-1 -ml-1'
+          }[direction]
         ]"
       />
       <span
@@ -102,7 +105,10 @@ const modelValue = defineModel<ChoiceProps<M>['modelValue']>()
         v-model="modelValue"
         :class="[
           'm-0 -mr-1 ml-1 size-4 appearance-none rounded-full border border-otl transition-all duration-500 ease-braking outline-none group-active/select:scale-75 checked:border-4 checked:border-pri disabled:border-on-dis',
-          { row: 'col-start-3 row-start-1 justify-self-end', column: 'col-start-3' }[direction]
+          {
+            [Direction.Row]: 'col-start-3 row-start-1 justify-self-end',
+            [Direction.Column]: 'col-start-3'
+          }[direction]
         ]"
       />
     </label>

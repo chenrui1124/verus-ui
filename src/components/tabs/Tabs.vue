@@ -25,10 +25,6 @@ const modelValue = defineModel<T['value']>()
 
 const index = computed(() => items?.findIndex(({ value }) => value === modelValue.value))
 
-function setModelValue(value: string) {
-  modelValue.value = value
-}
-
 const slots = defineSlots<{ [S in T['value']]+?: () => any }>()
 
 const TabsView = ({ name }: { name: string }) => {
@@ -51,7 +47,7 @@ const TabsView = ({ name }: { name: string }) => {
         <button
           v-for="({ text, value }, key) of items"
           :key
-          @click="setModelValue(value)"
+          @click="modelValue = value"
           :class="[
             'h-8 cursor-pointer rounded-[inherit] border-none px-4 text-sm/8 transition duration-300',
             modelValue === value
@@ -68,9 +64,9 @@ const TabsView = ({ name }: { name: string }) => {
     <div class="overflow-x-hidden">
       <div
         :style="{ transform: index ? `translateX(-${index * 100}%)` : void 0 }"
-        class="flex w-full flex-nowrap transition duration-300"
+        class="flex w-full flex-nowrap transition duration-500 ease-braking"
       >
-        <div v-for="{ value } of items" class="min-w-full">
+        <div v-for="{ value } of items" :key="value" class="min-w-full">
           <TabsView :name="value" />
         </div>
       </div>

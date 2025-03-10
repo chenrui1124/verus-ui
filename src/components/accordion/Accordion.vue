@@ -18,10 +18,15 @@ export interface AccordionProps {
    */
   variant?: VariantProp<Variant.Solid | Variant.Outlined>
 }
+export interface AccordionSlots {
+  default?(): any
+}
 </script>
 
 <script lang="ts" setup>
 const { open, status = Status.Primary, variant = Variant.Solid } = defineProps<AccordionProps>()
+
+defineSlots<AccordionSlots>()
 </script>
 
 <template>
