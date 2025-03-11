@@ -78,7 +78,7 @@ defineSlots<TabsSlots>()
           :key
           @click="setTabValue(value)"
           :class="[
-            'box-border h-8 cursor-pointer rounded-[inherit] border-none px-4 text-sm/6 text-nowrap transition duration-300',
+            'box-border h-8 cursor-pointer rounded-[inherit] border-none px-4 text-sm/6 text-nowrap transition duration-300 select-none',
             modelAccessor === value
               ? 'pointer-events-none bg-pri-ctr text-pri'
               : 'bg-transparent text-on-sur hover:bg-on-sur/5',
@@ -101,7 +101,7 @@ defineSlots<TabsSlots>()
           :key="modelAccessor"
           class="box-border w-full p-1.5 transition duration-500 ease-braking"
         >
-          <slot :name="modelAccessor"></slot>
+          <slot :name="`${modelAccessor ?? ''}`"></slot>
         </div>
       </Transition>
     </div>
