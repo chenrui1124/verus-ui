@@ -1,13 +1,14 @@
 import { getCurrentScope, onScopeDispose } from 'vue'
 
+const enum DelegableEvents {
+  Focusin = 'focusin',
+  Focusout = 'focusout',
+  Keydown = 'keydown',
+  Mouseover = 'mouseover',
+  Mouseout = 'mouseout'
+}
+
 export const useDelegation = (() => {
-  const enum DelegableEvents {
-    Focusin = 'focusin',
-    Focusout = 'focusout',
-    Keydown = 'keydown',
-    Mouseover = 'mouseover',
-    Mouseout = 'mouseout'
-  }
   const delegable: `${DelegableEvents}`[] = [
     'focusin',
     'focusout',

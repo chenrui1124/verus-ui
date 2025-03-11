@@ -42,6 +42,7 @@ export default defineConfig({
     vueJsx({ optimize: true }),
     tailwindcss(),
     dts({
+      bundledPackages: ['mm2r'],
       rollupTypes: true,
       tsconfigPath: './tsconfig.app.json'
     }),

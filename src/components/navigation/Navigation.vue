@@ -21,7 +21,7 @@ type NavigationPropsItem = Either<NavigationPropsItemDefault, NavigationPropsIte
 
 export interface NavigationProps {
   modelValue?: string
-  items?: MaybeReadonly<NavigationPropsItem[]>
+  items: MaybeReadonly<NavigationPropsItem[]>
 }
 </script>
 

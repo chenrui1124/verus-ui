@@ -4,8 +4,9 @@ import type { SideProp } from '@/ts'
 import { BaseIcon, BasePopover } from '@/base'
 import { vFocus } from '@/directives'
 import { Side } from '@/ts'
-
 import { ui } from '@/utils'
+import { MaybeReadonly } from 'mm2r'
+
 type DropdownPropsItem = {
   text: string
   action?: (evt: MouseEvent) => void
@@ -14,7 +15,7 @@ type DropdownPropsItem = {
 }
 
 export interface DropdownProps {
-  items?: DropdownPropsItem[]
+  items: MaybeReadonly<DropdownPropsItem[]>
   width?: string
 }
 
@@ -34,7 +35,7 @@ defineSlots<DropdownSlots>()
 </script>
 
 <template>
-  <BasePopover v-if="items" :width class="border-none bg-on-sur drop-shadow-md">
+  <BasePopover :width class="border-none bg-on-sur drop-shadow-md">
     <template #trigger="props">
       <slot name="trigger" :="props"></slot>
     </template>
