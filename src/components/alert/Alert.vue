@@ -1,7 +1,6 @@
 <script lang="ts">
 import type { StatusProp } from '@/ts'
 
-import { normalizeClass } from 'vue'
 import { BaseIcon } from '@/base'
 import { Status } from '@/ts'
 import { cn } from '@/utils'
