@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { TransitionProps } from 'vue'
-import type { Aria, StatusProp } from '@/ts'
+import type { StatusProp } from '@/ts'
 
 import { useBackdrop, useSwitch } from '@/composable'
 import { Status } from '@/ts'
@@ -17,7 +17,7 @@ export interface DialogProps {
 }
 
 export interface DialogSlots {
-  trigger?(props: { aria: Aria.Collapsible; show: () => void }): any
+  trigger?(props: { show: () => void }): any
   default?(props: { hide: () => void }): any
 }
 </script>

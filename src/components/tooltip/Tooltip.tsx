@@ -84,26 +84,28 @@ const useSingleTooltip = (() => {
     }
   }
 
-  return () => {
-    useRender(() => (
-      <TooltipContent
-        ref={el => (id = (el as InstanceType<typeof TooltipContent>).id)}
-        delay={props.delay}
-        side={props.side}
-        state={state.value}
-        text={props.text}
-        style={style}
-      >
-        {props?.text}
-      </TooltipContent>
-    ))
+  const TooltipContentWrapper = () => (
+    <TooltipContent
+      ref={el => (id = (el as InstanceType<typeof TooltipContent>).id)}
+      delay={props.delay}
+      side={props.side}
+      state={state.value}
+      text={props.text}
+      style={style}
+    >
+      {props?.text}
+    </TooltipContent>
+  )
 
+  return () => {
     useDelegation({
       mouseover: showTooltip,
       mouseout: hideTooltip,
       focusin: showTooltip,
       focusout: hideTooltip
     })
+
+    useRender(TooltipContentWrapper)
   }
 })()
 
