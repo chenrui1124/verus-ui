@@ -18,6 +18,7 @@ export interface AccordionProps {
    */
   variant?: VariantProp<Variant.Solid | Variant.Outlined>
 }
+
 export interface AccordionSlots {
   default?(): any
 }
@@ -52,7 +53,7 @@ defineSlots<AccordionSlots>()
           @click="toggle"
           :class="[
             ui('outline_focus_visible'),
-            'box-content flex h-12 cursor-pointer list-none items-center gap-3 rounded-v3 border-none bg-transparent px-6 text-pri transition-all duration-300 select-none *:box-border aria-expanded:py-2 aria-expanded:*:last:rotate-90'
+            'box-content flex h-12 list-none items-center gap-3 rounded-v3 border-none bg-transparent px-6 text-pri transition-all duration-300 select-none *:box-border aria-expanded:py-2 aria-expanded:*:last:rotate-90'
           ]"
         >
           <BaseIcon v-if="icon" :icon class="-ml-1" />
