@@ -33,18 +33,14 @@ defineSlots<HorizontalScrollingSlots>()
 </script>
 
 <template>
-  <div
-    v-resize-observer="onResize"
-    :style="{ width, height }"
-    class="box-border overflow-hidden **:box-border"
-  >
+  <div v-resize-observer="onResize" :style="{ width, height }" class="box-border overflow-hidden">
     <div
       :style="{ ...size, transform: `translateY(${size.width}) rotate(-90deg)` }"
-      class="relative origin-top-left overflow-y-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:w-0"
+      class="relative box-border origin-top-left overflow-y-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:w-0"
     >
       <div
         :style="{ height: size.width }"
-        class="absolute left-full flex origin-top-left rotate-90 flex-nowrap *:max-w-none"
+        class="absolute left-full box-border flex origin-top-left rotate-90 flex-nowrap *:max-w-none"
       >
         <slot></slot>
       </div>

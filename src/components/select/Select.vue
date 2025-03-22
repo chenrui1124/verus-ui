@@ -100,7 +100,7 @@ const { class: cv, ...others } = useAttrs()
           :class="
             cn(
               ui('outline_focus_visible'),
-              'inline-flex h-8 grow-8 cursor-pointer items-center rounded-v1 border-none bg-transparent px-3.75 transition duration-300 select-none focus:z-10',
+              'inline-flex cursor-pointer items-center rounded-v1 border-none bg-transparent px-3.75 py-0.5 transition duration-300 select-none focus:z-10',
               modelValue === value
                 ? 'pointer-events-none bg-pri-ctr text-pri'
                 : 'text-inherit hover:bg-sur-var'
