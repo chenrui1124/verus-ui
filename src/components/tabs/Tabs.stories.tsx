@@ -10,7 +10,7 @@ const meta: Meta<typeof VTabs> = {
     modelValue: { control: 'text' },
     items: { control: 'object' },
     stretch: { control: 'boolean' },
-    uniformWidth: { control: 'boolean' }
+    fixedWidth: { control: 'boolean' }
   }
 }
 

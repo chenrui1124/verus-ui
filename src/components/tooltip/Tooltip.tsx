@@ -110,6 +110,7 @@ const useSingleTooltip = (() => {
 })()
 
 const Tooltip = defineComponent({
+  name: 'Tooltip',
   props: {
     delay: {
       type: Number,

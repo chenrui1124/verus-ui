@@ -17,6 +17,7 @@ export interface AccordionProps {
    * @default 'solid'
    */
   variant?: VariantProp<Variant.Solid | Variant.Outlined>
+  width?: string
 }
 
 export interface AccordionSlots {
@@ -33,6 +34,7 @@ defineSlots<AccordionSlots>()
 <template>
   <div
     :data-status="status"
+    :style="{ width }"
     :class="
       cn(
         'relative box-border flex flex-col rounded-v3',

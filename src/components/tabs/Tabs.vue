@@ -10,7 +10,7 @@ export interface TabsProps {
   modelValue?: string
   items: MaybeReadonly<TabsPropItem[]>
   stretch?: boolean
-  uniformWidth?: boolean
+  fixedWidth?: boolean
 }
 
 export interface TabsSlots {
@@ -70,7 +70,7 @@ defineSlots<TabsSlots>()
       <div
         :class="[
           'box-border grid grid-flow-col grid-rows-1 gap-1.5 rounded-v1',
-          uniformWidth && 'auto-cols-fr'
+          fixedWidth && 'auto-cols-fr'
         ]"
       >
         <button
