@@ -4,35 +4,18 @@
 /* @import 'tailwindcss/preflight.css' layer(base); */
 @import 'tailwindcss/utilities.css' layer(utilities);
 
-@config './tailwind.config.ts';
+@plugin '@iconify/tailwind4' {
+  prefix: 'i';
+}
 
 @theme {
-  --animate-*: initial;
-  --font-*: initial;
-  --default-font-family-*: initial;
-  --default-font-feature-settings-*: initial;
-  --default-font-variation-settings-*: initial;
-  --default-mono-font-family-*: initial;
-  --default-mono-font-feature-settings-*: initial;
-  --default-mono-font-variation-settings-*: initial;
-  --default-transition-duration-*: initial;
-  --default-transition-timing-function-*: initial;
-  --perspective-*: initial;
-
-  /* 
-   * (outerRadius - innerRadius) / sqrt(2) = padding
-   */
-  --radius-*: initial;
   --radius-v1: 0.2rem; /* 3.2px */
   --radius-v2: 0.4rem; /* 6.4px */
   --radius-v3: 0.6rem; /* 9.6px */
   --radius-v4: 1.05rem; /* 16.8px */
 
   --ease-braking: cubic-bezier(0.36, 0.72, 0, 1);
-
-  --color-*: initial;
-  --color-black: rgb(0, 0, 0);
-  --color-white: rgb(255, 255, 255);
+  --ease-out-quart: cubic-bezier(0.22, 1, 0.36, 1);
 
   --color-sur: light-dark(rgb(255, 255, 255), rgb(18, 18, 20));
   --color-on-sur: light-dark(rgb(25, 25, 30), rgb(240, 240, 248));

@@ -10,7 +10,7 @@ export default {
   trailingComma: 'none',
   arrowParens: 'avoid',
   plugins: ['prettier-plugin-tailwindcss'],
-  tailwindStylesheet: './src/tailwind/tailwind.css',
+  tailwindStylesheet: './src/tailwind.css',
   tailwindFunctions: ['clsx', 'cn', 'twMerge'],
   tailwindAttributes: [
     'class',
