@@ -1,4 +1,4 @@
-import '../src/tailwind/tailwind.css'
+import '../src/tailwind.css'
 
 import type { Preview } from '@storybook/vue3'
 
