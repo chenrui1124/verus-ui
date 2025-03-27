@@ -64,7 +64,7 @@ defineSlots<ButtonSlots>()
         'relative box-border h-9 min-w-9 cursor-pointer items-center justify-center gap-3 border border-solid transition duration-300 select-none **:box-border',
         '*:transition *:duration-300',
         block ? 'flex' : 'inline-flex',
-        rounded ? 'rounded-full px-5' : 'rounded-v2 px-4',
+        rounded ? 'rounded-full px-5' : 'rounded-v2 px-3.75',
         {
           [Variant.Solid]: 'border-transparent bg-pri text-on-pri',
           [Variant.Tonal]: 'border-transparent bg-pri-var text-on-pri-var',

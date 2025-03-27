@@ -1,13 +1,19 @@
 <script lang="ts">
 import type { EffectScope, HTMLAttributes, TransitionProps } from 'vue'
+import type { AlignProp } from '@/ts'
 
 import { effectScope, ref, useAttrs, watchEffect } from 'vue'
 import { useDelegation, useDisableScrollbar, useSwitch, useWindowResize } from '@/composable'
+import { Align } from '@/ts'
 import { cn } from '@/utils'
 
 type PopoverSlotsSide = 'top' | 'bottom'
 
 interface BasePopoverProps {
+  /**
+   * @default 'center'
+   */
+  align?: AlignProp
   disabled?: boolean
   /**
    * @default 'target'
@@ -29,7 +35,7 @@ interface BasePopoverSlots {
 <script lang="ts" setup>
 defineOptions({ inheritAttrs: false })
 
-const { disabled, mode = 'target', width } = defineProps<BasePopoverProps>()
+const { align = Align.Center, disabled, mode = 'target', width } = defineProps<BasePopoverProps>()
 
 const side = ref<PopoverSlotsSide>()
 
@@ -66,7 +72,7 @@ function showPopover(evt: Event) {
   if (disabled || !evt || evt.type.startsWith('touch')) return
 
   if (mode === 'target') {
-    const el = evt.target as HTMLElement
+    const el = evt.currentTarget as HTMLElement
     const tRect = el.getBoundingClientRect()
     const vh = window.visualViewport?.height ?? window.innerHeight
     const heights = [tRect.top, vh - tRect.bottom, vh / 2]
@@ -89,8 +95,12 @@ function showPopover(evt: Event) {
       }
       side.value = 'top'
     }
-    style.value.left = `${tRect.left}px`
-    style.value.width = width ?? `calc(${tRect.width}px + 0.5rem)`
+    style.value.left = {
+      [Align.Left]: `${tRect.right}px`,
+      [Align.Center]: `${(tRect.left + tRect.right) / 2}px`,
+      [Align.Right]: `${tRect.left}px`
+    }[align]
+    style.value.width = width ?? `${tRect.width}px`
     style.value.maxHeight = `${mh}px`
   } else if (mode === 'pointer') {
     const event = evt as MouseEvent | PointerEvent
@@ -141,8 +151,13 @@ defineSlots<BasePopoverSlots>()
         :style
         :class="
           cn(
-            'absolute -mx-1 my-1 box-border inline-flex flex-col rounded-v3 border border-otl-var bg-sur p-0.5 text-on-sur drop-shadow-xs transition duration-300 ease-braking',
-            cv as HTMLAttributes['class']
+            'absolute my-1 box-border inline-flex flex-col rounded-v3 border border-otl-var bg-sur p-0.5 text-on-sur drop-shadow-xs transition duration-300 ease-braking',
+            cv as HTMLAttributes['class'],
+            {
+              [Align.Left]: '-translate-x-full',
+              [Align.Center]: '-translate-x-1/2',
+              [Align.Right]: ''
+            }[align]
           )
         "
       >
