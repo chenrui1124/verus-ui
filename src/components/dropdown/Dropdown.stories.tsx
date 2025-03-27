@@ -4,11 +4,13 @@ import type { DropdownSlots } from '.'
 import { fn } from '@storybook/test'
 import { VButton } from '@/components'
 import { VDropdown } from '.'
+import { alignOptions } from '@/ts'
 
 const meta: Meta<typeof VDropdown> = {
   title: 'Components/Dropdown',
   component: VDropdown,
   argTypes: {
+    align: { control: 'select', options: alignOptions() },
     items: { control: 'object' },
     width: { control: 'text' }
   }
@@ -24,7 +26,9 @@ export const Default: Story = {
   args: {
     items: [
       { text: '按钮 1', action: fn(), icon: 'i-[fluent--square-24-filled]' },
-      { text: '按钮 2', action: fn() }
+      { is: 'divider' },
+      { text: '按钮 2', action: fn() },
+      { text: '按钮 3', action: fn() }
     ]
   },
   parameters: {
@@ -64,7 +68,7 @@ export const Example: Story = {
     ]
     const slots1: DropdownSlots = {
       trigger: ({ togglePopover }) => (
-        <VButton variant='solid' width='7rem' onClick={togglePopover}>
+        <VButton variant='solid' onClick={togglePopover}>
           新建文件
         </VButton>
       )
@@ -77,7 +81,7 @@ export const Example: Story = {
     ]
     const slots2: DropdownSlots = {
       trigger: ({ togglePopover }) => (
-        <VButton textTransform='uppercase' variant='solid' width='7.5rem' onClick={togglePopover}>
+        <VButton textTransform='uppercase' variant='solid' onClick={togglePopover}>
           New file
         </VButton>
       )
@@ -85,8 +89,8 @@ export const Example: Story = {
 
     return () => (
       <div class='mb-6 flex gap-3'>
-        <VDropdown {...args} items={items1} v-slots={slots1} />
-        <VDropdown {...args} items={items2} v-slots={slots2} />
+        <VDropdown {...args} items={items1} width='auto' v-slots={slots1} />
+        <VDropdown {...args} items={items2} width='auto' v-slots={slots2} />
       </div>
     )
   }

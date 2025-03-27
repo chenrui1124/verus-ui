@@ -1,5 +1,13 @@
 import { optionsCreator } from './utils'
 
+export const enum Align {
+  Left = 'left',
+  Center = 'center',
+  Right = 'right'
+}
+export type AlignProp<T extends Align = Align> = `${T}`
+export const alignOptions = optionsCreator<AlignProp>([Align.Left, Align.Center, Align.Right])
+
 export const enum Direction {
   Row = 'row',
   Column = 'column'

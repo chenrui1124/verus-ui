@@ -28,13 +28,13 @@ defineProps<NavigationLinkProps>()
       v-if="icon"
       :icon
       :class="[
-        'col-start-1 mr-1 -ml-1 transition duration-300 ease-braking',
+        'col-start-1 mr-2 -ml-1 transition duration-300 ease-braking',
         arrow && 'group-aria-expanded/nav-control:scale-0'
       ]"
     />
     <span
       :class="[
-        'pointer-events-none col-start-2 mx-2 text-sm/6 transition duration-300 ease-braking',
+        'pointer-events-none col-start-2 mx-1 text-sm/6 transition duration-300 ease-braking',
         arrow &&
           'group-aria-expanded/nav-control:-translate-x-7.25 group-aria-expanded/nav-control:text-on-sur'
       ]"

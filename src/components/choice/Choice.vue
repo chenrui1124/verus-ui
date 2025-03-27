@@ -72,8 +72,8 @@ const modelValue = defineModel<ChoiceProps<M>['modelValue']>()
               'border-otl-var bg-transparent has-checked:border-transparent has-[:not(:checked):disabled]:border-dis'
           }[variant],
           {
-            [Direction.Row]: 'row-span-2 grid grid-rows-subgrid items-center px-4.5 py-3',
-            [Direction.Column]: 'col-span-3 grid h-12 grid-cols-subgrid items-center px-4.5'
+            [Direction.Row]: 'row-span-2 grid grid-rows-subgrid items-center px-4.25 py-3',
+            [Direction.Column]: 'col-span-3 grid h-12 grid-cols-subgrid items-center px-4.25'
           }[direction]
         )
       "
@@ -82,10 +82,10 @@ const modelValue = defineModel<ChoiceProps<M>['modelValue']>()
         v-if="icon"
         :icon
         :class="[
-          'size-5',
+          '-ml-0.5 size-5',
           {
-            [Direction.Row]: 'col-start-1 row-start-1 -ml-0.5',
-            [Direction.Column]: 'col-start-1 -ml-1'
+            [Direction.Row]: 'col-start-1 row-start-1',
+            [Direction.Column]: 'col-start-1'
           }[direction]
         ]"
       />
@@ -104,7 +104,7 @@ const modelValue = defineModel<ChoiceProps<M>['modelValue']>()
         :disabled
         v-model="modelValue"
         :class="[
-          'm-0 -mr-1 ml-1 size-4 appearance-none rounded-full border border-otl transition-all duration-500 ease-braking outline-none group-active/select:scale-75 checked:border-4 checked:border-pri disabled:border-on-dis',
+          'm-0 -mr-0.5 ml-1 size-4 appearance-none rounded-full border border-otl transition-all duration-500 ease-braking outline-none group-active/select:scale-75 checked:border-4 checked:border-pri disabled:border-on-dis',
           {
             [Direction.Row]: 'col-start-3 row-start-1 justify-self-end',
             [Direction.Column]: 'col-start-3'

@@ -56,7 +56,7 @@ const { class: cv, ...others } = useAttrs()
         :class="
           cn(
             ui('outline_focus_visible', 'cover_by_before'),
-            'relative box-border h-9 cursor-pointer items-center justify-center gap-3 rounded-v2 border-none bg-transparent px-4 transition duration-300 **:box-border before:border before:border-solid before:border-otl before:transition before:duration-300 enabled:hover:before:bg-pri/10 disabled:cursor-not-allowed disabled:text-on-dis disabled:before:border-on-dis',
+            'relative box-border h-10 cursor-pointer items-center justify-center gap-3 rounded-v2 border-none bg-transparent px-4.25 transition duration-300 **:box-border before:border before:border-solid before:border-otl before:transition before:duration-300 enabled:hover:before:bg-pri/10 disabled:cursor-not-allowed disabled:text-on-dis disabled:before:border-on-dis',
             block ? 'flex' : 'inline-flex',
             state && 'before:border-pri before:bg-pri/10',
             cv as HTMLAttributes['class']
@@ -100,14 +100,14 @@ const { class: cv, ...others } = useAttrs()
           :class="
             cn(
               ui('outline_focus_visible'),
-              'inline-flex cursor-pointer items-center rounded-v1 border-none bg-transparent px-3.75 py-0.5 transition duration-300 select-none focus:z-10',
+              'inline-flex min-h-9 cursor-pointer items-center rounded-v1 border-none bg-transparent px-3.75 py-0.5 transition duration-300 select-none focus:z-10',
               modelValue === value
                 ? 'pointer-events-none bg-pri-ctr text-pri'
                 : 'text-inherit hover:bg-sur-var'
             )
           "
         >
-          <span class="overflow-hidden text-sm/loose text-nowrap text-ellipsis">{{ text }}</span>
+          <span class="overflow-hidden text-nowrap text-ellipsis">{{ text }}</span>
         </button>
       </div>
     </template>

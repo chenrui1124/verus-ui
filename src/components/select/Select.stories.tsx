@@ -14,7 +14,7 @@ const meta: Meta<typeof VSelect> = {
     width: { control: 'text' }
   },
   args: {
-    width: '10rem'
+    width: '15rem'
   }
 }
 
