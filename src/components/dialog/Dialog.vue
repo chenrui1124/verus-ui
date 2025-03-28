@@ -1,8 +1,9 @@
 <script lang="ts">
-import type { TransitionProps } from 'vue'
-import type { StatusProp } from '@/ts'
+import type { InjectionKey, TransitionProps } from 'vue'
+import type { Aria, StatusProp } from '@/ts'
 
-import { useBackdrop, useSwitch } from '@/composable'
+import { provide, ref, useId } from 'vue'
+import { useAria, useBackdrop, useSwitch } from '@/composable'
 import { Status } from '@/ts'
 
 export interface DialogProps {
@@ -11,19 +12,23 @@ export interface DialogProps {
    */
   status?: StatusProp<Status.Primary | Status.Error>
   /**
-   * @default '24rem'
+   * @default '28rem'
    */
   width?: string
 }
 
 export interface DialogSlots {
-  trigger?(props: { show: () => void }): any
+  trigger?(props: { aria: Aria.DialogTrigger; show: () => void }): any
   default?(props: { hide: () => void }): any
 }
+
+export const dialogKey = Symbol() as InjectionKey<{
+  descriptionId: string
+}>
 </script>
 
 <script lang="ts" setup>
-const { status = Status.Primary, width = '24rem' } = defineProps<DialogProps>()
+const { status = Status.Primary, width = '28rem' } = defineProps<DialogProps>()
 
 const { state, on, off } = useSwitch()
 
@@ -38,10 +43,25 @@ const onAfterLeave: TransitionProps['onAfterEnter'] = (el: Element) => {
 useBackdrop(state)
 
 defineSlots<DialogSlots>()
+
+const triggerId = useId()
+
+const dialogId = useId()
+
+const aria: Aria.DialogTrigger = {
+  id: triggerId,
+  'aria-controls': dialogId,
+  'aria-expanded': state.value,
+  'aria-haspopup': 'dialog'
+}
+
+const descriptionId = useId()
+
+provide(dialogKey, { descriptionId })
 </script>
 
 <template>
-  <slot name="trigger" :="{ show: on }"></slot>
+  <slot name="trigger" :="{ show: on, aria }"></slot>
 
   <Teleport to="body">
     <Transition
@@ -56,6 +76,9 @@ defineSlots<DialogSlots>()
     >
       <dialog
         v-if="state"
+        :id="dialogId"
+        :aria-describedby="descriptionId"
+        :aria-labelledby="triggerId"
         :data-status="status"
         @cancel="off"
         :style="{ width }"

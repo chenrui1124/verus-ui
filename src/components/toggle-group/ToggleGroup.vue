@@ -3,6 +3,7 @@ import type { ComputedRef, InjectionKey, Ref } from 'vue'
 import type { DirectionProp } from '@/ts'
 
 import { computed, provide, readonly } from 'vue'
+import { Direction } from '@/ts'
 
 export interface ToggleGroupProps {
   modelValue?: string
@@ -35,7 +36,10 @@ provide(toggleGroupKey, {
 </script>
 
 <template>
-  <div :class="['box-border inline-flex gap-1.5', direction === 'column' && 'flex-col']">
+  <div
+    :aria-orientation="direction === Direction.Column ? 'vertical' : 'horizontal'"
+    :class="['box-border inline-flex gap-1.5', direction === Direction.Column && 'flex-col']"
+  >
     <slot></slot>
   </div>
 </template>

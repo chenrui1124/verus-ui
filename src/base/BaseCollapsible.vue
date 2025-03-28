@@ -9,7 +9,7 @@ interface BaseCollapsibleProps {
 }
 
 interface BaseCollapsibleSlots {
-  trigger?(props: { aria: Aria.Collapsible; state: boolean; toggle: () => void }): void
+  trigger?(props: { aria: Aria.CollapsibleTrigger; state: boolean; toggle: () => void }): void
   default?(): void
 }
 </script>

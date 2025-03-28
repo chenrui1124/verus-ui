@@ -36,8 +36,8 @@ export const Default: Story = {
   },
   render(args) {
     const slots: DropdownSlots = {
-      trigger: ({ togglePopover }) => (
-        <VButton icon={icon} variant='solid' onClick={togglePopover}>
+      trigger: ({ aria, togglePopover }) => (
+        <VButton {...aria} icon={icon} variant='solid' onClick={togglePopover}>
           打开下拉框
         </VButton>
       )
@@ -67,8 +67,8 @@ export const Example: Story = {
       { text: '演示文稿', action: fn(), icon: 'i-[fluent--slide-play-24-filled]' }
     ]
     const slots1: DropdownSlots = {
-      trigger: ({ togglePopover }) => (
-        <VButton variant='solid' onClick={togglePopover}>
+      trigger: ({ aria, togglePopover }) => (
+        <VButton {...aria} variant='solid' onClick={togglePopover}>
           新建文件
         </VButton>
       )
@@ -80,8 +80,8 @@ export const Example: Story = {
       { ...items1[2], text: 'Slide' }
     ]
     const slots2: DropdownSlots = {
-      trigger: ({ togglePopover }) => (
-        <VButton textTransform='uppercase' variant='solid' onClick={togglePopover}>
+      trigger: ({ aria, togglePopover }) => (
+        <VButton {...aria} textTransform='uppercase' variant='solid' onClick={togglePopover}>
           New file
         </VButton>
       )

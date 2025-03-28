@@ -39,6 +39,7 @@ defineSlots<HorizontalScrollingSlots>()
       class="relative box-border origin-top-left overflow-y-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:w-0"
     >
       <div
+        aria-orientation="horizontal"
         :style="{ height: size.width }"
         class="absolute left-full box-border flex origin-top-left rotate-90 flex-nowrap *:max-w-none"
       >

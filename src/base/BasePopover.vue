@@ -100,6 +100,8 @@ function showPopover(evt: Event) {
       [Align.Center]: `${(tRect.left + tRect.right) / 2}px`,
       [Align.Right]: `${tRect.left}px`
     }[align]
+    if (align === Align.Left) style.value.transformOrigin += ' right'
+    if (align === Align.Right) style.value.transformOrigin += ' left'
     style.value.width = width ?? `${tRect.width}px`
     style.value.maxHeight = `${mh}px`
   } else if (mode === 'pointer') {
@@ -152,12 +154,12 @@ defineSlots<BasePopoverSlots>()
         :class="
           cn(
             'absolute my-1 box-border inline-flex flex-col rounded-v3 border border-otl-var bg-sur p-0.5 text-on-sur drop-shadow-xs transition duration-300 ease-braking',
-            cv as HTMLAttributes['class'],
             {
               [Align.Left]: '-translate-x-full',
               [Align.Center]: '-translate-x-1/2',
               [Align.Right]: ''
-            }[align]
+            }[align],
+            cv as HTMLAttributes['class']
           )
         "
       >

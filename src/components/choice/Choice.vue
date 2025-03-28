@@ -47,6 +47,7 @@ const modelValue = defineModel<ChoiceProps<M>['modelValue']>()
 <template>
   <div
     v-if="items"
+    :aria-orientation="direction === Direction.Column ? 'vertical' : 'horizontal'"
     :style="{ width }"
     :class="
       cn(

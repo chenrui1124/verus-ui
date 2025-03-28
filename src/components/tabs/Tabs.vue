@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { MaybeReadonly } from 'mm2r'
 
-import { computed, ref } from 'vue'
+import { computed, ref, useId } from 'vue'
 import { ui } from '@/utils'
 
 type TabsPropItem = { text: string; value: string }
@@ -57,6 +57,23 @@ const modelAccessor = computed({
   }
 })
 
+const itemsWithId = computed(() =>
+  items.map(({ text, value }) => ({
+    text,
+    value,
+    tabId: useId(),
+    tabpanelId: useId()
+  }))
+)
+
+const activeTabpanelId = computed(
+  () => itemsWithId.value.find(({ value }) => value === modelAccessor.value)?.tabpanelId
+)
+
+const activeTabId = computed(
+  () => itemsWithId.value.find(({ value }) => value === modelAccessor.value)?.tabId
+)
+
 function setTabValue(value: string) {
   if (value) modelAccessor.value = value
 }
@@ -68,14 +85,21 @@ defineSlots<TabsSlots>()
   <div class="box-border flex flex-col">
     <div :class="['flex px-1.5', stretch && 'flex-col']">
       <div
+        role="tablist"
+        aria-orientation="horizontal"
         :class="[
           'box-border grid grid-flow-col grid-rows-1 gap-1.5 rounded-v1',
           fixedWidth && 'auto-cols-fr'
         ]"
       >
         <button
-          v-for="({ text, value }, key) of items"
+          v-for="({ tabId, tabpanelId, text, value }, key) of itemsWithId"
           :key
+          :id="tabId"
+          role="tab"
+          :aria-controls="tabpanelId"
+          type="button"
+          :aria-selected="modelAccessor === value"
           @click="setTabValue(value)"
           :class="[
             'box-border h-8 cursor-pointer rounded-[inherit] border-none px-4 text-sm/6 text-nowrap transition duration-300 select-none',
@@ -99,6 +123,9 @@ defineSlots<TabsSlots>()
         <div
           v-if="modelAccessor"
           :key="modelAccessor"
+          role="tabpanel"
+          :id="activeTabpanelId"
+          :aria-labelledby="activeTabId"
           class="box-border w-full p-1.5 transition duration-500 ease-braking"
         >
           <slot :name="`${modelAccessor ?? ''}`"></slot>

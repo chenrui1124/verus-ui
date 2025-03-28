@@ -39,14 +39,14 @@ const meta: Meta<typeof VDialogLayout> = {
   title: 'Components/DialogLayout',
   component: VDialogLayout,
   argTypes: {
+    description: { control: 'text' },
     reverseActions: { control: 'boolean' },
-    subtitle: { control: 'text' },
-    title: { control: 'text' }
+    heading: { control: 'text' }
   },
   args: {
+    description: '描述',
     reverseActions: true,
-    subtitle: '副标题',
-    title: '标题'
+    heading: '标题'
   },
   parameters: {
     layout: 'centered'
@@ -62,8 +62,8 @@ export const Default: Story = {}
 
 export const Latin: Story = {
   args: {
-    title: Random.title(),
-    subtitle: Random.title()
+    heading: Random.title(),
+    description: Random.title()
   },
   render: args => () => rendered(args, Random.paragraph())
 }

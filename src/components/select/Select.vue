@@ -2,7 +2,7 @@
 import type { HTMLAttributes } from 'vue'
 import type { MaybeReadonly } from 'mm2r'
 
-import { computed, useAttrs } from 'vue'
+import { computed, useAttrs, useId } from 'vue'
 import { BaseIcon, BasePopover } from '@/base'
 import { useCycler } from '@/composable'
 import { vFocus, vInViewport } from '@/directives'
@@ -42,12 +42,28 @@ const { item, prev, next } = useCycler(
 )
 
 const { class: cv, ...others } = useAttrs()
+
+const triggerId = useId()
+
+const optionsId = useId()
 </script>
 
 <template>
-  <BasePopover :disabled class="**:box-border">
+  <BasePopover
+    :id="optionsId"
+    role="listbox"
+    :aria-labelledby="triggerId"
+    aria-orientation="vertical"
+    :disabled
+    class="**:box-border"
+  >
     <template #trigger="{ state, side, togglePopover }">
       <button
+        :id="triggerId"
+        role="combobox"
+        :aria-controls="optionsId"
+        :aria-expanded="!!state"
+        aria-haspopup="listbox"
         :="others"
         :disabled
         @click="togglePopover"
@@ -94,6 +110,8 @@ const { class: cv, ...others } = useAttrs()
         <button
           v-for="({ text, value }, index) of items"
           :key="index"
+          role="option"
+          :aria-selected="modelValue === value"
           v-focus="index === item"
           @click="((modelValue = value), hidePopover())"
           @keydown.up.down.prevent="null"

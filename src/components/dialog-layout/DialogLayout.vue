@@ -1,8 +1,11 @@
 <script lang="ts">
+import { computed, inject, useId } from 'vue'
+import { dialogKey } from '../dialog/Dialog.vue'
+
 export interface DialogLayoutProps {
+  heading?: string
   reverseActions?: boolean
-  subtitle?: string
-  title?: string
+  description?: string
 }
 
 export interface DialogLayoutSlots {
@@ -12,15 +15,23 @@ export interface DialogLayoutSlots {
 </script>
 
 <script lang="ts" setup>
-defineProps<DialogLayoutProps>()
+const { description } = defineProps<DialogLayoutProps>()
 
 defineSlots<DialogLayoutSlots>()
+
+const injection = inject(dialogKey)
 </script>
 
 <template>
   <div class="box-border flex h-full flex-col gap-3 **:box-border">
-    <div v-if="title" class="-mt-1 text-xl text-pri">{{ title }}</div>
-    <div v-if="subtitle" class="-mt-1 text-sm/relaxed text-otl">{{ subtitle }}</div>
+    <h1 v-if="heading" class="-mt-1 mb-0 text-xl text-pri">{{ heading }}</h1>
+    <p
+      v-if="description"
+      :id="injection?.descriptionId"
+      class="-mt-1 mb-0 text-sm/relaxed text-otl"
+    >
+      {{ description }}
+    </p>
     <div data-dialog-content class="flex-1 overflow-auto text-sm/relaxed tracking-wide text-on-sur">
       <slot></slot>
     </div>

@@ -1,11 +1,12 @@
 <script lang="ts">
-import type { AlignProp, SideProp } from '@/ts'
+import type { AlignProp, Aria, SideProp } from '@/ts'
 
 import { Either, MaybeReadonly } from 'mm2r'
 import { BaseIcon, BasePopover } from '@/base'
 import { vFocus } from '@/directives'
 import { Align, Side } from '@/ts'
 import { ui } from '@/utils'
+import { useId } from 'vue'
 
 type DropdownPropsItem = {
   text: string
@@ -25,6 +26,7 @@ export interface DropdownProps {
 
 export interface DropdownSlots {
   trigger?(props: {
+    aria?: Aria.DropdownTrigger
     side?: SideProp<Side.Top | Side.Bottom>
     state?: boolean
     togglePopover: (evt: Event) => void
@@ -36,12 +38,31 @@ export interface DropdownSlots {
 const { align = Align.Center, items } = defineProps<DropdownProps>()
 
 defineSlots<DropdownSlots>()
+
+const triggerId = useId()
+
+const menuId = useId()
+
+const createAria = (state: boolean): Aria.DropdownTrigger => ({
+  id: triggerId,
+  'aria-controls': menuId,
+  'aria-expanded': state,
+  'aria-haspopup': 'menu'
+})
 </script>
 
 <template>
-  <BasePopover :align :width class="border-none bg-on-sur drop-shadow-md">
+  <BasePopover
+    :id="menuId"
+    role="menu"
+    :aria-labelledby="triggerId"
+    aria-orientation="vertical"
+    :align
+    :width
+    class="border-otl-var bg-on-sur drop-shadow-md"
+  >
     <template #trigger="props">
-      <slot name="trigger" :="props"></slot>
+      <slot name="trigger" :="{ aria: createAria(!!props.state), ...props }"></slot>
     </template>
     <template #default="{ hidePopover }">
       <div class="inline-grid grid-cols-[min-content_auto] gap-1 p-1">
@@ -49,6 +70,7 @@ defineSlots<DropdownSlots>()
           <hr v-if="is === 'divider'" class="col-span-2 my-0.5 h-px w-full border-none bg-sur/12" />
           <button
             v-else
+            role="menuitem"
             v-focus="index === 0"
             :disabled
             @click="(action?.($event), hidePopover())"

@@ -27,7 +27,7 @@ defineSlots<AlertSlots>()
 
 <template>
   <div
-    role="region"
+    role="alert"
     :class="
       cn(
         'grid grid-cols-[min-content_1fr] rounded-v3 px-5 py-3 text-sm/6',
