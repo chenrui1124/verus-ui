@@ -43,25 +43,25 @@ const { item, prev, next } = useCycler(
 
 const { class: cv, ...others } = useAttrs()
 
-const triggerId = useId()
+const controlId = useId()
 
-const optionsId = useId()
+const listboxId = useId()
 </script>
 
 <template>
   <BasePopover
-    :id="optionsId"
+    :id="listboxId"
     role="listbox"
-    :aria-labelledby="triggerId"
+    :aria-labelledby="controlId"
     aria-orientation="vertical"
     :disabled
     class="**:box-border"
   >
     <template #trigger="{ state, side, togglePopover }">
       <button
-        :id="triggerId"
+        :id="controlId"
         role="combobox"
-        :aria-controls="optionsId"
+        :aria-controls="listboxId"
         :aria-expanded="!!state"
         aria-haspopup="listbox"
         :="others"

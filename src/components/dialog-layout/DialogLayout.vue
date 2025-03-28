@@ -1,5 +1,5 @@
 <script lang="ts">
-import { computed, inject, useId } from 'vue'
+import { inject } from 'vue'
 import { dialogKey } from '../dialog/Dialog.vue'
 
 export interface DialogLayoutProps {

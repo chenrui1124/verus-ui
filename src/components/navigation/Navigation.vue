@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Either, MaybeReadonly } from 'mm2r'
 
-import { AriaId } from '@/base'
+import { computed, useId } from 'vue'
 import NavigationLink from './NavigationLink.vue'
 
 type NavigationPropsItemDefault = {
@@ -26,11 +26,26 @@ export interface NavigationProps {
 </script>
 
 <script lang="ts" setup>
-defineProps<Omit<NavigationProps, 'modelValue'>>()
+const { items } = defineProps<Omit<NavigationProps, 'modelValue'>>()
 
 const modelValue = defineModel<NavigationProps['modelValue']>()
 
 const emit = defineEmits<{ push: [value: string] }>()
+
+const itemsWithAria = computed(() =>
+  items.map(item => {
+    if (item.group) {
+      const controlId = useId()
+      const regionId = useId()
+      return {
+        ...item,
+        controlId,
+        regionId
+      }
+    }
+    return item
+  })
+)
 
 function onClick(evt: MouseEvent) {
   const el = evt.target as HTMLElement
@@ -50,47 +65,47 @@ function onClick(evt: MouseEvent) {
     @click="onClick"
     class="m-0 grid list-none grid-cols-[min-content_1fr_min-content] space-y-1 p-0 text-on-sur/80"
   >
-    <template v-for="(fl, fIndex) of items" :key="fIndex">
+    <template v-for="(fl, fIndex) of itemsWithAria" :key="fIndex">
       <li
         v-if="fl.group"
         class="col-span-3 row-span-2 grid grid-cols-subgrid transition-all duration-300 ease-braking not-has-aria-expanded:grid-rows-[min-content_0fr] has-aria-expanded:grid-rows-[min-content_1fr]"
       >
-        <AriaId #="{ controlsProps, labelledbyProps }">
-          <NavigationLink
-            :="controlsProps"
-            :aria-expanded="!!fl.open"
-            arrow
-            :icon="fl.icon"
-            class="col-span-3"
-          >
-            {{ fl.text }}
-          </NavigationLink>
-          <div
-            :="labelledbyProps"
-            role="region"
-            class="col-span-3 grid grid-cols-[min-content_1fr] overflow-hidden"
-          >
-            <ul class="col-span-3 m-0 grid list-none grid-cols-subgrid p-1">
-              <li
-                v-for="(sl, sIndex) of fl.group"
-                :key="sIndex"
-                :class="[
-                  'col-span-2 ml-6.5 grid grid-cols-subgrid border-l py-0.5 pl-1.5 transition duration-200',
-                  modelValue === sl.value ? 'border-pri' : 'border-otl-var'
-                ]"
+        <NavigationLink
+          :id="fl.controlId"
+          :aria-controls="fl.regionId"
+          :aria-expanded="!!fl.open"
+          arrow
+          :icon="fl.icon"
+          class="col-span-3"
+        >
+          {{ fl.text }}
+        </NavigationLink>
+        <div
+          :id="fl.regionId"
+          role="region"
+          :aria-labelledby="fl.controlId"
+          class="col-span-3 grid grid-cols-[min-content_1fr] overflow-hidden"
+        >
+          <ul class="col-span-3 m-0 grid list-none grid-cols-subgrid p-1">
+            <li
+              v-for="(sl, sIndex) of fl.group"
+              :key="sIndex"
+              :class="[
+                'col-span-2 ml-6.5 grid grid-cols-subgrid border-l py-0.5 pl-1.5 transition duration-200',
+                modelValue === sl.value ? 'border-pri' : 'border-otl-var'
+              ]"
+            >
+              <NavigationLink
+                :icon="sl.icon"
+                :value="sl.value"
+                :selected="modelValue === sl.value"
+                class="col-span-2"
               >
-                <NavigationLink
-                  :icon="sl.icon"
-                  :value="sl.value"
-                  :selected="modelValue === sl.value"
-                  class="col-span-2"
-                >
-                  {{ sl.text }}
-                </NavigationLink>
-              </li>
-            </ul>
-          </div>
-        </AriaId>
+                {{ sl.text }}
+              </NavigationLink>
+            </li>
+          </ul>
+        </div>
       </li>
       <li v-else class="col-span-3 grid grid-cols-subgrid">
         <NavigationLink

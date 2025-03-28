@@ -2,8 +2,8 @@
 import type { InjectionKey, TransitionProps } from 'vue'
 import type { Aria, StatusProp } from '@/ts'
 
-import { provide, ref, useId } from 'vue'
-import { useAria, useBackdrop, useSwitch } from '@/composable'
+import { provide, useId } from 'vue'
+import { useBackdrop, useSwitch } from '@/composable'
 import { Status } from '@/ts'
 
 export interface DialogProps {
@@ -48,16 +48,16 @@ const triggerId = useId()
 
 const dialogId = useId()
 
+const descriptionId = useId()
+
+provide(dialogKey, { descriptionId })
+
 const aria: Aria.DialogTrigger = {
   id: triggerId,
   'aria-controls': dialogId,
   'aria-expanded': state.value,
   'aria-haspopup': 'dialog'
 }
-
-const descriptionId = useId()
-
-provide(dialogKey, { descriptionId })
 </script>
 
 <template>

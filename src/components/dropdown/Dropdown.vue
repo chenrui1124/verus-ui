@@ -1,12 +1,12 @@
 <script lang="ts">
+import type { Either, MaybeReadonly } from 'mm2r'
 import type { AlignProp, Aria, SideProp } from '@/ts'
 
-import { Either, MaybeReadonly } from 'mm2r'
+import { useId } from 'vue'
 import { BaseIcon, BasePopover } from '@/base'
 import { vFocus } from '@/directives'
 import { Align, Side } from '@/ts'
 import { ui } from '@/utils'
-import { useId } from 'vue'
 
 type DropdownPropsItem = {
   text: string
@@ -39,12 +39,12 @@ const { align = Align.Center, items } = defineProps<DropdownProps>()
 
 defineSlots<DropdownSlots>()
 
-const triggerId = useId()
+const controlId = useId()
 
 const menuId = useId()
 
 const createAria = (state: boolean): Aria.DropdownTrigger => ({
-  id: triggerId,
+  id: controlId,
   'aria-controls': menuId,
   'aria-expanded': state,
   'aria-haspopup': 'menu'
@@ -55,7 +55,7 @@ const createAria = (state: boolean): Aria.DropdownTrigger => ({
   <BasePopover
     :id="menuId"
     role="menu"
-    :aria-labelledby="triggerId"
+    :aria-labelledby="controlId"
     aria-orientation="vertical"
     :align
     :width

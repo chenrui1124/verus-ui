@@ -139,8 +139,8 @@ defineSlots<BasePopoverSlots>()
   <Transition
     @enter="onEnter"
     @after-leave="onAfterLeave"
-    enter-from-class="opacity-0 *:first:scale-90 *:first:drop-shadow-none"
-    leave-to-class="opacity-0 *:first:scale-90 *:first:drop-shadow-none"
+    enter-from-class="opacity-0 *:first:scale-90"
+    leave-to-class="opacity-0 *:first:scale-90"
   >
     <div
       v-if="state"
