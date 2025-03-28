@@ -16,6 +16,7 @@ defineProps<NavigationLinkProps>()
 
 <template>
   <button
+    :aria-selected="value ? selected : void 0"
     :data-value="value"
     :class="[
       'grid h-9 grid-cols-subgrid items-center rounded-v2 border-none px-5 text-left tracking-wide text-inherit transition duration-200',

@@ -97,8 +97,8 @@ function onClick(evt: MouseEvent) {
             >
               <NavigationLink
                 :icon="sl.icon"
-                :value="sl.value"
                 :selected="modelValue === sl.value"
+                :value="sl.value"
                 class="col-span-2"
               >
                 {{ sl.text }}
