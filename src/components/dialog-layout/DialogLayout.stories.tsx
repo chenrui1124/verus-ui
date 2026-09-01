@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 import type { DialogLayoutSlots, DialogSlots } from '@/components'
 
-import { Random } from 'mockjs'
+import { faker } from '@faker-js/faker'
 import { VButton, VDialog } from '@/components'
 import { VDialogLayout } from '.'
 
@@ -51,7 +51,7 @@ const meta: Meta<typeof VDialogLayout> = {
   parameters: {
     layout: 'centered'
   },
-  render: args => () => rendered(args, Random.cparagraph())
+  render: args => () => rendered(args, faker.lorem.paragraph())
 }
 
 export default meta
@@ -62,8 +62,8 @@ export const Default: Story = {}
 
 export const Latin: Story = {
   args: {
-    heading: Random.title(),
-    description: Random.title()
+    heading: faker.lorem.sentence(),
+    description: faker.lorem.sentence()
   },
-  render: args => () => rendered(args, Random.paragraph())
+  render: args => () => rendered(args, faker.lorem.paragraph())
 }

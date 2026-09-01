@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import type { VariantProp } from '@/ts'
 
 import { ref } from 'vue'
-import { Random } from 'mockjs'
+import { faker } from '@faker-js/faker'
 import { VButton, VToggle, VToggleGroup } from '@/components'
 import { sideOptions } from '@/ts'
 import { VTooltip } from '.'
@@ -18,7 +18,7 @@ const meta: Meta<typeof VTooltip> = {
   },
   args: {
     side: 'top',
-    text: Random.cword(7)
+    text: faker.lorem.word(7)
   },
   parameters: {
     layout: 'centered'
@@ -32,7 +32,7 @@ const meta: Meta<typeof VTooltip> = {
           variant={variant.value}
           onClick={() => (variant.value = variant.value === 'solid' ? 'tonal' : 'solid')}
         >
-          {Random.cword(2)}
+          {faker.lorem.word(2)}
         </VButton>
       </VTooltip>
     )

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import { Random } from 'mockjs'
+import { faker } from '@faker-js/faker'
 import { statusOptions, variantOptions } from '@/ts'
 import { VAccordion } from '.'
 
@@ -25,7 +25,7 @@ export const Default: Story = {
     title: '标题'
   },
   render(args) {
-    return () => <VAccordion {...args}>{Random.cparagraph()}</VAccordion>
+    return () => <VAccordion {...args}>{faker.lorem.paragraph()}</VAccordion>
   }
 }
 
@@ -35,6 +35,6 @@ export const Icon: Story = {
     title: 'Title'
   },
   render(args) {
-    return () => <VAccordion {...args}>{Random.paragraph()}</VAccordion>
+    return () => <VAccordion {...args}>{faker.lorem.paragraph()}</VAccordion>
   }
 }

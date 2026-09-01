@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import { Random } from 'mockjs'
 import { statusOptions } from '@/ts'
 import { VAlert } from '.'
+import { faker } from '@faker-js/faker'
 
 const meta: Meta<typeof VAlert> = {
   title: 'Components/Alert',
@@ -13,7 +13,7 @@ const meta: Meta<typeof VAlert> = {
     title: { control: 'text' }
   },
   render(args) {
-    return () => <VAlert {...args}>{Random.cparagraph()}</VAlert>
+    return () => <VAlert {...args}>{faker.lorem.paragraph()}</VAlert>
   }
 }
 
@@ -28,7 +28,7 @@ export const Icon: Story = {
 }
 
 export const Title: Story = {
-  args: { title: Random.ctitle() }
+  args: { title: faker.lorem.sentence() }
 }
 
 export const IconAndTitle: Story = {
